@@ -1,0 +1,53 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import { PATHS, PATH_INFO } from "../lib/paths";
+import { site } from "../site.config";
+---
+
+<PageLayout title="About" description={`About ${site.name}, an independent app studio.`}>
+  <section class="wrap section prose-wide">
+    <h1>About the studio</h1>
+    <p class="lede">{site.name} is an independent app studio in {site.country}{site.founderName ? `, founded by ${site.founderName}` : ""}.</p>
+    <p>
+      We make small apps for the parts of life that deserve care: home, money, practice, and play. Each one does a
+      single job well, asks for as little of your data as it can, and keeps it on your device wherever possible.
+    </p>
+    <h2>What we hold to</h2>
+    <ul>
+      <li><strong>Private by default.</strong> No ads, no data selling, and no tracking you didn't ask for.</li>
+      <li><strong>Calm over compulsive.</strong> No streak-guilt, leaderboards, or engagement tricks.</li>
+      <li><strong>Plain-language policies.</strong> Every app's privacy policy starts with a short version you can actually read.</li>
+    </ul>
+    <h2>The four paths</h2>
+    <ul class="paths">
+      {
+        PATHS.map((p) => (
+          <li class={`path-${p} on-path`}>
+            <strong>{PATH_INFO[p].label}.</strong> {PATH_INFO[p].blurb}
+          </li>
+        ))
+      }
+    </ul>
+    <h2>Say hello</h2>
+    <p>
+      Questions, ideas, or press: <a href={`mailto:${site.email}`}>{site.email}</a>. Privacy requests:
+      <a href={`mailto:${site.privacyEmail}`}>{site.privacyEmail}</a>.
+    </p>
+  </section>
+</PageLayout>
+
+<style>
+  .prose-wide {
+    max-width: 760px;
+  }
+  .paths {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .paths li {
+    padding: 0.9rem 1.1rem;
+    border-radius: 14px;
+  }
+</style>

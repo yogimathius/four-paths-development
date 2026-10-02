@@ -1,0 +1,35 @@
+---
+interface Props {
+  size?: number;
+}
+const { size = 22 } = Astro.props;
+---
+
+<span class="wordmark" style={`font-size:${size}px`}>
+  <span class="visually-hidden">Four Paths</span>
+  <span class="dots" aria-hidden="true"><i class="path-family"></i><i class="path-technology"></i><i class="path-philosophy"></i><i class="path-creativity"></i></span>
+  <span aria-hidden="true">four paths</span>
+</span>
+
+<style>
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    font-family: var(--display);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .dots {
+    display: grid;
+    grid-template-columns: repeat(2, 0.42em);
+    gap: 0.1em;
+  }
+  .dots i {
+    width: 0.42em;
+    height: 0.42em;
+    border-radius: 50%;
+  }
+</style>

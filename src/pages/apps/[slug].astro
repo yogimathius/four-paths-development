@@ -1,0 +1,115 @@
+---
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+import PageLayout from "../../layouts/PageLayout.astro";
+import AppIcon from "../../components/AppIcon.astro";
+import Badges from "../../components/Badges.astro";
+import { loadCatalog, type AppEntry } from "../../lib/catalog";
+import { needsLegalPages } from "../../lib/integrity";
+
+export async function getStaticPaths() {
+  const { apps } = await loadCatalog();
+  return apps.map((app) => ({ params: { slug: app.id }, props: { app } }));
+}
+
+const { app } = Astro.props as { app: AppEntry };
+const { Content } = await render(app);
+const d = app.data;
+const legal = needsLegalPages({ slug: app.id, ...d });
+---
+
+<PageLayout title={d.name} description={d.tagline}>
+  <section class="wrap section">
+    <div class="head">
+      <AppIcon app={app} size={88} />
+      <div>
+        <Badges path={d.path} status={d.status} platforms={d.platforms} />
+        <h1>{d.name}</h1>
+        <p class="lede">{d.tagline}</p>
+      </div>
+    </div>
+
+    {
+      d.screenshots.length > 0 && (
+        <ul class="shots">
+          {d.screenshots.map((s) => (
+            <li class="glass">
+              <Image src={s.src} alt={s.alt} width={360} />
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <div class="body prose"><Content /></div>
+
+    <div class="links">
+      {d.stores.play && <a class="btn" href={d.stores.play}>Get it on Google Play</a>}
+      {d.stores.appStore && <a class="btn" href={d.stores.appStore}>Download on the App Store</a>}
+      {
+        legal ? (
+          <>
+            <a class="btn soft" href={`/apps/${app.id}/privacy`}>Privacy policy</a>
+            <a class="btn soft" href={`/apps/${app.id}/support`}>Support</a>
+            <a class="btn soft" href={`/apps/${app.id}/delete-account`}>Delete your data</a>
+          </>
+        ) : (
+          <p class="muted">Privacy and support pages will be published here before {d.name} reaches a store.</p>
+        )
+      }
+    </div>
+    {d.status === "testing" && !d.stores.play && (
+      <p class="muted note">{d.name} is in closed testing and is not publicly listed yet.</p>
+    )}
+  </section>
+</PageLayout>
+
+<style>
+  .head {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  h1 {
+    margin: 0.6rem 0 0.3rem;
+  }
+  .lede {
+    margin: 0;
+  }
+  .shots {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+  .shots li {
+    padding: 0.5rem;
+    overflow: hidden;
+  }
+  .shots img {
+    border-radius: 12px;
+    display: block;
+    width: 100%;
+  }
+  .body {
+    margin-top: 2.5rem;
+    font-size: 1.05rem;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+    align-items: center;
+  }
+  .links p {
+    margin: 0;
+  }
+  .note {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+</style>

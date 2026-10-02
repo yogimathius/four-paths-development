@@ -1,0 +1,121 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import AppIcon from "../components/AppIcon.astro";
+import { listedApps } from "../lib/catalog";
+import { STATUS_LABEL } from "../lib/paths";
+import { site } from "../site.config";
+
+const apps = await listedApps();
+---
+
+<PageLayout title="Press" description={`Press kit for ${site.name}: boilerplate, wordmark, and app details.`}>
+  <section class="wrap section narrow">
+    <h1>Press kit</h1>
+    <p class="lede">Everything you need to write about {site.name}. For anything else, email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+
+    <h2>Boilerplate</h2>
+    <blockquote class="glass">
+      {site.name} is an independent app studio in {site.country}{site.founderName ? `, founded by ${site.founderName}` : ""}. It
+      makes calm, private, local-first apps for family, money, practice, and play.
+    </blockquote>
+
+    <h2>Facts</h2>
+    <dl>
+      <dt>Studio</dt><dd>{site.name}</dd>
+      {site.founderName && (<><dt>Founder</dt><dd>{site.founderName}</dd></>)}
+      <dt>Based in</dt><dd>{site.country}</dd>
+      <dt>Website</dt><dd><a href={site.url}>{site.url.replace("https://", "")}</a></dd>
+      <dt>Contact</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+    </dl>
+
+    <h2>Wordmark</h2>
+    <div class="marks">
+      <a class="glass mark" href="/press/four-paths-wordmark.png" download>
+        <img src="/press/four-paths-wordmark.png" alt="Four Paths wordmark with dark lettering" width="320" height="76" />
+        <span>Wordmark, for light backgrounds (PNG)</span>
+      </a>
+      <a class="glass mark dark" href="/press/four-paths-wordmark-light.png" download>
+        <img src="/press/four-paths-wordmark-light.png" alt="Four Paths wordmark with white lettering" width="320" height="76" />
+        <span>Wordmark, for dark backgrounds (PNG)</span>
+      </a>
+    </div>
+
+    <h2>Apps</h2>
+    <ul class="apps">
+      {
+        apps.map((app) => (
+          <li class="glass">
+            <AppIcon app={app} size={44} />
+            <div>
+              <strong><a href={`/apps/${app.id}`}>{app.data.name}</a></strong>
+              <span class="muted"> · {STATUS_LABEL[app.data.status]}</span>
+              <p class="muted">{app.data.tagline}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</PageLayout>
+
+<style>
+  .narrow {
+    max-width: 820px;
+  }
+  .narrow h2 {
+    margin-top: 2.75rem;
+  }
+  blockquote {
+    margin: 0;
+    padding: 1.25rem 1.4rem;
+    font-size: 1.05rem;
+  }
+  dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.4rem 1.5rem;
+  }
+  dt {
+    font-weight: 600;
+  }
+  dd {
+    margin: 0;
+  }
+  .marks {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  .mark {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .mark img {
+    border-radius: 10px;
+    padding: 0.75rem;
+    background: #fff8f2;
+  }
+  .mark.dark img {
+    background: #1f1b2e;
+  }
+  .apps {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .apps li {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+  }
+  .apps p {
+    margin: 0.2rem 0 0;
+    font-size: 0.92rem;
+  }
+</style>

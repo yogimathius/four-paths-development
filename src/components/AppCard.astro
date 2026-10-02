@@ -1,0 +1,50 @@
+---
+import type { AppEntry } from "../lib/catalog";
+import AppIcon from "./AppIcon.astro";
+import Badges from "./Badges.astro";
+
+interface Props {
+  app: AppEntry;
+}
+const { app } = Astro.props;
+---
+
+<article class="card glass">
+  <AppIcon app={app} size={52} />
+  <h3><a href={`/apps/${app.id}`}>{app.data.name}</a></h3>
+  <p class="muted">{app.data.tagline}</p>
+  <Badges path={app.data.path} status={app.data.status} platforms={app.data.platforms} />
+</article>
+
+<style>
+  .card {
+    position: relative;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: transform 0.15s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+  }
+  h3 {
+    margin: 0.5rem 0 0;
+  }
+  h3 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  /* Whole card is clickable via the heading link. */
+  h3 a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+  }
+  p {
+    margin: 0 0 0.4rem;
+    font-size: 0.95rem;
+    flex: 1;
+  }
+</style>

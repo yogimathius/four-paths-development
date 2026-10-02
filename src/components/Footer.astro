@@ -1,0 +1,57 @@
+---
+import { site } from "../site.config";
+import Wordmark from "./Wordmark.astro";
+const year = new Date().getFullYear();
+---
+
+<footer class="wrap foot">
+  <div>
+    <Wordmark size={18} />
+    <p class="muted small">An independent app studio in {site.country}.</p>
+  </div>
+  <ul>
+    <li><a href="/apps">Apps</a></li>
+    <li><a href="/journal">Journal</a></li>
+    <li><a href="/press">Press</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/privacy">Site privacy</a></li>
+    <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+  </ul>
+  <p class="muted small legalline">© {year} {site.legalName}</p>
+</footer>
+
+<style>
+  .foot {
+    display: grid;
+    gap: 1rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-top: 1px solid var(--line);
+    margin-top: 3rem;
+  }
+  @media (min-width: 720px) {
+    .foot {
+      grid-template-columns: 1fr auto;
+    }
+    .legalline {
+      grid-column: 1 / -1;
+    }
+  }
+  .small {
+    font-size: 0.85rem;
+    margin: 0.5rem 0 0;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.1rem;
+    align-content: start;
+  }
+  ul a {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+</style>

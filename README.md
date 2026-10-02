@@ -1,159 +1,37 @@
-# Four Paths Development
+# Four Paths
 
-A minimalist landing page representing the philosophical foundation of Four Paths Development: where technology meets mindful engineering.
+The studio site at **https://fourpaths.ca**: the app gallery, journal, press kit, and the public home for every app's privacy policy, support page, and data-deletion page.
 
-## What It Does
+Built with Astro (static output) and deployed by Netlify from `main`. Design spec: `docs/superpowers/specs/2026-10-02-four-paths-studio-site-design.md`.
 
-This is a simple, elegant static website that introduces the Four Paths Development philosophy. It presents the four core pillars that guide the development approach:
+## Commands
 
-1. **Family** - Grounding force that shapes adaptability and patience
-2. **Creativity** - Innovation through music, writing, and gaming
-3. **Philosophy** - Mindful approach to problem-solving
-4. **Technology** - Excellence in full-stack development
-
-The site serves as a "coming soon" placeholder and brand introduction for Four Paths Development, emphasizing the intersection of technical expertise with personal growth and creativity.
-
-## Tech Stack
-
-- **HTML5** - Semantic markup
-- **CSS3** - Custom styling with animations
-- **Google Fonts** - Poppins font family
-- **Pure JavaScript** - No frameworks (minimal, fast)
-
-## Features
-
-**Implemented:**
-- Responsive single-page design
-- Clean, minimalist aesthetic
-- Animated "Coming Soon" loader
-- Four paths presentation with descriptions
-- Custom logo integration
-- Mobile-friendly layout
-- Smooth hover effects
-- Professional typography
-
-**Design Elements:**
-- Gradient background
-- Glass-morphism card effects
-- Pulse animations
-- Professional color scheme
-- Centered content layout
-
-**Missing:**
-- Full website content
-- Portfolio showcase
-- Blog or articles section
-- Contact form
-- Services page
-- About page with detailed background
-- Project gallery
-- Testimonials
-- SEO optimization
-- Analytics integration
-
-## Getting Started
-
-### Prerequisites
-
-- Web browser
-- (Optional) Local web server for development
-
-### Running Locally
-
-**Simple method:**
-1. Open `index.html` directly in a web browser
-
-**With local server (recommended for development):**
-```bash
-# Python 3
-python -m http.server 8000
-
-# OR with Node.js (using npx)
-npx serve .
-
-# Then open http://localhost:8000
+```sh
+pnpm install
+pnpm dev        # local dev server
+pnpm check      # astro check → unit tests → build → link check → Playwright (e2e + axe)
 ```
 
-### Deployment
+## Store URLs
 
-The site is deployed via GitHub Pages:
+Paste these into Play Console / App Store Connect:
 
-1. Push to the `main` branch of `four-paths-development.github.io`
-2. GitHub automatically deploys to `https://four-paths-development.github.io`
+| Purpose | URL |
+| --- | --- |
+| Privacy policy | `https://fourpaths.ca/apps/<slug>/privacy` |
+| Support | `https://fourpaths.ca/apps/<slug>/support` |
+| Account / data deletion | `https://fourpaths.ca/apps/<slug>/delete-account` |
+| Website | `https://fourpaths.ca/apps/<slug>` |
 
-No build process required - it's pure HTML/CSS/JS.
+## Adding an app
 
-## Project Structure
+1. Create `src/content/apps/<slug>/index.md` (see an existing app for the frontmatter; the schema is in `src/content.config.ts`).
+2. Put its icon and screenshots in `src/assets/apps/<slug>/`.
+3. When it heads to a store track, set `status: testing` and add `privacy.md` and `support.md` next to `index.md`. The build fails if a `live`/`testing` app is missing either.
+4. Apps with accounts need `hasAccounts: true` plus a `deleteAccountUrl` (the backend's own deletion flow) and/or `deleteSteps` (in-app steps). The deletion page is generated from these.
 
-```
-four-paths-development.github.io/
-├── index.html        # Main page markup
-├── styles.css        # Styles and animations
-├── logo.png          # Four Paths logo
-└── README.md         # This file
-```
+## Studio identity
 
-## Current Status
+`src/site.config.ts` holds the studio name, legal name, founder line, and contact addresses. Markdown content uses `{{legalName}}`, `{{privacyEmail}}`, `{{email}}`, and `{{name}}` tokens, filled in at build time (unknown tokens fail the build), so a rename is a one-line change.
 
-**Status:** Landing page / Coming soon
-
-This is a minimal viable landing page that establishes brand presence. It communicates the core philosophy but lacks detailed content.
-
-**Next Steps for Full Site:**
-- Create About page with personal story
-- Add Portfolio section showcasing projects
-- Build Services page (consulting, development, etc.)
-- Add Blog for technical writing and philosophy
-- Implement Contact form with backend
-- Add case studies from past projects
-- Include testimonials from clients/colleagues
-- Enhance SEO with meta tags, structured data
-- Add Google Analytics or privacy-friendly alternative
-- Create sitemap and robots.txt
-- Optimize images and performance
-- Add dark mode toggle
-- Implement accessibility improvements (ARIA labels, keyboard navigation)
-
-## Design Philosophy
-
-The site reflects the "Four Paths" philosophy:
-
-**Minimalism:** Clean design without clutter, letting ideas breathe
-**Intention:** Every element serves a purpose
-**Balance:** Technical precision meets creative expression
-**Patience:** "Coming Soon" acknowledges the journey rather than rushing
-
-The gradient background and subtle animations suggest movement and growth while maintaining professionalism.
-
-## Branding
-
-**Four Paths Development** represents a holistic approach to software engineering that integrates:
-- Technical excellence
-- Personal growth through family and relationships
-- Creative exploration beyond code
-- Philosophical mindfulness in problem-solving
-
-The logo and name emphasize that great software comes from well-rounded humans, not just skilled programmers.
-
-## Development Notes
-
-This landing page is intentionally lightweight (single HTML file, simple CSS) to load instantly and work anywhere. No JavaScript frameworks, no build process, no dependencies.
-
-The "Coming Soon" state is honest and patient - acknowledging that meaningful work takes time to develop properly.
-
-When expanding to a full site, consider:
-- Static site generator (11ty, Hugo) for blog
-- Tailwind CSS for rapid styling
-- Contact form backend (Netlify Forms, Formspree)
-- CMS for blog posts (Netlify CMS, Contentful)
-- Or keep it simple with vanilla HTML/CSS/JS
-
-The current approach proves technical competence through simplicity rather than complexity.
-
-## Live Site
-
-https://four-paths-development.github.io
-
-## Contact
-
-(Contact information to be added when site launches)
+The press-kit wordmark PNGs are rendered with the real font by `node scripts/render-wordmark.mjs`.

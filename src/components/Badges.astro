@@ -1,0 +1,24 @@
+---
+import { PATH_INFO, STATUS_LABEL, type PathId, type Status } from "../lib/paths";
+
+interface Props {
+  path: PathId;
+  status: Status;
+  platforms?: string[];
+}
+const { path, status, platforms = [] } = Astro.props;
+const platformLabel = platforms.map((p) => (p === "ios" ? "iOS" : "Android")).join(" · ");
+---
+
+<span class="badges">
+  <span class={`chip path-${path} on-path`}>{PATH_INFO[path].label} path</span>
+  <span class="chip solid">{STATUS_LABEL[status]}{platformLabel && status !== "coming-soon" ? ` · ${platformLabel}` : ""}</span>
+</span>
+
+<style>
+  .badges {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+</style>

@@ -3,7 +3,7 @@ import PageLayout from "../../layouts/PageLayout.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import AppCard from "../../components/AppCard.astro";
 import { listedApps } from "../../lib/catalog";
-import { PATHS, PATH_INFO } from "../../lib/paths";
+import { PATHS, PATH_INFO, pathLineage } from "../../lib/paths";
 
 const apps = await listedApps();
 const groups = PATHS.map((p) => ({ path: p, apps: apps.filter((a) => a.data.path === p) })).filter((g) => g.apps.length);
@@ -23,6 +23,7 @@ const groups = PATHS.map((p) => ({ path: p, apps: apps.filter((a) => a.data.path
             <h2 id={`path-${g.path}`}>
               <span class={`dot path-${g.path}`} aria-hidden="true" />
               {PATH_INFO[g.path].label}
+              <span class="lineage" lang="sa-Latn">{pathLineage(g.path)}</span>
             </h2>
             <p class="muted">{PATH_INFO[g.path].blurb}</p>
           </div>
@@ -46,6 +47,14 @@ const groups = PATHS.map((p) => ({ path: p, apps: apps.filter((a) => a.data.path
     align-items: center;
     gap: 0.6rem;
     font-size: 1.5rem;
+  }
+  .lineage {
+    font-family: var(--body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
   }
   .dot {
     width: 0.8rem;

@@ -8,7 +8,7 @@ import TesterInvite from "../../components/TesterInvite.astro";
 import { loadCatalog, type AppEntry } from "../../lib/catalog";
 import { needsLegalPages } from "../../lib/integrity";
 import { introFor } from "../../lib/journal";
-import { PATH_INFO, STATUS_LABEL } from "../../lib/paths";
+import { PATH_INFO, STATUS_LABEL, pathLineage } from "../../lib/paths";
 
 export async function getStaticPaths() {
   const { apps } = await loadCatalog();
@@ -82,7 +82,7 @@ const platforms = d.platforms.map((p) => (p === "ios" ? "iOS" : "Android")).join
           <dl>
             <dt>Status</dt><dd>{STATUS_LABEL[d.status]}</dd>
             {platforms && (<><dt>Platform</dt><dd>{platforms}</dd></>)}
-            <dt>Path</dt><dd>{PATH_INFO[d.path].label}</dd>
+            <dt>Path</dt><dd>{PATH_INFO[d.path].label} <span class="lineage" lang="sa-Latn">({pathLineage(d.path)})</span></dd>
             {d.audience && (<><dt>For</dt><dd>{d.audience}</dd></>)}
           </dl>
         </div>
@@ -171,5 +171,8 @@ const platforms = d.platforms.map((p) => (p === "ios" ? "iOS" : "Android")).join
   dd {
     margin: 0;
     color: var(--ink-soft);
+  }
+  .lineage {
+    color: var(--ink-muted);
   }
 </style>

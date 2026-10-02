@@ -1,17 +1,12 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
+import PathCard from "../components/PathCard.astro";
 import { listedApps } from "../lib/catalog";
-import { PATHS, PATH_INFO, STATUS_LABEL } from "../lib/paths";
+import { PATHS, STATUS_LABEL } from "../lib/paths";
 import { site } from "../site.config";
 
 const apps = await listedApps();
-const pathStory: Record<string, string> = {
-  family: "Home is where software should make life easier, not louder. Family apps here are built to lower friction between people, not to compete for a child's attention.",
-  technology: "Good technology is boring in the best way: exact, dependable, and honest about what it does with your data. That standard applies most where the stakes are highest, like money.",
-  philosophy: "Practice and reflection deserve tools that respect them: patient, unhurried, and free of the engagement tricks that make most apps hard to put down.",
-  creativity: "Play matters. Games and making things for their own sake keep the rest of the work human, and they get the same care as everything else.",
-};
 ---
 
 <PageLayout title="About" description={`About ${site.name}, an independent app studio.`}>
@@ -36,25 +31,49 @@ const pathStory: Record<string, string> = {
 
         <h2>Why four paths</h2>
         <p>
-          The studio is organised around four things that matter to the person who runs it. Every app grows out of one of
-          them, and wears that path's colour.
+          The name comes from the yogic tradition, which describes a full human life in fours. There are four{" "}
+          <em>paths</em> of practice: devotion, skilled action, knowledge, and absorption of the mind. There are four{" "}
+          <em>aims</em> of life, the <span lang="sa-Latn">puruṣārthas</span>: right relationship, livelihood, joy, and
+          liberation.
+        </p>
+        <p>
+          Laid side by side with the four areas the studio works in, they line up closely. So each path here is read
+          three ways: <strong>where</strong> the work lives, <strong>how</strong> it is practised, and{" "}
+          <strong>what</strong> it serves.
         </p>
         <ul class="paths">
           {
             PATHS.map((p) => (
-              <li class={`path-${p} on-path`}>
-                <strong>{PATH_INFO[p].label}.</strong> {pathStory[p]}
-              </li>
+              <PathCard path={p} detailed>
+                <p class="apps-line">
+                  {apps.filter((a) => a.data.path === p).map((a, i) => (
+                    <>
+                      {i > 0 && ", "}
+                      <a href={`/apps/${a.id}`}>{a.data.name}</a>
+                    </>
+                  ))}
+                </p>
+              </PathCard>
             ))
           }
         </ul>
+        <p>
+          In the tradition, all four aims are pursued together in the householder's life: raising a family, earning a
+          living, making things, and practising, all at once. That is the life these apps are built for, and the one
+          they are built from.
+        </p>
 
-        <h2>What we hold to</h2>
+        <h2>Technology as practice</h2>
+        <p>
+          The Gita describes yoga as <em>skill in action</em>. We take that literally: building software is a practice,
+          and how it treats the people who use it matters as much as what it does. We call this{" "}
+          <strong>sacred technology</strong>. It is not a look or a mood. It is a standard:
+        </p>
         <ul>
-          <li><strong>Private by default.</strong> No ads, no data selling, and no tracking you didn't ask for. Local-first wherever the app allows it.</li>
-          <li><strong>Calm over compulsive.</strong> No leaderboards between siblings, streak guilt, or reward loops built to keep you tapping.</li>
-          <li><strong>Plain-language policies.</strong> Every privacy policy starts with a short version, and every app explains how to delete your data.</li>
-          <li><strong>Honest status.</strong> If an app is in testing or still being built, it says so.</li>
+          <li><strong>Agency over compulsion.</strong> No streak guilt, leaderboards between siblings, or reward loops built to keep you tapping.</li>
+          <li><strong>Stewardship over extraction.</strong> Ask for as little data as possible, keep it on your device wherever we can, never sell it.</li>
+          <li><strong>Truth over persuasion.</strong> Plain-language policies with a short version first, and an honest status on every app.</li>
+          <li><strong>Calm over stimulation.</strong> Quiet interfaces that do their job and get out of the way.</li>
         </ul>
 
         <h2>Where things are</h2>
@@ -104,10 +123,12 @@ const pathStory: Record<string, string> = {
     display: grid;
     gap: 0.6rem;
   }
-  .paths li {
-    padding: 0.95rem 1.15rem;
-    border-radius: 14px;
-    margin: 0;
+  .apps-line {
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .apps-line a {
+    color: #1f1b2e;
   }
   dl {
     display: grid;

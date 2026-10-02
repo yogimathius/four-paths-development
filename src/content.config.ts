@@ -56,6 +56,8 @@ const journal = defineCollection({
     description: z.string(),
     date: z.coerce.date(),
     app: z.string().optional(),
+    /** Tiebreak for same-day posts; app intros default to after studio posts, in gallery order. */
+    order: z.number().optional(),
     draft: z.boolean().default(false),
   }),
 });

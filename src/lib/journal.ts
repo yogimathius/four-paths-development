@@ -11,7 +11,7 @@ export async function publishedPosts(): Promise<Post[]> {
   for (const p of posts) {
     if (p.data.app && !order.has(p.data.app)) throw new Error(`Journal post ${p.id} names unknown app "${p.data.app}"`);
   }
-  const rank = (p: Post) => (p.data.app ? (order.get(p.data.app) ?? 99) : 0);
+  const rank = (p: Post) => p.data.order ?? (p.data.app ? 10 + (order.get(p.data.app) ?? 89) : 0);
   return posts.sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf() || rank(a) - rank(b),
   );

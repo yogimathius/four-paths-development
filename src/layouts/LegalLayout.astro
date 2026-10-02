@@ -25,7 +25,7 @@ const updated = lastUpdated?.toLocaleDateString("en-CA", { year: "numeric", mont
 <!doctype html>
 <html lang="en">
   <head>
-    <Head title={pageTitle} description={description ?? `${pageTitle} from ${site.name}.`} />
+    <Head title={pageTitle} description={description ?? `${pageTitle} from ${site.name}.`} motion={false} />
   </head>
   <body class="legal">
     <div class={`bar ${path ? `path-${path}` : "path-philosophy"}`}></div>

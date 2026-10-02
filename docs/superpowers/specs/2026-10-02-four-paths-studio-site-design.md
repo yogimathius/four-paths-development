@@ -1,7 +1,7 @@
 # Four Paths studio site — design
 
 Date: 2026-10-02
-Status: awaiting owner review
+Status: approved 2026-10-02
 Repo: `four-paths-development` (deploys to https://fourpaths.ca via Netlify)
 
 ## 1. Purpose
@@ -118,7 +118,7 @@ The deletion page is generated from `hasAccounts` / `deleteAccountUrl`, so it ne
 | Chore Credits | Family | testing (Play closed test) | No | `remix-portfolio/app/routes/chore-credits.privacy.tsx` | Port text; **fix "birthdate" → "birth month and year"**; operator → `legalName`; contact → `privacyEmail`; new `lastUpdated` |
 | Life Atlas | Philosophy | testing | Yes | `remix-portfolio/app/routes/life-atlas.privacy.tsx`, `life-atlas.delete-account.tsx` | Port policy text; deletion page links to the existing request flow; contact → `privacyEmail` |
 | Pillars | Philosophy | testing (Play closed test) | Yes | `pillars/apps/web/src/shell/legal/PrivacyPage.tsx` (live at `pillars.fly.dev/privacy`) | Copy text to fourpaths.ca; deletion page links to `pillars.fly.dev` delete flow. Pillars' own pages stay up; switching its Play URL is optional and done by the owner later |
-| Forge 5x5 | Creativity (owner to confirm) | testing or coming-soon (owner to confirm) | No | `breakout-5x5/play-store/privacy-policy.md` | Port; **"published by yogimathius.dev" → `legalName`**; contact → `privacyEmail` |
+| Forge 5x5 | Creativity | testing | No | `breakout-5x5/play-store/privacy-policy.md` | Port; **"published by yogimathius.dev" → `legalName`**; contact → `privacyEmail` |
 | ClearLedger | Technology | coming-soon | n/a | none | App page only, no legal pages yet. Its data flows (YNAB server, encrypted store, Fly deployment) are still changing; a policy is written when it heads to a store track |
 
 Policy text is ported as-is apart from the listed corrections. Each ported policy keeps its substantive claims; any claim the port cannot verify is left unchanged and listed for owner review rather than rewritten.
@@ -159,7 +159,7 @@ Buttondown hosted embed: a plain HTML form that POSTs to Buttondown's subscribe 
 6. Review all ported policies before relying on them; legal review before any public production release.
 7. Check employment agreement/policies on outside work (discussed separately; no effect on the build).
 
-## 10. Open questions
+## 10. Resolved questions
 
-- Forge 5x5: confirm the Creativity path and whether it shows as `testing` or `coming-soon`.
-- Initial journal content: launch with one welcome post, or with the journal hidden until the first real post?
+- Forge 5x5: Creativity path, status `testing`.
+- Journal: launch with one short welcome post (what Four Paths is, the four paths, the five apps).

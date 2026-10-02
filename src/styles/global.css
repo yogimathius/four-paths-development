@@ -1,0 +1,315 @@
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/inter";
+
+:root {
+  --ink: #1f1b2e;
+  --ink-soft: #4a4560;
+  --ink-muted: #6b6680;
+  --paper: #fff8f2;
+  --paper-legal: #fffcf8;
+  --bloom-1: #ffd9e8;
+  --bloom-2: #d9e8ff;
+  --bloom-3: #dff7e6;
+  --glass: rgb(255 255 255 / 0.62);
+  --glass-border: rgb(255 255 255 / 0.9);
+  --line: rgb(31 27 46 / 0.1);
+  --chip: rgb(31 27 46 / 0.07);
+  --shadow: 0 4px 18px rgb(31 27 46 / 0.06);
+  --btn-bg: #1f1b2e;
+  --btn-fg: #ffffff;
+  --link: #6a3fd6;
+  --focus: #6a3fd6;
+
+  --family: linear-gradient(135deg, #ffb5c9, #ffd6a5);
+  --technology: linear-gradient(135deg, #b5ead7, #c7f0ff);
+  --philosophy: linear-gradient(135deg, #cdb4ff, #ffc8dd);
+  --creativity: linear-gradient(135deg, #ffe8a3, #b5ead7);
+  --family-tint: #ffe9e4;
+  --technology-tint: #e3f6f4;
+  --philosophy-tint: #f0e8ff;
+  --creativity-tint: #f5f6dc;
+
+  --display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --body: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --radius: 18px;
+  --max: 1080px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #f3eefb;
+    --ink-soft: #cfc8e0;
+    --ink-muted: #a59dbb;
+    --paper: #18142a;
+    --paper-legal: #1b1730;
+    --bloom-1: rgb(255 140 180 / 0.18);
+    --bloom-2: rgb(140 170 255 / 0.16);
+    --bloom-3: rgb(130 230 180 / 0.12);
+    --glass: rgb(255 255 255 / 0.06);
+    --glass-border: rgb(255 255 255 / 0.1);
+    --line: rgb(255 255 255 / 0.12);
+    --chip: rgb(255 255 255 / 0.1);
+    --shadow: 0 4px 24px rgb(0 0 0 / 0.25);
+    --btn-bg: #f3eefb;
+    --btn-fg: #18142a;
+    --link: #c9b3ff;
+    --focus: #c9b3ff;
+    --family-tint: #3a2433;
+    --technology-tint: #1f3433;
+    --philosophy-tint: #2c2442;
+    --creativity-tint: #33331f;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ink: #f3eefb;
+  --ink-soft: #cfc8e0;
+  --ink-muted: #a59dbb;
+  --paper: #18142a;
+  --paper-legal: #1b1730;
+  --bloom-1: rgb(255 140 180 / 0.18);
+  --bloom-2: rgb(140 170 255 / 0.16);
+  --bloom-3: rgb(130 230 180 / 0.12);
+  --glass: rgb(255 255 255 / 0.06);
+  --glass-border: rgb(255 255 255 / 0.1);
+  --line: rgb(255 255 255 / 0.12);
+  --chip: rgb(255 255 255 / 0.1);
+  --shadow: 0 4px 24px rgb(0 0 0 / 0.25);
+  --btn-bg: #f3eefb;
+  --btn-fg: #18142a;
+  --link: #c9b3ff;
+  --focus: #c9b3ff;
+  --family-tint: #3a2433;
+  --technology-tint: #1f3433;
+  --philosophy-tint: #2c2442;
+  --creativity-tint: #33331f;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background-color: var(--paper);
+}
+
+body.sorbet {
+  background:
+    radial-gradient(circle at 12% 0%, var(--bloom-1) 0, transparent 38rem),
+    radial-gradient(circle at 92% 8%, var(--bloom-2) 0, transparent 36rem),
+    radial-gradient(circle at 55% 100%, var(--bloom-3) 0, transparent 42rem),
+    var(--paper);
+}
+
+body.legal {
+  background: var(--paper-legal);
+}
+
+main {
+  flex: 1;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 0.5em;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+}
+
+h3 {
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--link);
+  text-underline-offset: 3px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .wrap {
+    padding: 0 1.5rem;
+  }
+}
+
+.lede {
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  max-width: 40ch;
+}
+
+.muted {
+  color: var(--ink-muted);
+}
+
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-weight: 600;
+  text-decoration: none;
+  border: 0;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn.soft {
+  background: var(--chip);
+  color: var(--ink);
+}
+
+.chip {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--ink);
+}
+
+.chip.solid {
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+}
+
+.path-family {
+  background: var(--family);
+}
+.path-technology {
+  background: var(--technology);
+}
+.path-philosophy {
+  background: var(--philosophy);
+}
+.path-creativity {
+  background: var(--creativity);
+}
+
+/* Text on a path gradient is always dark ink, in both themes, for contrast. */
+.on-path {
+  color: #1f1b2e;
+}
+
+.section {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+
+.grid-apps {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.prose {
+  max-width: 65ch;
+}
+
+.prose h2 {
+  font-size: 1.35rem;
+  margin-top: 2.2rem;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.4rem;
+}
+
+.prose li {
+  margin-bottom: 0.4rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.visually-hidden.skip:focus {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  width: auto;
+  height: auto;
+  clip: auto;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  z-index: 10;
+}

@@ -1,0 +1,55 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+const posts = (await getCollection("journal", (p) => !p.data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const fmt = (d: Date) => d.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+---
+
+<PageLayout title="Journal" description="Notes from the Four Paths studio: launches, build notes, and what we're learning.">
+  <section class="wrap section">
+    <h1>Journal</h1>
+    <p class="lede">Launches, build notes, and what we're learning. <a href="/rss.xml">RSS</a></p>
+    <ul class="list">
+      {
+        posts.map((post) => (
+          <li class="glass">
+            <time datetime={post.data.date.toISOString()} class="muted">{fmt(post.data.date)}</time>
+            <h2><a href={`/journal/${post.id}`}>{post.data.title}</a></h2>
+            <p class="muted">{post.data.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</PageLayout>
+
+<style>
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0;
+    display: grid;
+    gap: 1rem;
+    max-width: 760px;
+  }
+  li {
+    padding: 1.4rem;
+  }
+  time {
+    font-size: 0.85rem;
+  }
+  h2 {
+    font-size: 1.4rem;
+    margin: 0.3rem 0 0.4rem;
+  }
+  h2 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  p {
+    margin: 0;
+  }
+</style>

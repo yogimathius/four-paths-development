@@ -1,0 +1,21 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import AppCard from "../../components/AppCard.astro";
+import { listedApps } from "../../lib/catalog";
+
+const apps = await listedApps();
+---
+
+<PageLayout title="Apps" description="Every app from the Four Paths studio, with privacy, support, and data deletion pages.">
+  <section class="wrap section">
+    <h1>Apps</h1>
+    <p class="lede">Each app keeps its privacy policy, support, and data-deletion pages here, so they are always easy to find.</p>
+    <div class="grid-apps list">{apps.map((app) => <AppCard app={app} />)}</div>
+  </section>
+</PageLayout>
+
+<style>
+  .list {
+    margin-top: 2rem;
+  }
+</style>

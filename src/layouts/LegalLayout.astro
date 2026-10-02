@@ -1,0 +1,115 @@
+---
+import Head from "../components/Head.astro";
+import Wordmark from "../components/Wordmark.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import { site } from "../site.config";
+import type { PathId } from "../lib/paths";
+
+interface Props {
+  title: string;
+  appName?: string;
+  appSlug?: string;
+  path?: PathId;
+  lastUpdated?: Date;
+  summary?: string;
+  description?: string;
+}
+const { title, appName, appSlug, path, lastUpdated, summary, description } = Astro.props;
+const pageTitle = appName ? `${appName} ${title.toLowerCase()}` : title;
+const updated = lastUpdated?.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <Head title={pageTitle} description={description ?? `${pageTitle} from ${site.name}.`} />
+  </head>
+  <body class="legal">
+    <div class={`bar ${path ? `path-${path}` : "path-philosophy"}`}></div>
+    <header class="wrap top">
+      <a href="/" aria-label="Four Paths home" class="home"><Wordmark size={19} /></a>
+      <div class="right">
+        {appSlug && <a href={`/apps/${appSlug}`}>← {appName}</a>}
+        <ThemeToggle />
+      </div>
+    </header>
+    <main id="main" class="wrap">
+      <article class="doc prose">
+        {appName && <span class="chip">{appName}</span>}
+        <h1>{title}</h1>
+        {updated && <p class="muted meta">Last updated {updated} · Operated by {site.legalName}</p>}
+        {summary && <div class={`tldr ${path ? `tint-${path}` : ""}`}><strong>The short version:</strong> {summary}</div>}
+        <slot />
+      </article>
+    </main>
+    <footer class="wrap foot muted">
+      {appName ? appName : site.name} is operated by {site.legalName}, {site.country}. Privacy questions:{" "}
+      <a href={`mailto:${site.privacyEmail}`}>{site.privacyEmail}</a>
+      {appSlug && (
+        <>
+          {" · "}
+          <a href={`/apps/${appSlug}/privacy`}>Privacy</a> · <a href={`/apps/${appSlug}/support`}>Support</a> ·{" "}
+          <a href={`/apps/${appSlug}/delete-account`}>Delete data</a>
+        </>
+      )}
+    </footer>
+  </body>
+</html>
+
+<style>
+  .bar {
+    height: 6px;
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    gap: 1rem;
+  }
+  .home {
+    text-decoration: none;
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-size: 0.92rem;
+  }
+  .doc {
+    padding: 1.5rem 0 1rem;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    margin-top: 0.6rem;
+  }
+  .meta {
+    font-size: 0.88rem;
+  }
+  .tldr {
+    border-radius: 14px;
+    padding: 1rem 1.15rem;
+    margin: 1.4rem 0 0.6rem;
+    background: var(--chip);
+  }
+  .tint-family {
+    background: var(--family-tint);
+  }
+  .tint-technology {
+    background: var(--technology-tint);
+  }
+  .tint-philosophy {
+    background: var(--philosophy-tint);
+  }
+  .tint-creativity {
+    background: var(--creativity-tint);
+  }
+  .foot {
+    font-size: 0.85rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+    margin-top: 2rem;
+  }
+</style>

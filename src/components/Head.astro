@@ -1,0 +1,33 @@
+---
+import { site } from "../site.config";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description = site.description } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.tagline}`;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="alternate" type="application/rss+xml" title={`${site.name} Journal`} href="/rss.xml" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={site.name} />
+<meta name="theme-color" content="#fff8f2" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#18142a" media="(prefers-color-scheme: dark)" />
+<script is:inline>
+  try {
+    const t = localStorage.getItem("theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+  } catch {}
+</script>

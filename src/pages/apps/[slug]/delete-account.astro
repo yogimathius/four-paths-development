@@ -1,0 +1,88 @@
+---
+import { marked } from "marked";
+import LegalLayout from "../../../layouts/LegalLayout.astro";
+import { loadCatalog, type AppEntry } from "../../../lib/catalog";
+import { needsLegalPages } from "../../../lib/integrity";
+import { site } from "../../../site.config";
+
+export async function getStaticPaths() {
+  const { apps } = await loadCatalog();
+  return apps
+    .filter((app) => needsLegalPages({ slug: app.id, ...app.data }) || app.data.hasAccounts)
+    .map((app) => ({ params: { slug: app.id }, props: { app } }));
+}
+
+const { app } = Astro.props as { app: AppEntry };
+const d = app.data;
+const subject = encodeURIComponent(`${d.name} account deletion request`);
+const body = encodeURIComponent(`Please delete the ${d.name} account associated with this email address.`);
+const requestHref = `mailto:${site.privacyEmail}?subject=${subject}&body=${body}`;
+---
+
+<LegalLayout
+  title={d.hasAccounts ? "Delete your account" : "Delete your data"}
+  appName={d.name}
+  appSlug={app.id}
+  path={d.path}
+  description={`How to delete your ${d.name} data.`}
+>
+  {
+    d.hasAccounts ? (
+      <>
+        <p>You can permanently delete your {d.name} account and its associated data.</p>
+        {d.deleteSteps && (
+          <>
+            <h2>Delete inside the app</h2>
+            <ol>
+              {d.deleteSteps.map((step) => (
+                <li set:html={marked.parseInline(step)} />
+              ))}
+            </ol>
+          </>
+        )}
+        {d.deleteAccountUrl && (
+          <>
+            <h2>Delete on the web</h2>
+            <p>
+              Follow the <a href={d.deleteAccountUrl}>{d.name} account deletion page</a>. It runs on the {d.name}{" "}
+              service itself, which is where your account lives.
+            </p>
+          </>
+        )}
+        <h2>Request deletion by email</h2>
+        <p>
+          Send the request from the email address used for your {d.name} account so we can identify the right
+          account. Requests are completed within 30 days. We may verify your identity first, to prevent someone else
+          from deleting your account.
+        </p>
+        <p>
+          <a class="btn" href={requestHref}>Email a deletion request</a>
+        </p>
+        <p class="muted">
+          If the button does not open your email app, write to <a href={`mailto:${site.privacyEmail}`}>{site.privacyEmail}</a>{" "}
+          with the subject “{d.name} account deletion request.”
+        </p>
+      </>
+    ) : (
+      <>
+        <p>
+          {d.name} has no accounts and keeps your data only on your device. {site.legalName} has no copy on a server,
+          so there is nothing for us to delete on your behalf.
+        </p>
+        <h2>To delete everything</h2>
+        <ul>
+          <li>Uninstall {d.name}, or</li>
+          <li>clear the app's storage in your phone's settings (Settings → Apps → {d.name} → Storage → Clear storage).</li>
+        </ul>
+        <p>
+          If Android device backup is turned on, a copy may also exist in your Google account backup, which you control
+          from your Google account settings.
+        </p>
+        <p class="muted">
+          Questions? <a href={`mailto:${site.privacyEmail}`}>{site.privacyEmail}</a>
+        </p>
+      </>
+    )
+  }
+  <p class="muted">See the <a href={`/apps/${app.id}/privacy`}>{d.name} privacy policy</a> for details about data handling.</p>
+</LegalLayout>

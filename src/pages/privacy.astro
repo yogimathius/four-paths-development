@@ -1,0 +1,34 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+import { site } from "../site.config";
+const newsletterOn = Boolean(site.newsletter.username);
+---
+
+<LegalLayout title="Website privacy policy" lastUpdated={new Date("2026-10-02")} summary="This website does not use cookies, analytics, or trackers. If you subscribe to the newsletter, your email address is held by our newsletter provider." description={`How ${site.url.replace("https://", "")} handles your information.`}>
+  <p>
+    This policy covers the {site.name} website at {site.url.replace("https://", "")}. Each app has its own privacy
+    policy, linked from its page under <a href="/apps">Apps</a>.
+  </p>
+  <h2>What this website collects</h2>
+  <ul>
+    <li>No cookies, analytics, advertising, or third-party tracking scripts.</li>
+    <li>Fonts are served from this website, not from a font service.</li>
+    <li>
+      If you use the theme toggle, your choice of light or dark mode is saved in your browser's local storage. It
+      never leaves your device.
+    </li>
+  </ul>
+  <h2>Hosting</h2>
+  <p>
+    The website is hosted by Netlify. Like any web host, Netlify processes technical request data, such as IP address
+    and browser type, to deliver pages and protect the service.
+  </p>
+  <h2>Newsletter</h2>
+  <p>
+    {newsletterOn ? "If you subscribe" : "If a newsletter is offered and you subscribe"}, your email address is stored by
+    our newsletter provider, Buttondown, and used only to send {site.name} studio notes. Subscription is confirmed by
+    email, and every message has an unsubscribe link. We do not sell or share the list.
+  </p>
+  <h2>Contact</h2>
+  <p>Questions or requests: <a href={`mailto:${site.privacyEmail}`}>{site.privacyEmail}</a>.</p>
+</LegalLayout>

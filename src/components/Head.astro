@@ -5,8 +5,10 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  /** Legal pages stay still; everything else may use scroll motion. */
+  motion?: boolean;
 }
-const { title, description = site.description } = Astro.props;
+const { title, description = site.description, motion = true } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.tagline}`;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 ---
@@ -25,7 +27,15 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
 <meta property="og:site_name" content={site.name} />
 <meta name="theme-color" content="#fff8f2" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#18142a" media="(prefers-color-scheme: dark)" />
-<script is:inline>
+<script is:inline data-motion={motion ? "on" : "off"}>
+  try {
+    const root = document.documentElement;
+    if (document.currentScript.dataset.motion === "on" && matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+      root.classList.add("motion");
+      // Safety net: if the motion script never loads, show everything.
+      setTimeout(() => window.__fpMotion || root.classList.remove("motion"), 2500);
+    }
+  } catch {}
   try {
     const t = localStorage.getItem("theme");
     if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;

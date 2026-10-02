@@ -40,6 +40,10 @@ test("the RSS feed lists the welcome post", async ({ request }) => {
 
 const pages = ["/", "/apps/chore-credits", "/apps/chore-credits/privacy", "/apps/life-atlas/delete-account", "/press"];
 
+// Scan the settled page: mid-fade text is deliberately translucent for a moment.
+test.describe("accessibility", () => {
+  test.use({ reducedMotion: "reduce" });
+
 for (const scheme of ["light", "dark"] as const) {
   for (const url of pages) {
     test(`${url} has no serious accessibility violations (${scheme})`, async ({ page }) => {
@@ -51,6 +55,7 @@ for (const scheme of ["light", "dark"] as const) {
     });
   }
 }
+});
 
 test.describe("phone width", () => {
   test.use({ viewport: { width: 360, height: 780 } });

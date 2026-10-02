@@ -22,6 +22,7 @@ const app = apps.find((a) => a.id === post.data.app);
 ---
 
 <PageLayout title={post.data.title} description={post.data.description}>
+  <div class={`progress path-${app?.data.path ?? "philosophy"}`} aria-hidden="true"></div>
   <div class="wrap page">
     <div class="post-head">
     <PageHeader title={post.data.title} lede={post.data.description}>

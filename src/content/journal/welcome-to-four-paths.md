@@ -6,7 +6,7 @@ date: 2026-10-02
 
 Four Paths is an independent app studio. It makes small, private apps for the parts of life that deserve care.
 
-The name comes from four things the studio is built around: **family**, **technology**, **philosophy**, and **creativity**. Every app grows from one of them, and wears that path's colour.
+The name comes from four things the studio is built around: **family**, **technology**, **philosophy**, and **creativity**. Every app grows from one of them, and wears that path's colour. The four also echo the four yogas and the four aims of life; [Why Four Paths](/journal/why-four-paths) tells that story.
 
 ## The apps so far
 

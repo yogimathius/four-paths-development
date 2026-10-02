@@ -1,0 +1,67 @@
+---
+import { PATH_INFO, type PathId } from "../lib/paths";
+
+interface Props {
+  path: PathId;
+  detailed?: boolean;
+}
+const { path, detailed = false } = Astro.props;
+const info = PATH_INFO[path];
+---
+
+<li class={`path path-${path} on-path`}>
+  <h3>{info.label}</h3>
+  <p class="lineage" lang="sa-Latn">{info.yoga.name} · {info.aim.name}</p>
+  {
+    detailed ? (
+      <dl>
+        <dt>Practice</dt>
+        <dd><span lang="sa-Latn">{info.yoga.name}</span> yoga, {info.yoga.meaning}</dd>
+        <dt>Aim</dt>
+        <dd><span lang="sa-Latn">{info.aim.name}</span>, {info.aim.meaning}</dd>
+      </dl>
+    ) : (
+      <p class="blurb">{info.blurb}</p>
+    )
+  }
+  <slot />
+</li>
+
+<style>
+  .path {
+    border-radius: var(--radius);
+    padding: 1.25rem 1.3rem;
+    list-style: none;
+  }
+  h3 {
+    margin: 0;
+  }
+  .lineage {
+    margin: 0.25rem 0 0.7rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+  .blurb {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+  dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.3rem 0.8rem;
+    margin: 0 0 0.6rem;
+    font-size: 0.92rem;
+  }
+  dt {
+    font-weight: 600;
+  }
+  dd {
+    margin: 0;
+  }
+  .path :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

@@ -5,7 +5,8 @@ import AppIcon from "../components/AppIcon.astro";
 import NewsletterForm from "../components/NewsletterForm.astro";
 import { listedApps } from "../lib/catalog";
 import { publishedPosts, formatDate } from "../lib/journal";
-import { PATHS, PATH_INFO } from "../lib/paths";
+import PathCard from "../components/PathCard.astro";
+import { PATHS } from "../lib/paths";
 import { site } from "../site.config";
 
 const apps = await listedApps();
@@ -13,16 +14,16 @@ const testing = apps.filter((a) => a.data.status === "testing" && a.data.recruit
 const posts = (await publishedPosts()).slice(0, 3);
 const principles = [
   {
-    title: "Private by default",
-    body: "We ask for as little as possible and keep it on your device wherever we can. When an app needs a server, its policy says exactly what goes there and why.",
+    title: "Agency over compulsion",
+    body: "No streaks to protect, no leaderboards between siblings, no reward loops built to keep you tapping. A good tool is easy to put down.",
   },
   {
-    title: "Calm over compulsive",
-    body: "No leaderboards between siblings, no streak guilt, no reward loops designed to keep you tapping. An app should be easy to put down.",
+    title: "Stewardship over extraction",
+    body: "We ask for as little as we can, keep it on your device wherever possible, and never sell it. When an app needs a server, its policy names exactly what goes there.",
   },
   {
-    title: "Policies you can read",
-    body: "Every app's privacy policy opens with a short version in plain language, and every app has a page explaining how to delete your data.",
+    title: "Truth over persuasion",
+    body: "Every privacy policy opens with a plain-language short version, every app explains how to delete your data, and every app's status says honestly where it is.",
   },
 ];
 ---
@@ -47,7 +48,10 @@ const principles = [
   </section>
 
   <section class="wrap section" aria-labelledby="build-title">
-    <div class="section-head"><h2 id="build-title">How we build</h2></div>
+    <div class="section-head">
+      <h2 id="build-title">The standard we build to</h2>
+      <p class="muted">Technology that serves the person using it, not the other way around.</p>
+    </div>
     <div class="grid-3">
       {
         principles.map((p) => (
@@ -88,18 +92,9 @@ const principles = [
   <section class="wrap section" aria-labelledby="paths-title">
     <div class="section-head">
       <h2 id="paths-title">Four paths</h2>
-      <p class="muted">Every app grows from one of them. The colour tells you which.</p>
+      <p class="muted">Where the work lives, how it's practised, and what it serves. <a href="/journal/why-four-paths">Why four paths →</a></p>
     </div>
-    <ul class="paths">
-      {
-        PATHS.map((p) => (
-          <li class={`path path-${p} on-path`}>
-            <h3>{PATH_INFO[p].label}</h3>
-            <p>{PATH_INFO[p].blurb}</p>
-          </li>
-        ))
-      }
-    </ul>
+    <ul class="paths">{PATHS.map((p) => <PathCard path={p} />)}</ul>
   </section>
 
   {
@@ -194,14 +189,6 @@ const principles = [
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  }
-  .path {
-    border-radius: var(--radius);
-    padding: 1.25rem;
-  }
-  .path p {
-    margin: 0;
-    font-size: 0.95rem;
   }
   .post {
     padding: 1.25rem;

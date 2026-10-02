@@ -3,10 +3,11 @@ import { expect, test } from "@playwright/test";
 
 test("home shows every listed app and links to its page", async ({ page }) => {
   await page.goto("/");
+  const gallery = page.locator("section", { has: page.getByRole("heading", { name: "The apps" }) });
   for (const name of ["Chore Credits", "Pillars", "Life Atlas", "Forge 5x5", "ClearLedger"]) {
-    await expect(page.getByRole("link", { name, exact: true })).toBeVisible();
+    await expect(gallery.getByRole("link", { name, exact: true })).toBeVisible();
   }
-  await page.getByRole("link", { name: "Chore Credits", exact: true }).click();
+  await gallery.getByRole("link", { name: "Chore Credits", exact: true }).click();
   await expect(page).toHaveURL(/\/apps\/chore-credits$/);
   await expect(page.getByRole("link", { name: "Privacy policy" })).toHaveAttribute("href", "/apps/chore-credits/privacy");
 });

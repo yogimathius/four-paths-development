@@ -1,35 +1,80 @@
 ---
-import { getCollection, render, type CollectionEntry } from "astro:content";
+import { render } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import AppPanel from "../../components/AppPanel.astro";
+import { loadCatalog } from "../../lib/catalog";
+import { publishedPosts, formatDate, type Post } from "../../lib/journal";
 import { site } from "../../site.config";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("journal", (p) => !p.data.draft);
-  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+  const posts = await publishedPosts();
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, newer: posts[i - 1], older: posts[i + 1] },
+  }));
 }
 
-const { post } = Astro.props as { post: CollectionEntry<"journal"> };
+const { post, newer, older } = Astro.props as { post: Post; newer?: Post; older?: Post };
 const { Content } = await render(post);
-const date = post.data.date.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+const { apps } = await loadCatalog();
+const app = apps.find((a) => a.id === post.data.app);
 ---
 
 <PageLayout title={post.data.title} description={post.data.description}>
-  <article class="wrap section">
-    <p class="muted meta"><a href="/journal">Journal</a> · <time datetime={post.data.date.toISOString()}>{date}</time> · {site.name}</p>
-    <h1>{post.data.title}</h1>
-    <div class="prose body"><Content /></div>
-  </article>
+  <div class="wrap page">
+    <div class="post-head">
+    <PageHeader title={post.data.title} lede={post.data.description}>
+      <p class="muted meta" slot="above">
+        <a href="/journal">Journal</a> · <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time> · {site.name}
+      </p>
+    </PageHeader>
+    </div>
+    <div class="split">
+      <article class="prose body">
+        <Content />
+        <nav class="more" aria-label="More posts">
+          {newer && <a href={`/journal/${newer.id}`}>← {newer.data.title}</a>}
+          {older && <a href={`/journal/${older.id}`}>{older.data.title} →</a>}
+        </nav>
+      </article>
+      <aside class="rail">
+        {
+          app ? (
+            <AppPanel app={app} />
+          ) : (
+            <div class="glass panel">
+              <h2>About {site.name}</h2>
+              <p>{site.description}</p>
+              <p><a href="/apps">See the apps</a></p>
+            </div>
+          )
+        }
+      </aside>
+    </div>
+  </div>
 </PageLayout>
 
 <style>
-  h1 {
-    max-width: 22ch;
-  }
   .meta {
     font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+  .post-head :global(h1) {
+    font-size: clamp(2rem, 4.6vw, 3rem);
+    max-width: 26ch;
   }
   .body {
     font-size: 1.08rem;
-    margin-top: 1.5rem;
+  }
+  .more {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.95rem;
   }
 </style>

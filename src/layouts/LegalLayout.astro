@@ -13,8 +13,11 @@ interface Props {
   lastUpdated?: Date;
   summary?: string;
   description?: string;
+  /** Section headings for the "On this page" panel. */
+  headings?: { depth: number; slug: string; text: string }[];
 }
-const { title, appName, appSlug, path, lastUpdated, summary, description } = Astro.props;
+const { title, appName, appSlug, path, lastUpdated, summary, description, headings = [] } = Astro.props;
+const toc = headings.filter((h) => h.depth === 2);
 const pageTitle = appName ? `${appName} ${title.toLowerCase()}` : title;
 const updated = lastUpdated?.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
 ---
@@ -33,14 +36,51 @@ const updated = lastUpdated?.toLocaleDateString("en-CA", { year: "numeric", mont
         <ThemeToggle />
       </div>
     </header>
-    <main id="main" class="wrap">
-      <article class="doc prose">
+    <main id="main" class="wrap page">
+      <header class="page-head">
         {appName && <span class="chip">{appName}</span>}
         <h1>{title}</h1>
         {updated && <p class="muted meta">Last updated {updated} · Operated by {site.legalName}</p>}
-        {summary && <div class={`tldr ${path ? `tint-${path}` : ""}`}><strong>The short version:</strong> {summary}</div>}
-        <slot />
-      </article>
+      </header>
+      <div class="split">
+        <article class="prose doc">
+          {summary && <div class={`tldr ${path ? `tint-${path}` : ""}`}><strong>The short version:</strong> {summary}</div>}
+          <slot />
+        </article>
+        <aside class="rail">
+          {
+            toc.length > 2 && (
+              <nav class="panel toc" aria-label="On this page">
+                <h2>On this page</h2>
+                <ol>
+                  {toc.map((h) => (
+                    <li>
+                      <a href={`#${h.slug}`}>{h.text}</a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )
+          }
+          {
+            appSlug && (
+              <div class="panel links">
+                <h2>{appName}</h2>
+                <ul>
+                  <li><a href={`/apps/${appSlug}`}>About the app</a></li>
+                  <li><a href={`/apps/${appSlug}/privacy`}>Privacy policy</a></li>
+                  <li><a href={`/apps/${appSlug}/support`}>Support</a></li>
+                  <li><a href={`/apps/${appSlug}/delete-account`}>Delete your data</a></li>
+                </ul>
+              </div>
+            )
+          }
+          <div class="panel links">
+            <h2>Questions</h2>
+            <p><a href={`mailto:${site.privacyEmail}`}>{site.privacyEmail}</a></p>
+          </div>
+        </aside>
+      </div>
     </main>
     <footer class="wrap foot muted">
       {appName ? appName : site.name} is operated by {site.legalName}, {site.country}. Privacy questions:{" "}
@@ -77,12 +117,33 @@ const updated = lastUpdated?.toLocaleDateString("en-CA", { year: "numeric", mont
     gap: 0.9rem;
     font-size: 0.92rem;
   }
-  .doc {
-    padding: 1.5rem 0 1rem;
+  .page-head {
+    margin-bottom: 2rem;
   }
   h1 {
     font-size: clamp(2rem, 5vw, 2.8rem);
     margin-top: 0.6rem;
+  }
+  .doc :global(h2) {
+    scroll-margin-top: 1.5rem;
+  }
+  .doc > .tldr:first-child {
+    margin-top: 0;
+  }
+  .panel {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+  .toc ol {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.45rem;
+    font-size: 0.9rem;
+  }
+  .toc a,
+  .links a {
+    color: var(--ink-soft);
   }
   .meta {
     font-size: 0.88rem;

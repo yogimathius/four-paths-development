@@ -1,55 +1,84 @@
 ---
-import { getCollection } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import { loadCatalog } from "../../lib/catalog";
+import { publishedPosts, formatDate } from "../../lib/journal";
+import { PATH_INFO } from "../../lib/paths";
+import { site } from "../../site.config";
 
-const posts = (await getCollection("journal", (p) => !p.data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
-const fmt = (d: Date) => d.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+const posts = await publishedPosts();
+const { apps } = await loadCatalog();
+const appFor = (slug?: string) => apps.find((a) => a.id === slug);
 ---
 
-<PageLayout title="Journal" description="Notes from the Four Paths studio: launches, build notes, and what we're learning.">
-  <section class="wrap section">
-    <h1>Journal</h1>
-    <p class="lede">Launches, build notes, and what we're learning. <a href="/rss.xml">RSS</a></p>
-    <ul class="list">
-      {
-        posts.map((post) => (
-          <li class="glass">
-            <time datetime={post.data.date.toISOString()} class="muted">{fmt(post.data.date)}</time>
-            <h2><a href={`/journal/${post.id}`}>{post.data.title}</a></h2>
-            <p class="muted">{post.data.description}</p>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+<PageLayout title="Journal" description="Notes from the Four Paths studio: app introductions, launches, and what we're learning.">
+  <div class="wrap page">
+    <PageHeader eyebrow="Journal" title="Notes from the studio" lede="App introductions, launches, and what we're learning along the way." />
+    <div class="split">
+      <ul class="list">
+        {
+          posts.map((post) => {
+            const app = appFor(post.data.app);
+            return (
+              <li class="glass">
+                <p class="meta muted">
+                  <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                  {app && (
+                    <span class={`chip path-${app.data.path} on-path`}>{PATH_INFO[app.data.path].label} · {app.data.name}</span>
+                  )}
+                </p>
+                <h2>
+                  <a href={`/journal/${post.id}`}>{post.data.title}</a>
+                </h2>
+                <p class="muted">{post.data.description}</p>
+              </li>
+            );
+          })
+        }
+      </ul>
+      <aside class="rail">
+        <div class="glass panel">
+          <h2>Follow along</h2>
+          <p>New posts appear here when an app launches or changes in a way worth explaining.</p>
+          <p><a href="/rss.xml">Subscribe with RSS</a></p>
+        </div>
+        <div class="glass panel">
+          <h2>Say hello</h2>
+          <p>Questions or ideas about any of the apps: <a href={`mailto:${site.email}`}>{site.email}</a></p>
+        </div>
+      </aside>
+    </div>
+  </div>
 </PageLayout>
 
 <style>
   .list {
     list-style: none;
     padding: 0;
-    margin: 2rem 0 0;
+    margin: 0;
     display: grid;
     gap: 1rem;
-    max-width: 760px;
   }
   li {
-    padding: 1.4rem;
+    padding: 1.4rem 1.5rem;
   }
-  time {
+  .meta {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
     font-size: 0.85rem;
+    margin: 0;
   }
   h2 {
     font-size: 1.4rem;
-    margin: 0.3rem 0 0.4rem;
+    margin: 0.5rem 0 0.4rem;
   }
-  h2 a {
+  li h2 a {
     color: var(--ink);
     text-decoration: none;
   }
-  p {
+  li > p:last-child {
     margin: 0;
   }
 </style>

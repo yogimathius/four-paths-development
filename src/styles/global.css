@@ -313,3 +313,149 @@ img {
   color: var(--btn-fg);
   z-index: 10;
 }
+
+/* ---------- Layout system ----------
+   Every page sits in .wrap (one container, one left edge). Headers use
+   .page-head; reading pages use .split: a text column plus a side rail
+   that together fill the container, so both margins match across pages. */
+
+.page {
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+
+.page-head {
+  margin-bottom: 2.5rem;
+}
+
+.page-head .eyebrow {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.page-head h1 {
+  max-width: 20ch;
+}
+
+.page-head .lede {
+  max-width: 46ch;
+  margin-top: 0.75rem;
+}
+
+.split {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 960px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 4rem;
+  }
+  .rail {
+    position: sticky;
+    top: 1.5rem;
+    align-self: start;
+  }
+}
+
+.split > .prose {
+  max-width: 68ch;
+}
+
+.rail {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.panel {
+  padding: 1.25rem 1.35rem;
+}
+
+.panel h2,
+.panel h3 {
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.75rem;
+}
+
+.panel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+  font-size: 0.93rem;
+}
+
+.panel p {
+  font-size: 0.93rem;
+  margin: 0 0 0.6rem;
+}
+
+.panel p:last-child {
+  margin-bottom: 0;
+}
+
+.eyebrow {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.section-head h2 {
+  margin: 0;
+}
+
+.section-head p {
+  margin: 0;
+}
+
+.grid-3 {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.feature {
+  padding: 1.35rem;
+}
+
+.feature h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+.feature p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.check li {
+  position: relative;
+  padding-left: 1.4rem;
+}
+
+.check li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--philosophy);
+}

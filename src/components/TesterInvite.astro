@@ -1,0 +1,30 @@
+---
+import { site } from "../site.config";
+
+interface Props {
+  appName: string;
+  compact?: boolean;
+}
+const { appName, compact = false } = Astro.props;
+const subject = encodeURIComponent("I\u2019d like to test " + appName);
+const body = encodeURIComponent("Hi! I\u2019d like to join the closed test. The Google account email I use on my Android phone is: ");
+const href = "mailto:" + site.email + "?subject=" + subject + "&body=" + body;
+---
+
+<div class:list={["glass", "panel", "invite", { compact }]}>
+  <h3>Help test {appName}</h3>
+  <p>
+    {appName} is in closed testing on Android. Google Play needs a group of testers to stay opted in for 14 days before
+    an app can launch publicly, so every tester genuinely helps.
+  </p>
+  <p><a class="btn" href={href}>Ask to join the test</a></p>
+</div>
+
+<style>
+  .invite {
+    border: 1px dashed var(--line);
+  }
+  .compact p:first-of-type {
+    font-size: 0.9rem;
+  }
+</style>

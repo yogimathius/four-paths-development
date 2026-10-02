@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 const { app, entry } = Astro.props as { app: AppEntry; entry: LegalEntry };
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
 ---
 
 <LegalLayout
@@ -23,6 +23,7 @@ const { Content } = await render(entry);
   path={app.data.path}
   lastUpdated={entry.data.lastUpdated}
   summary={entry.data.summary}
+  headings={headings}
 >
   <Content />
 </LegalLayout>

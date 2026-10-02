@@ -26,6 +26,13 @@ const apps = defineCollection({
       deleteAccountUrl: z.url().optional(),
       deleteSteps: z.array(z.string()).optional(),
       order: z.number(),
+      /** Three or four short feature highlights for the app page. */
+      highlights: z.array(z.object({ title: z.string(), body: z.string() })).default([]),
+      /** Plain-language privacy facts for the "at a glance" panel. */
+      glance: z.array(z.string()).default([]),
+      audience: z.string().optional(),
+      /** Show the "help us test" invitation while the app is in closed testing. */
+      recruitingTesters: z.boolean().default(false),
     }),
 });
 

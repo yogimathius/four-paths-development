@@ -152,7 +152,7 @@ Buttondown hosted embed: a plain HTML form that POSTs to Buttondown's subscribe 
 ## 9. Owner actions (outside the code)
 
 1. Confirm in Netlify that the fourpaths.ca site is connected to this GitHub repo (or connect it).
-2. Set up email for fourpaths.ca. The domain has no MX records today; it uses Netlify DNS (NS1). Add a forwarding service (e.g. ImprovMX or Forward Email) for `hello@` and `privacy@`.
+2. Set up email for fourpaths.ca. The domain has no MX records today; it uses Netlify DNS (NS1). Add a forwarding service (e.g. ImprovMX or Forward Email) for `hello@` and `privacy@`. Not blocking: the site ships using these addresses now, but email must be working before any store listing is switched to the new URLs (step 5).
 3. Create the Buttondown account and put the username in `site.config.ts`.
 4. Decide on renaming the Play developer to "Four Paths"; set `legalName` to match.
 5. After deploy: update privacy/support URLs and contact email in each Play listing (Chore Credits, Life Atlas, Forge 5x5; Pillars optional).

@@ -4,8 +4,11 @@ import { render } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
 import AppIcon from "../../components/AppIcon.astro";
 import Badges from "../../components/Badges.astro";
+import TesterInvite from "../../components/TesterInvite.astro";
 import { loadCatalog, type AppEntry } from "../../lib/catalog";
 import { needsLegalPages } from "../../lib/integrity";
+import { introFor } from "../../lib/journal";
+import { PATH_INFO, STATUS_LABEL } from "../../lib/paths";
 
 export async function getStaticPaths() {
   const { apps } = await loadCatalog();
@@ -16,100 +19,157 @@ const { app } = Astro.props as { app: AppEntry };
 const { Content } = await render(app);
 const d = app.data;
 const legal = needsLegalPages({ slug: app.id, ...d });
+const intro = await introFor(app.id);
+const platforms = d.platforms.map((p) => (p === "ios" ? "iOS" : "Android")).join(", ");
 ---
 
 <PageLayout title={d.name} description={d.tagline}>
-  <section class="wrap section">
-    <div class="head">
-      <AppIcon app={app} size={88} />
+  <div class="wrap page">
+    <header class="page-head app-head">
+      <AppIcon app={app} size={96} />
       <div>
         <Badges path={d.path} status={d.status} platforms={d.platforms} />
         <h1>{d.name}</h1>
         <p class="lede">{d.tagline}</p>
       </div>
-    </div>
+    </header>
 
     {
       d.screenshots.length > 0 && (
-        <ul class="shots">
+        <ul class="shots" aria-label={`${d.name} screenshots`}>
           {d.screenshots.map((s) => (
             <li class="glass">
-              <Image src={s.src} alt={s.alt} width={360} />
+              <Image src={s.src} alt={s.alt} width={420} />
             </li>
           ))}
         </ul>
       )
     }
 
-    <div class="body prose"><Content /></div>
+    {
+      d.highlights.length > 0 && (
+        <section class="section-tight" aria-labelledby="highlights">
+          <h2 id="highlights" class="visually-hidden">Highlights</h2>
+          <div class="grid-3">
+            {d.highlights.map((h) => (
+              <div class="glass feature">
+                <h3>{h.title}</h3>
+                <p>{h.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )
+    }
 
-    <div class="links">
-      {d.stores.play && <a class="btn" href={d.stores.play}>Get it on Google Play</a>}
-      {d.stores.appStore && <a class="btn" href={d.stores.appStore}>Download on the App Store</a>}
-      {
-        legal ? (
-          <>
-            <a class="btn soft" href={`/apps/${app.id}/privacy`}>Privacy policy</a>
-            <a class="btn soft" href={`/apps/${app.id}/support`}>Support</a>
-            <a class="btn soft" href={`/apps/${app.id}/delete-account`}>Delete your data</a>
-          </>
-        ) : (
-          <p class="muted">Privacy and support pages will be published here before {d.name} reaches a store.</p>
-        )
-      }
+    <div class="split section-tight">
+      <div class="prose body">
+        <h2>About {d.name}</h2>
+        <Content />
+        {
+          intro && (
+            <p>
+              <a href={`/journal/${intro.id}`}>Read the introduction: {intro.data.title} →</a>
+            </p>
+          )
+        }
+        {d.recruitingTesters && d.status === "testing" && <div id="test"><TesterInvite appName={d.name} /></div>}
+      </div>
+
+      <aside class="rail">
+        <div class="glass panel">
+          <h2>At a glance</h2>
+          <dl>
+            <dt>Status</dt><dd>{STATUS_LABEL[d.status]}</dd>
+            {platforms && (<><dt>Platform</dt><dd>{platforms}</dd></>)}
+            <dt>Path</dt><dd>{PATH_INFO[d.path].label}</dd>
+            {d.audience && (<><dt>For</dt><dd>{d.audience}</dd></>)}
+          </dl>
+        </div>
+        {
+          d.glance.length > 0 && (
+            <div class="glass panel">
+              <h2>Privacy at a glance</h2>
+              <ul class="check">
+                {d.glance.map((g) => (
+                  <li>{g}</li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+        <div class="glass panel">
+          <h2>Policies and help</h2>
+          {
+            legal ? (
+              <ul>
+                <li><a href={`/apps/${app.id}/privacy`}>Privacy policy</a></li>
+                <li><a href={`/apps/${app.id}/support`}>Support</a></li>
+                <li><a href={`/apps/${app.id}/delete-account`}>Delete your data</a></li>
+              </ul>
+            ) : (
+              <p class="muted">Privacy and support pages will be published here before {d.name} reaches a store.</p>
+            )
+          }
+          {d.stores.play && <p><a class="btn" href={d.stores.play}>Get it on Google Play</a></p>}
+          {d.stores.appStore && <p><a class="btn" href={d.stores.appStore}>Download on the App Store</a></p>}
+        </div>
+      </aside>
     </div>
-    {d.status === "testing" && !d.stores.play && (
-      <p class="muted note">{d.name} is in closed testing and is not publicly listed yet.</p>
-    )}
-  </section>
+  </div>
 </PageLayout>
 
 <style>
-  .head {
+  .app-head {
     display: flex;
     gap: 1.5rem;
     align-items: center;
     flex-wrap: wrap;
   }
-  h1 {
-    margin: 0.6rem 0 0.3rem;
-  }
-  .lede {
-    margin: 0;
+  .app-head h1 {
+    margin: 0.6rem 0 0;
   }
   .shots {
     list-style: none;
     padding: 0;
-    margin: 2.5rem 0 0;
+    margin: 0 0 1rem;
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
   .shots li {
     padding: 0.5rem;
-    overflow: hidden;
   }
   .shots img {
     border-radius: 12px;
     display: block;
     width: 100%;
   }
+  .section-tight {
+    padding-top: 2rem;
+  }
   .body {
-    margin-top: 2.5rem;
     font-size: 1.05rem;
   }
-  .links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-top: 1.5rem;
-    align-items: center;
+  .body h2 {
+    margin-top: 0;
   }
-  .links p {
+  #test {
+    margin-top: 2rem;
+    scroll-margin-top: 1.5rem;
+  }
+  dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.45rem 1rem;
     margin: 0;
+    font-size: 0.93rem;
   }
-  .note {
-    margin-top: 1rem;
-    font-size: 0.9rem;
+  dt {
+    font-weight: 600;
+  }
+  dd {
+    margin: 0;
+    color: var(--ink-soft);
   }
 </style>

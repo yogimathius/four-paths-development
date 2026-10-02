@@ -1,0 +1,52 @@
+---
+// Compact app summary for side rails (journal posts, legal pages).
+import type { AppEntry } from "../lib/catalog";
+import { needsLegalPages } from "../lib/integrity";
+import AppIcon from "./AppIcon.astro";
+import Badges from "./Badges.astro";
+
+interface Props {
+  app: AppEntry;
+}
+const { app } = Astro.props;
+const legal = needsLegalPages({ slug: app.id, ...app.data });
+---
+
+<aside class="glass panel app-panel">
+  <div class="top">
+    <AppIcon app={app} size={44} />
+    <div>
+      <strong><a href={`/apps/${app.id}`}>{app.data.name}</a></strong>
+      <Badges path={app.data.path} status={app.data.status} />
+    </div>
+  </div>
+  <p class="muted">{app.data.tagline}</p>
+  {
+    legal && (
+      <ul>
+        <li><a href={`/apps/${app.id}/privacy`}>Privacy policy</a></li>
+        <li><a href={`/apps/${app.id}/support`}>Support</a></li>
+        <li><a href={`/apps/${app.id}/delete-account`}>Delete your data</a></li>
+      </ul>
+    )
+  }
+</aside>
+
+<style>
+  .top {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  .top strong {
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .top a {
+    color: var(--ink);
+    text-decoration: none;
+    font-family: var(--display);
+    font-size: 1.1rem;
+  }
+</style>

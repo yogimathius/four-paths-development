@@ -1,44 +1,102 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
-import { PATHS, PATH_INFO } from "../lib/paths";
+import PageHeader from "../components/PageHeader.astro";
+import { listedApps } from "../lib/catalog";
+import { PATHS, PATH_INFO, STATUS_LABEL } from "../lib/paths";
 import { site } from "../site.config";
+
+const apps = await listedApps();
+const pathStory: Record<string, string> = {
+  family: "Home is where software should make life easier, not louder. Family apps here are built to lower friction between people, not to compete for a child's attention.",
+  technology: "Good technology is boring in the best way: exact, dependable, and honest about what it does with your data. That standard applies most where the stakes are highest, like money.",
+  philosophy: "Practice and reflection deserve tools that respect them: patient, unhurried, and free of the engagement tricks that make most apps hard to put down.",
+  creativity: "Play matters. Games and making things for their own sake keep the rest of the work human, and they get the same care as everything else.",
+};
 ---
 
 <PageLayout title="About" description={`About ${site.name}, an independent app studio.`}>
-  <section class="wrap section prose-wide">
-    <h1>About the studio</h1>
-    <p class="lede">{site.name} is an independent app studio in {site.country}{site.founderName ? `, founded by ${site.founderName}` : ""}.</p>
-    <p>
-      We make small apps for the parts of life that deserve care: home, money, practice, and play. Each one does a
-      single job well, asks for as little of your data as it can, and keeps it on your device wherever possible.
-    </p>
-    <h2>What we hold to</h2>
-    <ul>
-      <li><strong>Private by default.</strong> No ads, no data selling, and no tracking you didn't ask for.</li>
-      <li><strong>Calm over compulsive.</strong> No streak-guilt, leaderboards, or engagement tricks.</li>
-      <li><strong>Plain-language policies.</strong> Every app's privacy policy starts with a short version you can actually read.</li>
-    </ul>
-    <h2>The four paths</h2>
-    <ul class="paths">
-      {
-        PATHS.map((p) => (
-          <li class={`path-${p} on-path`}>
-            <strong>{PATH_INFO[p].label}.</strong> {PATH_INFO[p].blurb}
-          </li>
-        ))
-      }
-    </ul>
-    <h2>Say hello</h2>
-    <p>
-      Questions, ideas, or press: <a href={`mailto:${site.email}`}>{site.email}</a>. Privacy requests:
-      <a href={`mailto:${site.privacyEmail}`}>{site.privacyEmail}</a>.
-    </p>
-  </section>
+  <div class="wrap page">
+    <PageHeader
+      eyebrow="About"
+      title="A small studio for careful apps"
+      lede={`${site.name} is an independent app studio in ${site.country}${site.founderName ? `, founded by ${site.founderName}` : ""}.`}
+    />
+    <div class="split">
+      <div class="prose body">
+        <p>
+          {site.name} makes small apps for the parts of life that deserve care: home, money, practice, and play. Each one
+          tries to do a single job well, ask for as little of your data as it can, and get out of the way once that job
+          is done.
+        </p>
+        <p>
+          It is a deliberately small operation. That means fewer apps, slower releases, and a person reading every
+          support email. It also means no investors to answer to, so there is no pressure to turn your attention into a
+          metric.
+        </p>
+
+        <h2>Why four paths</h2>
+        <p>
+          The studio is organised around four things that matter to the person who runs it. Every app grows out of one of
+          them, and wears that path's colour.
+        </p>
+        <ul class="paths">
+          {
+            PATHS.map((p) => (
+              <li class={`path-${p} on-path`}>
+                <strong>{PATH_INFO[p].label}.</strong> {pathStory[p]}
+              </li>
+            ))
+          }
+        </ul>
+
+        <h2>What we hold to</h2>
+        <ul>
+          <li><strong>Private by default.</strong> No ads, no data selling, and no tracking you didn't ask for. Local-first wherever the app allows it.</li>
+          <li><strong>Calm over compulsive.</strong> No leaderboards between siblings, streak guilt, or reward loops built to keep you tapping.</li>
+          <li><strong>Plain-language policies.</strong> Every privacy policy starts with a short version, and every app explains how to delete your data.</li>
+          <li><strong>Honest status.</strong> If an app is in testing or still being built, it says so.</li>
+        </ul>
+
+        <h2>Where things are</h2>
+        <p>
+          Most of the apps are in closed testing on Android right now, working toward public release. iOS versions will
+          follow once the Android releases are stable. The <a href="/journal">journal</a> introduces each app and will
+          note launches as they happen.
+        </p>
+      </div>
+
+      <aside class="rail">
+        <div class="glass panel">
+          <h2>Studio facts</h2>
+          <dl>
+            <dt>Studio</dt><dd>{site.name}</dd>
+            {site.founderName && (<><dt>Founder</dt><dd>{site.founderName}</dd></>)}
+            <dt>Based in</dt><dd>{site.country}</dd>
+            <dt>Apps</dt><dd>{apps.length}</dd>
+          </dl>
+        </div>
+        <div class="glass panel">
+          <h2>The apps</h2>
+          <ul>
+            {apps.map((a) => (
+              <li><a href={`/apps/${a.id}`}>{a.data.name}</a> <span class="muted">· {STATUS_LABEL[a.data.status]}</span></li>
+            ))}
+          </ul>
+        </div>
+        <div class="glass panel">
+          <h2>Contact</h2>
+          <p>General: <a href={`mailto:${site.email}`}>{site.email}</a></p>
+          <p>Privacy: <a href={`mailto:${site.privacyEmail}`}>{site.privacyEmail}</a></p>
+          <p>Press: <a href="/press">press kit</a></p>
+        </div>
+      </aside>
+    </div>
+  </div>
 </PageLayout>
 
 <style>
-  .prose-wide {
-    max-width: 760px;
+  .body {
+    font-size: 1.05rem;
   }
   .paths {
     list-style: none;
@@ -47,7 +105,22 @@ import { site } from "../site.config";
     gap: 0.6rem;
   }
   .paths li {
-    padding: 0.9rem 1.1rem;
+    padding: 0.95rem 1.15rem;
     border-radius: 14px;
+    margin: 0;
+  }
+  dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.45rem 1rem;
+    margin: 0;
+    font-size: 0.93rem;
+  }
+  dt {
+    font-weight: 600;
+  }
+  dd {
+    margin: 0;
+    color: var(--ink-soft);
   }
 </style>

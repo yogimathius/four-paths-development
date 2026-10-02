@@ -1,21 +1,55 @@
 ---
 import PageLayout from "../../layouts/PageLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
 import AppCard from "../../components/AppCard.astro";
 import { listedApps } from "../../lib/catalog";
+import { PATHS, PATH_INFO } from "../../lib/paths";
 
 const apps = await listedApps();
+const groups = PATHS.map((p) => ({ path: p, apps: apps.filter((a) => a.data.path === p) })).filter((g) => g.apps.length);
 ---
 
 <PageLayout title="Apps" description="Every app from the Four Paths studio, with privacy, support, and data deletion pages.">
-  <section class="wrap section">
-    <h1>Apps</h1>
-    <p class="lede">Each app keeps its privacy policy, support, and data-deletion pages here, so they are always easy to find.</p>
-    <div class="grid-apps list">{apps.map((app) => <AppCard app={app} />)}</div>
-  </section>
+  <div class="wrap page">
+    <PageHeader
+      eyebrow="The apps"
+      title="Apps"
+      lede="Each app keeps its privacy policy, support, and data-deletion pages here, so they are always easy to find."
+    />
+    {
+      groups.map((g) => (
+        <section class="group" aria-labelledby={`path-${g.path}`}>
+          <div class="section-head">
+            <h2 id={`path-${g.path}`}>
+              <span class={`dot path-${g.path}`} aria-hidden="true" />
+              {PATH_INFO[g.path].label}
+            </h2>
+            <p class="muted">{PATH_INFO[g.path].blurb}</p>
+          </div>
+          <div class="grid-apps">
+            {g.apps.map((app) => (
+              <AppCard app={app} />
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
 </PageLayout>
 
 <style>
-  .list {
-    margin-top: 2rem;
+  .group + .group {
+    margin-top: 3rem;
+  }
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.5rem;
+  }
+  .dot {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
   }
 </style>

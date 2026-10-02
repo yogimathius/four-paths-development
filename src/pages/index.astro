@@ -1,16 +1,30 @@
 ---
-import { getCollection } from "astro:content";
 import PageLayout from "../layouts/PageLayout.astro";
 import AppCard from "../components/AppCard.astro";
+import AppIcon from "../components/AppIcon.astro";
 import NewsletterForm from "../components/NewsletterForm.astro";
 import { listedApps } from "../lib/catalog";
+import { publishedPosts, formatDate } from "../lib/journal";
 import { PATHS, PATH_INFO } from "../lib/paths";
 import { site } from "../site.config";
 
 const apps = await listedApps();
-const posts = (await getCollection("journal", (p) => !p.data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+const testing = apps.filter((a) => a.data.status === "testing" && a.data.recruitingTesters);
+const posts = (await publishedPosts()).slice(0, 3);
+const principles = [
+  {
+    title: "Private by default",
+    body: "We ask for as little as possible and keep it on your device wherever we can. When an app needs a server, its policy says exactly what goes there and why.",
+  },
+  {
+    title: "Calm over compulsive",
+    body: "No leaderboards between siblings, no streak guilt, no reward loops designed to keep you tapping. An app should be easy to put down.",
+  },
+  {
+    title: "Policies you can read",
+    body: "Every app's privacy policy opens with a short version in plain language, and every app has a page explaining how to delete your data.",
+  },
+];
 ---
 
 <PageLayout>
@@ -20,18 +34,62 @@ const posts = (await getCollection("journal", (p) => !p.data.draft))
     <p class="lede">{site.description}</p>
     <p class="actions">
       <a class="btn" href="/apps">See the apps</a>
-      <a class="btn soft" href="/about">About the studio</a>
+      <a class="btn soft" href="/journal">Read the journal</a>
     </p>
   </section>
 
   <section class="wrap section" aria-labelledby="apps-title">
-    <h2 id="apps-title">The apps</h2>
+    <div class="section-head">
+      <h2 id="apps-title">The apps</h2>
+      <p><a href="/apps">All apps →</a></p>
+    </div>
     <div class="grid-apps">{apps.map((app) => <AppCard app={app} />)}</div>
   </section>
 
+  <section class="wrap section" aria-labelledby="build-title">
+    <div class="section-head"><h2 id="build-title">How we build</h2></div>
+    <div class="grid-3">
+      {
+        principles.map((p) => (
+          <div class="glass feature">
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {
+    testing.length > 0 && (
+      <section class="wrap section" aria-labelledby="test-title">
+        <div class="glass launch">
+          <div>
+            <span class="eyebrow">Now in closed testing</span>
+            <h2 id="test-title">Help us launch</h2>
+            <p class="muted">
+              Google Play only lets an app launch publicly once a group of testers has stayed opted in for 14 days. If
+              you have an Android phone, joining a test is the most useful thing you can do for a small studio.
+            </p>
+          </div>
+          <ul>
+            {testing.map((app) => (
+              <li>
+                <AppIcon app={app} size={40} />
+                <a href={`/apps/${app.id}#test`}>{app.data.name}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
   <section class="wrap section" aria-labelledby="paths-title">
-    <h2 id="paths-title">Four paths</h2>
-    <p class="muted intro">Every app grows from one of the four things the studio cares about. The colour tells you which.</p>
+    <div class="section-head">
+      <h2 id="paths-title">Four paths</h2>
+      <p class="muted">Every app grows from one of them. The colour tells you which.</p>
+    </div>
     <ul class="paths">
       {
         PATHS.map((p) => (
@@ -47,13 +105,14 @@ const posts = (await getCollection("journal", (p) => !p.data.draft))
   {
     posts.length > 0 && (
       <section class="wrap section" aria-labelledby="journal-title">
-        <h2 id="journal-title">From the journal</h2>
+        <div class="section-head">
+          <h2 id="journal-title">From the journal</h2>
+          <p><a href="/journal">All posts →</a></p>
+        </div>
         <ul class="posts">
           {posts.map((post) => (
             <li class="glass post">
-              <time datetime={post.data.date.toISOString()} class="muted">
-                {post.data.date.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}
-              </time>
+              <time datetime={post.data.date.toISOString()} class="muted">{formatDate(post.data.date)}</time>
               <h3>
                 <a href={`/journal/${post.id}`}>{post.data.title}</a>
               </h3>
@@ -92,14 +151,46 @@ const posts = (await getCollection("journal", (p) => !p.data.draft))
     flex-wrap: wrap;
     margin-top: 1.5rem;
   }
-  .intro {
-    max-width: 52ch;
+  .launch {
+    display: grid;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+  @media (min-width: 860px) {
+    .launch {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 3rem;
+    }
+  }
+  .launch h2 {
+    margin-top: 0.5rem;
+  }
+  .launch p {
+    margin: 0;
+    max-width: 56ch;
+  }
+  .launch ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .launch li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+  }
+  .launch li a {
+    color: var(--ink);
   }
   .paths,
   .posts {
     list-style: none;
     padding: 0;
-    margin: 1.25rem 0 0;
+    margin: 0;
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));

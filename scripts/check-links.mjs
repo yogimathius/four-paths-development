@@ -21,6 +21,7 @@ const resolves = (url) => {
 };
 
 const problems = [];
+if (!files.some((f) => f.endsWith("index.html"))) problems.push("dist/ has no index.html; run the build first");
 for (const file of files.filter((f) => f.endsWith(".html") || f.endsWith(".xml"))) {
   const html = readFileSync(file, "utf8");
   const rel = relative(dist, file);

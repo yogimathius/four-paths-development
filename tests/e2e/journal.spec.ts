@@ -46,15 +46,13 @@ test("legal pages offer an on-this-page index that jumps to sections", async ({ 
   await expect(page.locator(target)).toHaveCount(1);
 });
 
-test("each path shows its yoga and aim, and the name's story is linked from home", async ({ page }) => {
+test("home presents the four paths as lenses after the work", async ({ page }) => {
   await page.goto("/");
-  const paths = page.locator("section", { has: page.getByRole("heading", { name: "Four paths" }) });
-  for (const line of ["Bhakti · Dharma", "Karma · Artha", "Jñāna · Mokṣa", "Rāja · Kāma"]) {
-    await expect(paths.getByText(line)).toBeVisible();
+  const paths = page.locator("#four-paths");
+  for (const name of ["Build", "Create", "Question", "Ground"]) {
+    await expect(paths.getByText(name, { exact: true })).toBeVisible();
   }
-  await paths.getByRole("link", { name: "Why four paths →" }).click();
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Why Four Paths");
-  await expect(page.locator("article table")).toBeVisible();
+  expect(await paths.evaluate((el) => el.compareDocumentPosition(document.querySelector("#featured-work")!) & Node.DOCUMENT_POSITION_PRECEDING)).toBeTruthy();
 });
 
 test("app pages show their path's yoga and aim", async ({ page }) => {
@@ -62,10 +60,10 @@ test("app pages show their path's yoga and aim", async ({ page }) => {
   await expect(page.getByText("(Karma · Artha)")).toBeVisible();
 });
 
-test("About keeps spaces around inline emphasis", async ({ page }) => {
+test("About explains the overlapping practice in first person", async ({ page }) => {
   await page.goto("/about");
   const text = await page.locator("main").innerText();
-  for (const phrase of ["There are four paths of practice", "There are four aims of life", "and what it serves", "We call this sacred technology"]) {
+  for (const phrase of ["I’m Mathius Johnson", "Build, Create, Question and Ground", "Pillars asks"]) {
     expect(text).toContain(phrase);
   }
 });

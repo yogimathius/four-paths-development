@@ -47,6 +47,6 @@ export type Status = (typeof STATUSES)[number];
 export const STATUS_LABEL: Record<Status, string> = {
   live: "Available",
   testing: "In testing",
-  "coming-soon": "Coming soon",
+  "coming-soon": "Building",
   hidden: "Hidden",
 };

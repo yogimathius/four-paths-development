@@ -1,0 +1,24 @@
+---
+import { Image } from "astro:assets";
+import PageLayout from "../../layouts/PageLayout.astro";
+import LensTags from "../../components/LensTags.astro";
+import { work } from "../../lib/studio";
+---
+<PageLayout title="Work" description="Products, tools and experiments from Four Paths, an independent product studio.">
+  <div class="wrap page">
+    <header class="page-head"><span class="overline">Index / 01</span><h1>Work in progress.<br /><em>Work in the world.</em></h1><p class="lede">Substantial products, smaller experiments, and the questions that keep changing them. Each has a state because the work is alive.</p></header>
+    <div class="work-list">
+      {work.map((project, index) => <article class="work-row">
+        <a class="work-art" href={`/work/${project.slug}`} aria-label={`Explore ${project.name}`}>
+          {project.image ? <Image src={project.image} alt={project.imageAlt!} width={520} /> : <span class="diagram" aria-hidden="true"><i></i><i></i><i></i></span>}
+        </a>
+        <div class="work-text"><span class="overline">{String(index + 1).padStart(2, "0")} / {project.status}</span><h2><a href={`/work/${project.slug}`}>{project.name} ↗</a></h2><p class="premise">{project.premise}</p><p>{project.summary}</p><LensTags tags={project.lenses} /></div>
+      </article>)}
+    </div>
+    <div class="ending"><p>Some of these are available to testers; others are open questions with working software behind them.</p><a class="text-link" href="/now">See what is happening now →</a></div>
+  </div>
+</PageLayout>
+<style>
+  .page-head{padding-bottom:4rem}.page-head h1{margin:.7rem 0 1rem}.page-head h1 em{font-weight:400;color:var(--ink-soft)}.work-list{border-top:1px solid var(--line)}.work-row{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(2rem,6vw,6rem);padding:2.4rem 0;border-bottom:1px solid var(--line);align-items:center}.work-art{height:350px;display:grid;place-items:center;overflow:hidden;background:var(--surface);border:1px solid var(--line)}.work-art img{height:100%;width:auto;object-fit:contain}.work-row:first-child .work-art{height:470px}.work-row:first-child .work-art img{padding:1.5rem}.work-text h2{font-size:clamp(2.5rem,5vw,4.5rem);margin:.2em 0 .25em}.work-text h2 a{color:var(--ink);text-decoration:none}.work-text .premise{font:400 clamp(1.3rem,2vw,1.7rem)/1.2 var(--display);color:var(--ink);margin-bottom:.7rem}.work-text p{color:var(--ink-soft);max-width:44ch}.work-text .lens-tags{margin-top:1.4rem}.diagram{display:flex;gap:1rem;transform:rotate(-20deg)}.diagram i{display:block;width:2px;height:100px;background:var(--technology)}.diagram i:nth-child(2){height:150px;background:var(--family)}.diagram i:nth-child(3){height:75px;background:var(--creativity)}.ending{display:flex;justify-content:space-between;gap:2rem;padding:4rem 0}.ending p{max-width:45ch;color:var(--ink-soft)}
+  @media(max-width:700px){.work-row{grid-template-columns:1fr;gap:1.4rem}.work-art,.work-row:first-child .work-art{height:300px}.work-text h2{font-size:2.7rem}.ending{display:block}}
+</style>

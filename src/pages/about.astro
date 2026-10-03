@@ -1,147 +1,27 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
-import PageHeader from "../components/PageHeader.astro";
-import PathCard from "../components/PathCard.astro";
-import { listedApps } from "../lib/catalog";
-import { PATHS, STATUS_LABEL } from "../lib/paths";
+import RouteMark from "../components/RouteMark.astro";
+import { lenses } from "../lib/studio";
 import { site } from "../site.config";
-
-const apps = await listedApps();
 ---
-
-<PageLayout title="About" description={`About ${site.name}, an independent app studio.`}>
-  <div class="wrap page">
-    <PageHeader
-      eyebrow="About"
-      title="A small studio for careful apps"
-      lede={`${site.name} is an independent app studio in ${site.country}${site.founderName ? `, founded by ${site.founderName}` : ""}.`}
-    />
-    <div class="split">
-      <div class="prose body">
-        <p>
-          {site.name} makes small apps for the parts of life that deserve care: home, money, practice, and play. Each one
-          tries to do a single job well, ask for as little of your data as it can, and get out of the way once that job
-          is done.
-        </p>
-        <p>
-          It is a deliberately small operation. That means fewer apps, slower releases, and a person reading every
-          support email. It also means no investors to answer to, so there is no pressure to turn your attention into a
-          metric.
-        </p>
-
-        <h2>Why four paths</h2>
-        <p>
-          The name comes from the yogic tradition, which describes a full human life in fours. There are four{" "}
-          <em>paths</em> of practice: devotion, skilled action, knowledge, and absorption of the mind. There are four{" "}
-          <em>aims</em> of life, the <span lang="sa-Latn">puruṣārthas</span>: right relationship, livelihood, joy, and
-          liberation.
-        </p>
-        <p>
-          Laid side by side with the four areas the studio works in, they line up closely. So each path here is read
-          three ways: <strong>where</strong> the work lives, <strong>how</strong> it is practised, and{" "}
-          <strong>what</strong> it serves.
-        </p>
-        <ul class="paths">
-          {
-            PATHS.map((p) => (
-              <PathCard path={p} detailed>
-                <p class="apps-line">
-                  {apps.filter((a) => a.data.path === p).map((a, i) => (
-                    <>
-                      {i > 0 && ", "}
-                      <a href={`/apps/${a.id}`}>{a.data.name}</a>
-                    </>
-                  ))}
-                </p>
-              </PathCard>
-            ))
-          }
-        </ul>
-        <p>
-          In the tradition, all four aims are pursued together in the householder's life: raising a family, earning a
-          living, making things, and practising, all at once. That is the life these apps are built for, and the one
-          they are built from.
-        </p>
-
-        <h2>Technology as practice</h2>
-        <p>
-          The Gita describes yoga as <em>skill in action</em>. We take that literally: building software is a practice,
-          and how it treats the people who use it matters as much as what it does. We call this{" "}
-          <strong>sacred technology</strong>. It is not a look or a mood. It is a standard:
-        </p>
-        <ul>
-          <li><strong>Agency over compulsion.</strong> No streak guilt, leaderboards between siblings, or reward loops built to keep you tapping.</li>
-          <li><strong>Stewardship over extraction.</strong> Ask for as little data as possible, keep it on your device wherever we can, never sell it.</li>
-          <li><strong>Truth over persuasion.</strong> Plain-language policies with a short version first, and an honest status on every app.</li>
-          <li><strong>Calm over stimulation.</strong> Quiet interfaces that do their job and get out of the way.</li>
-        </ul>
-
-        <h2>Where things are</h2>
-        <p>
-          Most of the apps are in closed testing on Android right now, working toward public release. iOS versions will
-          follow once the Android releases are stable. The <a href="/journal">journal</a> introduces each app and will
-          note launches as they happen.
-        </p>
-      </div>
-
-      <aside class="rail">
-        <div class="glass panel">
-          <h2>Studio facts</h2>
-          <dl>
-            <dt>Studio</dt><dd>{site.name}</dd>
-            {site.founderName && (<><dt>Founder</dt><dd>{site.founderName}</dd></>)}
-            <dt>Based in</dt><dd>{site.country}</dd>
-            <dt>Apps</dt><dd>{apps.length}</dd>
-          </dl>
-        </div>
-        <div class="glass panel">
-          <h2>The apps</h2>
-          <ul>
-            {apps.map((a) => (
-              <li><a href={`/apps/${a.id}`}>{a.data.name}</a> <span class="muted">· {STATUS_LABEL[a.data.status]}</span></li>
-            ))}
-          </ul>
-        </div>
-        <div class="glass panel">
-          <h2>Contact</h2>
-          <p>General: <a href={`mailto:${site.email}`}>{site.email}</a></p>
-          <p>Privacy: <a href={`mailto:${site.privacyEmail}`}>{site.privacyEmail}</a></p>
-          <p>Press: <a href="/press">press kit</a></p>
-        </div>
-      </aside>
-    </div>
+<PageLayout title="About" description="Meet Mathius Johnson and the independent practice behind Four Paths.">
+  <div class="wrap about-page">
+    <header class="about-head"><span class="overline">About / The person behind the work</span><h1>More than<br /><em>one kind of work.</em></h1><p class="lede">Four Paths is the independent studio behind the things I build outside the boundaries of a single job title.</p></header>
+    <div class="about-layout"><aside class="side"><RouteMark size={150} /><p class="overline">Mathius Johnson<br />Canada</p></aside><div class="body">
+      <p class="opening">I’m Mathius Johnson. I build software, but the questions that bring me to a project often come from somewhere else: practice, family life, games, making things, and wondering how a tool changes the person using it.</p>
+      <p>Four Paths gives those inquiries a shared home. It is a product studio, not a consultancy disguised as one. The projects are different because the parts of life they touch are different. What connects them is a preference for specific problems, honest constraints and tools people can put down when the real activity begins.</p>
+      <h2>Why four paths?</h2>
+      <p>Build, Create, Question and Ground are lenses rather than departments. I use them to notice where a project gets its energy and where it needs to be challenged. An engineering choice may change how much agency someone has. A playful mechanic may make a hard routine easier to begin. A household can expose an assumption that looked perfectly reasonable at a desk.</p>
+      <div class="lens-list">{Object.entries(lenses).map(([key, lens]) => <div class={`lens lens-${key}`}><span class="overline">{lens.verb}</span><h3>{lens.name}</h3><p>{lens.description}</p></div>)}</div>
+      <h2>How I work</h2>
+      <p>I work across product design, mobile interfaces, domain models, APIs and release details. Pillars asks how a screen can support a physical practice without becoming its centre. Chore Credits asks how an app can make a family agreement more visible and fair. Life Atlas asks what progress looks like when a task list is too small a frame.</p>
+      <p>The technical work matters. So does changing my mind when a model proves too rigid, a flow asks too much attention, or a better question appears during testing. The <a href="/notes">notes</a> record some of those changes; the <a href="/work">project pages</a> show where they landed.</p>
+      <h2>Say hello</h2>
+      <p>If a project here connects with something you are making or thinking about, I’d like to hear from you.</p>
+      <p><a class="button-link" href={`mailto:${site.email}`}>Email Mathius ↗</a></p>
+    </div></div>
   </div>
 </PageLayout>
-
 <style>
-  .body {
-    font-size: 1.05rem;
-  }
-  .paths {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: 0.6rem;
-  }
-  .apps-line {
-    font-size: 0.92rem;
-    font-weight: 600;
-  }
-  .apps-line a {
-    color: #1f1b2e;
-  }
-  dl {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    gap: 0.45rem 1rem;
-    margin: 0;
-    font-size: 0.93rem;
-  }
-  dt {
-    font-weight: 600;
-  }
-  dd {
-    margin: 0;
-    color: var(--ink-soft);
-  }
+  .about-page{padding-bottom:4rem}.about-head{padding:4rem 0 5rem;border-bottom:1px solid var(--line)}.about-head h1{margin:.8rem 0 1rem}.about-head h1 em{font-weight:400;color:var(--ink-soft)}.about-layout{display:grid;grid-template-columns:240px minmax(0,720px);justify-content:space-between;gap:5rem;padding:5rem 0}.side{color:var(--ink-muted)}.side .overline{margin-top:2rem}.body{font-size:1.05rem}.body p{color:var(--ink-soft)}.body .opening{font:400 clamp(1.5rem,2.3vw,2rem)/1.35 var(--display);color:var(--ink);margin-bottom:2rem}.body h2{margin-top:4rem}.lens-list{display:grid;grid-template-columns:1fr 1fr;margin:2.5rem 0;border-top:1px solid var(--line)}.lens{padding:1.5rem 1rem 1rem 0;border-bottom:1px solid var(--line)}.lens h3{font-size:1.5rem;margin:.35rem 0}.lens p{font-size:.9rem;margin:0}.lens .overline{color:var(--lens-color)}.lens-build{--lens-color:var(--technology)}.lens-create{--lens-color:var(--creativity)}.lens-question{--lens-color:var(--philosophy)}.lens-ground{--lens-color:var(--family)}@media(max-width:700px){.about-layout{grid-template-columns:1fr;gap:2rem;padding:3rem 0}.side{display:flex;align-items:center;gap:2rem}.side .overline{margin:0}.about-head{padding:3rem 0}}@media(max-width:450px){.lens-list{grid-template-columns:1fr}}
 </style>

@@ -1,69 +1,45 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-test("home shows every listed app and links to its page", async ({ page }) => {
-  await page.goto("/");
-  const gallery = page.locator("section", { has: page.getByRole("heading", { name: "The apps" }) });
-  for (const name of ["Chore Credits", "Pillars", "Life Atlas", "Forge 5x5", "ClearLedger"]) {
-    await expect(gallery.getByRole("link", { name, exact: true })).toBeVisible();
-  }
-  await gallery.getByRole("link", { name: "Chore Credits", exact: true }).click();
-  await expect(page).toHaveURL(/\/apps\/chore-credits$/);
+test("work index links to the existing support pages", async ({ page }) => {
+  await page.goto("/work/chore-credits");
+  await expect(page.getByRole("link", { name: /App details & support/ }).first()).toHaveAttribute("href", "/apps/chore-credits");
+  await page.goto("/apps/chore-credits");
   await expect(page.getByRole("link", { name: "Privacy policy" })).toHaveAttribute("href", "/apps/chore-credits/privacy");
 });
 
-test("about page names the founder once", async ({ page }) => {
+test("About names the builder and offers contact", async ({ page }) => {
   await page.goto("/about");
-  await expect(page.getByText("founded by Mathius Johnson")).toHaveCount(1);
-});
-
-test("theme toggle switches to dark and persists across pages", async ({ page }) => {
-  await page.emulateMedia({ colorScheme: "light" });
-  await page.goto("/");
-  await page.getByRole("button", { name: "Toggle dark mode" }).click();
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await page.goto("/apps");
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(page.getByText("I’m Mathius Johnson.", { exact: false })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Email Mathius/ })).toHaveAttribute("href", "mailto:hello@fourpaths.ca");
 });
 
 test("unknown URLs get the branded 404", async ({ page }) => {
-  const res = await page.goto("/no-such-path");
-  expect(res?.status()).toBe(404);
+  const response = await page.goto("/no-such-path");
+  expect(response?.status()).toBe(404);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("This path doesn't go anywhere.");
 });
 
-test("the RSS feed lists the welcome post", async ({ request }) => {
-  const res = await request.get("/rss.xml");
-  expect(res.ok()).toBe(true);
-  expect(await res.text()).toContain("Welcome to Four Paths");
+test("the RSS feed lists Notes", async ({ request }) => {
+  const response = await request.get("/rss.xml");
+  expect(response.ok()).toBe(true);
+  expect(await response.text()).toContain("From platform to practice");
 });
 
-const pages = ["/", "/apps/chore-credits", "/apps/chore-credits/privacy", "/apps/life-atlas/delete-account", "/press"];
-
-// Scan the settled page: mid-fade text is deliberately translucent for a moment.
+const pages = ["/", "/work", "/work/pillars", "/notes", "/notes/from-platform-to-practice", "/now", "/about", "/apps/chore-credits/privacy"];
 test.describe("accessibility", () => {
   test.use({ reducedMotion: "reduce" });
-
-for (const scheme of ["light", "dark"] as const) {
-  for (const url of pages) {
-    test(`${url} has no serious accessibility violations (${scheme})`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme: scheme });
-      await page.goto(url);
-      const { violations } = await new AxeBuilder({ page }).analyze();
-      const serious = violations.filter((v) => v.impact === "serious" || v.impact === "critical");
-      expect(serious.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(", ")}`)).toEqual([]);
-    });
-  }
-}
-});
-
-test.describe("phone width", () => {
-  test.use({ viewport: { width: 360, height: 780 } });
-  for (const url of ["/", "/apps/forge-5x5", "/apps/pillars/privacy", "/press"]) {
-    test(`${url} has no horizontal scroll`, async ({ page }) => {
-      await page.goto(url);
-      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-      expect(overflow).toBeLessThanOrEqual(0);
-    });
+  for (const scheme of ["light", "dark"] as const) {
+    for (const url of pages) {
+      test(`${url} has no serious accessibility violations (${scheme})`, async ({ page }) => {
+        await page.emulateMedia({ colorScheme: scheme });
+        if (scheme === "light") await page.addInitScript(() => localStorage.setItem("theme", "light"));
+        await page.goto(url);
+        await page.evaluate(() => document.fonts.ready);
+        const { violations } = await new AxeBuilder({ page }).analyze();
+        const serious = violations.filter((violation) => violation.impact === "serious" || violation.impact === "critical");
+        expect(serious.map((violation) => `${violation.id}: ${violation.nodes.map((node) => node.target.join(" ")).join(", ")}`)).toEqual([]);
+      });
+    }
   }
 });

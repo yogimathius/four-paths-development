@@ -10,9 +10,9 @@ export const site = {
   email: "hello@fourpaths.ca",
   privacyEmail: "privacy@fourpaths.ca",
   url: "https://fourpaths.ca",
-  tagline: "Small, private apps for the things that matter.",
+  tagline: "Independent Product Studio",
   description:
-    "Four Paths is an independent studio making calm, private, local-first apps for family, money, practice, and play.",
+    "Four Paths is an independent product studio building thoughtful software, games and experiments across technology, creativity and everyday human life.",
   /** Leave username empty until the Buttondown account exists; the form hides itself. */
   newsletter: { provider: "buttondown" as const, username: "" },
 };

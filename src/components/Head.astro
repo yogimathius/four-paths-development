@@ -5,12 +5,15 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  type?: "website" | "article";
   /** Legal pages stay still; everything else may use scroll motion. */
   motion?: boolean;
 }
-const { title, description = site.description, motion = true } = Astro.props;
-const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.tagline}`;
+const { title, description = site.description, image = "/og-default.png", type = "website" } = Astro.props;
+const fullTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.tagline}`;
 const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL(image, site.url).href;
 ---
 
 <meta charset="utf-8" />
@@ -19,23 +22,20 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-<link rel="alternate" type="application/rss+xml" title={`${site.name} Journal`} href="/rss.xml" />
+<link rel="alternate" type="application/rss+xml" title={`${site.name} Notes`} href="/rss.xml" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:site_name" content={site.name} />
-<meta name="theme-color" content="#fff8f2" media="(prefers-color-scheme: light)" />
-<meta name="theme-color" content="#18142a" media="(prefers-color-scheme: dark)" />
-<script is:inline data-motion={motion ? "on" : "off"}>
-  try {
-    const root = document.documentElement;
-    if (document.currentScript.dataset.motion === "on" && matchMedia("(prefers-reduced-motion: no-preference)").matches) {
-      root.classList.add("motion");
-      // Safety net: if the motion script never loads, show everything.
-      setTimeout(() => window.__fpMotion || root.classList.remove("motion"), 2500);
-    }
-  } catch {}
+<meta property="og:type" content={type} />
+<meta property="og:image" content={ogImage} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+<meta name="theme-color" content="#161a18" />
+<script is:inline>
   try {
     const t = localStorage.getItem("theme");
     if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;

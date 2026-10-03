@@ -19,7 +19,7 @@ for (const app of storeApps) {
       await expect(page.getByText("Operated by Four Paths").first()).toBeVisible();
       await expect(page.locator('a[href^="mailto:privacy@fourpaths.ca"]').first()).toBeVisible();
       await expect(page.getByText("The short version:")).toBeVisible();
-      await expect(page).toHaveTitle(`${app.name} privacy policy · Four Paths`);
+      await expect(page).toHaveTitle(`${app.name} privacy policy — Four Paths`);
     });
 
     test("support and delete-account pages exist", async ({ page }) => {

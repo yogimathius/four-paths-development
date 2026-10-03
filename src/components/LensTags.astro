@@ -1,0 +1,17 @@
+---
+import { lenses, type Lens } from "../lib/studio";
+interface Props { tags: Lens[]; }
+const { tags } = Astro.props;
+---
+<ul class="lens-tags" aria-label="Related paths">
+  {tags.map((tag) => <li class={`lens-${tag}`}><span class="lens-dot" aria-hidden="true"></span>{lenses[tag].verb}</li>)}
+</ul>
+<style>
+  .lens-tags { display: flex; flex-wrap: wrap; gap: .4rem .9rem; list-style: none; padding: 0; margin: 0; }
+  .lens-tags li { display: inline-flex; align-items: center; gap: .38rem; color: var(--ink-muted); font: 600 .7rem/1.3 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+  .lens-dot { display: inline-block; width: .44rem; height: .44rem; border-radius: 50%; background: var(--dot); }
+  .lens-build { --dot: var(--technology); }
+  .lens-create { --dot: var(--creativity); }
+  .lens-question { --dot: var(--philosophy); }
+  .lens-ground { --dot: var(--family); }
+</style>

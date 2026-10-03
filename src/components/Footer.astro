@@ -7,27 +7,28 @@ const year = new Date().getFullYear();
 <footer class="wrap foot">
   <div>
     <Wordmark size={18} />
-    <p class="muted small">An independent app studio in {site.country}.</p>
+    <p class="muted small">Thoughtful software for practice, play, learning and everyday life.</p>
   </div>
   <ul>
-    <li><a href="/apps">Apps</a></li>
-    <li><a href="/journal">Journal</a></li>
-    <li><a href="/press">Press</a></li>
+    <li><a href="/work">Work</a></li>
+    <li><a href="/notes">Notes</a></li>
+    <li><a href="/now">Now</a></li>
     <li><a href="/about">About</a></li>
+    <li><a href="/press">Press</a></li>
     <li><a href="/privacy">Site privacy</a></li>
-    <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+    <li><a href={`mailto:${site.email}`}>Contact</a></li>
   </ul>
-  <p class="muted small legalline">© {year} {site.legalName}</p>
+  <p class="muted small legalline">© {year} {site.name} <span>Four Paths Development · {site.country}</span></p>
 </footer>
 
 <style>
   .foot {
     display: grid;
     gap: 1rem;
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
     border-top: 1px solid var(--line);
-    margin-top: 3rem;
+    margin-top: 5rem;
   }
   @media (min-width: 720px) {
     .foot {
@@ -40,6 +41,7 @@ const year = new Date().getFullYear();
   .small {
     font-size: 0.85rem;
     margin: 0.5rem 0 0;
+    max-width: 36ch;
   }
   ul {
     list-style: none;
@@ -52,6 +54,10 @@ const year = new Date().getFullYear();
   }
   ul a {
     color: var(--ink-soft);
-    font-size: 0.92rem;
+    font-size: 0.84rem;
+    text-decoration: none;
   }
+  .legalline { display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--line); padding-top: 1.2rem; }
+  .legalline span { color: var(--ink-soft); }
+  @media (max-width: 600px) { .legalline { flex-direction: column; } }
 </style>

@@ -1,12 +1,8 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
-import AppIcon from "../components/AppIcon.astro";
-import { listedApps } from "../lib/catalog";
-import { STATUS_LABEL } from "../lib/paths";
+import { work } from "../lib/studio";
 import { site } from "../site.config";
-
-const apps = await listedApps();
 ---
 
 <PageLayout title="Press" description={`Press kit for ${site.name}: boilerplate, wordmark, and app details.`}>
@@ -17,32 +13,31 @@ const apps = await listedApps();
 
     <h2>Boilerplate</h2>
     <blockquote class="glass">
-      {site.name} is an independent app studio in {site.country}{site.founderName ? `, founded by ${site.founderName}` : ""}. It
-      makes calm, private, local-first apps for family, money, practice, and play.
+      {site.name} is an independent product studio in {site.country}{site.founderName ? `, founded by ${site.founderName}` : ""}. It
+      builds thoughtful software for practice, play, learning and everyday life.
     </blockquote>
 
     <h2>Wordmark</h2>
     <div class="marks">
       <a class="glass mark" href="/press/four-paths-wordmark.png" download>
-        <img src="/press/four-paths-wordmark.png" alt="Four Paths wordmark with dark lettering" width="320" height="76" />
+        <img src="/press/four-paths-wordmark.png" alt="Four Paths route-mark wordmark with dark lettering" width="320" height="83" />
         <span>Wordmark, for light backgrounds (PNG)</span>
       </a>
       <a class="glass mark dark" href="/press/four-paths-wordmark-light.png" download>
-        <img src="/press/four-paths-wordmark-light.png" alt="Four Paths wordmark with white lettering" width="320" height="76" />
+        <img src="/press/four-paths-wordmark-light.png" alt="Four Paths route-mark wordmark with warm light lettering" width="320" height="83" />
         <span>Wordmark, for dark backgrounds (PNG)</span>
       </a>
     </div>
 
-    <h2>Apps</h2>
+    <h2>Work</h2>
     <ul class="apps">
       {
-        apps.map((app) => (
+        work.map((project) => (
           <li class="glass">
-            <AppIcon app={app} size={44} />
             <div>
-              <strong><a href={`/apps/${app.id}`}>{app.data.name}</a></strong>
-              <span class="muted"> · {STATUS_LABEL[app.data.status]}</span>
-              <p class="muted">{app.data.tagline}</p>
+              <strong><a href={`/work/${project.slug}`}>{project.name}</a></strong>
+              <span class="muted"> · {project.status}</span>
+              <p class="muted">{project.premise}</p>
             </div>
           </li>
         ))
@@ -108,12 +103,12 @@ const apps = await listedApps();
     font-weight: 600;
   }
   .mark img {
-    border-radius: 10px;
+    border-radius: 2px;
     padding: 0.75rem;
-    background: #fff8f2;
+    background: #f1efe7;
   }
   .mark.dark img {
-    background: #1f1b2e;
+    background: #161a18;
   }
   .apps {
     list-style: none;

@@ -1,0 +1,34 @@
+---
+import { Image } from "astro:assets";
+import PageLayout from "../../layouts/PageLayout.astro";
+import LensTags from "../../components/LensTags.astro";
+import { work, type Work } from "../../lib/studio";
+import { site } from "../../site.config";
+
+export function getStaticPaths() { return work.map((project) => ({ params: { slug: project.slug }, props: { project } })); }
+const { project } = Astro.props as { project: Work };
+const nextProject = work[(work.findIndex((entry) => entry.slug === project.slug) + 1) % work.length];
+const schema = { "@context": "https://schema.org", "@type": "SoftwareApplication", name: project.name, description: project.summary, applicationCategory: "LifestyleApplication", creator: { "@type": "Person", name: site.founderName }, url: new URL(`/work/${project.slug}`, site.url).href };
+---
+<PageLayout title={project.name} description={project.summary} image={`/og/${project.slug}.png`}>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <article class="wrap case-study">
+    <header class="case-head"><div class="head-meta"><a href="/work" class="text-link">← All work</a><span class="overline">{project.status} / Updated {new Date(project.updated + "T00:00:00").toLocaleDateString("en-CA", { year: "numeric", month: "long" })}</span></div><h1>{project.name}<span>.</span></h1><p class="case-premise">{project.premise}</p><p class="lede">{project.summary}</p><LensTags tags={project.lenses} /></header>
+    <div class="case-art">{project.image ? <Image src={project.image} alt={project.imageAlt!} width={900} loading="eager" /> : <div class="case-diagram" aria-label="Abstract intersecting route diagram"><i></i><i></i><i></i></div>}<span class="overline">{project.name} / {project.status}</span></div>
+    <div class="case-layout"><aside class="case-side"><span class="overline">Project record</span><dl><dt>State</dt><dd>{project.status}</dd><dt>Last updated</dt><dd><time datetime={project.updated}>{new Date(project.updated + "T00:00:00").toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric" })}</time></dd><dt>Paths</dt><dd><LensTags tags={project.lenses} /></dd></dl><a href={`/apps/${project.slug}`} class="text-link">App details & support ↗</a></aside><div class="case-body">
+      <section><span class="section-number">01 / ORIGIN</span><h2>Why it exists</h2>{project.why.map((p) => <p>{p}</p>)}</section>
+      <section><span class="section-number">02 / STRUCTURE</span><h2>The idea</h2>{project.idea.map((p) => <p>{p}</p>)}</section>
+      <section><span class="section-number">03 / USE</span><h2>Experience</h2>{project.experience.map((p) => <p>{p}</p>)}</section>
+      <section><span class="section-number">04 / CRAFT</span><h2>What I built</h2>{project.built.map((p) => <p>{p}</p>)}</section>
+      <section><span class="section-number">05 / CHANGE</span><h2>How it evolved</h2><ol class="evolution">{project.evolution.map((step) => <li><time>{step.date}</time><p>{step.text}</p></li>)}</ol></section>
+      <section><span class="section-number">06 / PRESENT</span><h2>Current state</h2><p>{project.next}</p><div class="case-links"><a class="button-link secondary" href={`/apps/${project.slug}`}>App details & support ↗</a>{project.relatedNote && <a class="text-link" href={project.relatedNote.href}>Related note: {project.relatedNote.title} →</a>}</div></section>
+    </div></div>
+    <nav class="case-next" aria-label="Continue exploring"><div><span class="overline">Continue exploring</span><a href={`/work/${nextProject.slug}`}>{nextProject.name} <span aria-hidden="true">→</span></a></div><a class="text-link" href="/notes">Read the notes</a></nav>
+  </article>
+</PageLayout>
+<style>
+  .case-head{padding:3.5rem 0 4rem}.head-meta{display:flex;justify-content:space-between;gap:2rem;margin-bottom:2rem}.case-head h1{font-size:clamp(4rem,9vw,8rem);margin:0}.case-head h1 span{color:var(--family)}.case-premise{font:400 clamp(1.7rem,3vw,2.8rem)/1.18 var(--display);margin:.3rem 0 1.4rem}.case-head .lens-tags{margin-top:2rem}.case-art{height:min(65vw,650px);min-height:330px;display:grid;place-items:center;position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line)}.case-art img{max-height:100%;width:auto;object-fit:contain;padding:1.5rem}.case-art>.overline{position:absolute;bottom:1.5rem;left:1.5rem}.case-diagram{display:flex;gap:3rem;transform:rotate(-25deg)}.case-diagram i{display:block;width:2px;height:200px;background:var(--technology)}.case-diagram i:nth-child(2){height:310px;background:var(--family)}.case-diagram i:nth-child(3){height:140px;background:var(--creativity)}.case-layout{display:grid;grid-template-columns:240px minmax(0,700px);justify-content:space-between;gap:5rem;padding:6rem 0}.case-side{align-self:start;position:sticky;top:2rem;border-top:1px solid var(--line);padding-top:1.2rem}.case-side dl{display:grid;gap:.8rem;margin:2rem 0}.case-side dt{font:.7rem var(--mono);color:var(--ink-muted);text-transform:uppercase}.case-side dd{margin:0;color:var(--ink-soft)}.case-body section{padding:0 0 3.5rem;margin-bottom:3.5rem;border-bottom:1px solid var(--line)}.case-body h2{font-size:clamp(2.1rem,3.2vw,3rem);margin:.55rem 0 1.1rem}.case-body p{color:var(--ink-soft);font-size:1.04rem;max-width:65ch}.section-number{font:.7rem var(--mono);letter-spacing:.1em;color:var(--ink-muted)}.evolution{list-style:none;padding:0;margin:2rem 0 0}.evolution li{display:grid;grid-template-columns:120px 1fr;gap:1.5rem;border-top:1px solid var(--line);padding:1.1rem 0}.evolution time{font:.75rem var(--mono);color:var(--ink-muted)}.evolution p{margin:0}.case-links{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}.case-next{border-top:1px solid var(--line);padding:2rem 0 4rem;display:flex;justify-content:space-between;align-items:end;gap:2rem}.case-next div>a{display:block;font:400 clamp(2rem,4vw,3.5rem) var(--display);color:var(--ink);text-decoration:none}
+  @media(max-width:800px){.case-layout{grid-template-columns:1fr;gap:3rem;padding:4rem 0}.case-side{position:static}.case-side dl{grid-template-columns:repeat(3,1fr);gap:.5rem}.case-side dt{grid-row:1}.case-side dd{grid-row:2}.case-art{height:440px}.case-next{align-items:start;flex-direction:column}}
+  @media(max-width:600px){.head-meta{align-items:start;flex-direction:column;gap:.8rem}.case-head{padding:2.5rem 0 3rem}.case-head h1{font-size:4rem}.case-art{height:340px}.case-body section{padding-bottom:2.5rem;margin-bottom:2.5rem}.evolution li{grid-template-columns:1fr;gap:.3rem}.case-side dl{grid-template-columns:1fr 1fr}.case-side dt,.case-side dd{grid-row:auto}.case-side dd{grid-column:2}}
+  .case-art img{height:100%;max-height:100%;max-width:100%;width:auto;object-fit:contain}
+</style>

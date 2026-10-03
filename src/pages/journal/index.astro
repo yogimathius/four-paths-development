@@ -11,7 +11,7 @@ const { apps } = await loadCatalog();
 const appFor = (slug?: string) => apps.find((a) => a.id === slug);
 ---
 
-<PageLayout title="Journal" description="Notes from the Four Paths studio: app introductions, launches, and what we're learning.">
+<PageLayout title="Journal archive" description="Archived app introductions and early studio writing from Four Paths. Current writing is in Notes.">
   <div class="wrap page">
     <PageHeader eyebrow="Journal" title="Notes from the studio" lede="App introductions, launches, and what we're learning along the way." />
     <div class="split">
@@ -38,9 +38,10 @@ const appFor = (slug?: string) => apps.find((a) => a.id === slug);
       </ul>
       <aside class="rail">
         <div class="glass panel">
-          <h2>Follow along</h2>
-          <p>New posts appear here when an app launches or changes in a way worth explaining.</p>
-          <p><a href="/rss.xml">Subscribe with RSS</a></p>
+          <h2>Current writing</h2>
+          <p>This Journal is an archive. New writing appears in <a href="/notes">Current Notes</a>.</p>
+          <p>RSS includes new Notes, not this archive.</p>
+          <p><a href="/rss.xml">Subscribe to Notes with RSS</a></p>
         </div>
         <div class="glass panel">
           <h2>Say hello</h2>

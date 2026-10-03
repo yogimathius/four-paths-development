@@ -62,4 +62,15 @@ const journal = defineCollection({
   }),
 });
 
-export const collections = { apps, legal, journal };
+const notes = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./src/content/notes" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+    lenses: z.array(z.enum(["build", "create", "question", "ground"])),
+    project: z.string().optional(),
+  }),
+});
+
+export const collections = { apps, legal, journal, notes };

@@ -1,14 +1,14 @@
-<button class="toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
-  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+<button class="toggle" type="button" data-theme-toggle aria-label="Switch to light theme" title="Switch theme">
+  <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg>
 </button>
 
 <style>
   .toggle {
     display: inline-grid;
     place-items: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: 999px;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 2px;
     border: 1px solid var(--line);
     background: transparent;
     color: var(--ink);
@@ -18,12 +18,14 @@
 
 <script>
   const root = document.documentElement;
-  const current = () =>
-    root.dataset.theme ?? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  const current = () => root.dataset.theme === "light" ? "light" : "dark";
   document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((btn) => {
+    const label = () => btn.setAttribute("aria-label", current() === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    label();
     btn.addEventListener("click", () => {
       const next = current() === "dark" ? "light" : "dark";
       root.dataset.theme = next;
+      label();
       try {
         localStorage.setItem("theme", next);
       } catch {}

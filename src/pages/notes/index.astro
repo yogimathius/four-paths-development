@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "../../layouts/PageLayout.astro";
+import LensTags from "../../components/LensTags.astro";
+const notes = (await getCollection("notes")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<PageLayout title="Notes" description="Working ideas on software, practice, agency, families and the making of Four Paths projects.">
+  <div class="wrap page">
+    <header class="page-head"><span class="overline">Notes / Open notebook</span><h1>Notes from<br /><em>the work.</em></h1><p class="lede">Short essays, product decisions and technical observations. Some ideas are still moving.</p></header>
+    <div class="notes-list">{notes.map((note, i) => <article class="note"><span class="note-number">{String(i + 1).padStart(2, "0")}</span><div><time datetime={note.data.date.toISOString()}>{note.data.date.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}</time><h2><a href={`/notes/${note.id}`}>{note.data.title} ↗</a></h2><p>{note.data.description}</p><LensTags tags={note.data.lenses} /></div></article>)}</div>
+    <div class="ending"><p>These are working notes, not a publication schedule.</p><a class="text-link" href="/work">Explore the work →</a></div>
+  </div>
+</PageLayout>
+<style>
+  .page-head{padding-bottom:4rem}.page-head h1{margin:.7rem 0 1.2rem}.page-head h1 em{font-weight:400;color:var(--ink-soft)}.notes-list{border-top:1px solid var(--line)}.note{display:grid;grid-template-columns:120px 1fr;gap:2rem;padding:2.6rem 0;border-bottom:1px solid var(--line)}.note-number{font:.75rem var(--mono);color:var(--ink-muted)}.note time{font:.72rem var(--mono);color:var(--ink-muted);text-transform:uppercase;letter-spacing:.07em}.note h2{font-size:clamp(2rem,4vw,3.3rem);margin:.5rem 0}.note h2 a{color:var(--ink);text-decoration:none}.note p{color:var(--ink-soft);max-width:60ch}.note .lens-tags{margin-top:1.3rem}.ending{display:flex;justify-content:space-between;gap:2rem;padding:4rem 0}.ending p{color:var(--ink-soft)}@media(max-width:600px){.note{grid-template-columns:1fr;gap:.5rem}.ending{display:block}}
+</style>

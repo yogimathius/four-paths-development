@@ -3,9 +3,9 @@ import Wordmark from "./Wordmark.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 
 const links = [
-  { href: "/apps", label: "Apps" },
-  { href: "/journal", label: "Journal" },
-  { href: "/press", label: "Press" },
+  { href: "/work", label: "Work" },
+  { href: "/notes", label: "Notes" },
+  { href: "/now", label: "Now" },
   { href: "/about", label: "About" },
 ];
 const here = Astro.url.pathname;
@@ -25,6 +25,7 @@ const here = Astro.url.pathname;
         ))
       }
     </ul>
+    <a class="contact" href="mailto:hello@fourpaths.ca">Contact</a>
     <ThemeToggle />
   </nav>
 </header>
@@ -35,9 +36,10 @@ const here = Astro.url.pathname;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding-top: 1.1rem;
-    padding-bottom: 1.1rem;
+    padding-top: 1.3rem;
+    padding-bottom: 1.3rem;
     flex-wrap: wrap;
+    border-bottom: 1px solid var(--line);
   }
   .home {
     text-decoration: none;
@@ -45,11 +47,11 @@ const here = Astro.url.pathname;
   nav {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: clamp(.5rem, 1.6vw, 1.5rem);
   }
   ul {
     display: flex;
-    gap: 0.25rem;
+    gap: clamp(.35rem, 1.2vw, 1.4rem);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -57,16 +59,23 @@ const here = Astro.url.pathname;
   }
   ul a {
     display: block;
-    padding: 0.4rem 0.6rem;
-    border-radius: 999px;
+    padding: .2rem 0;
     color: var(--ink-soft);
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: .85rem;
   }
   ul a:hover,
   ul a[aria-current="page"] {
     color: var(--ink);
-    background: var(--chip);
+    box-shadow: 0 1px 0 var(--ink);
+  }
+  .contact { color: var(--ink); font-size: .85rem; text-decoration: none; border-bottom: 1px solid var(--line); }
+  .contact:hover { border-color: var(--ink); }
+  @media (max-width: 620px) {
+    .nav { gap: .9rem; }
+    nav { width: 100%; justify-content: space-between; }
+    ul { gap: .75rem; }
+    .contact { display: none; }
   }
 </style>

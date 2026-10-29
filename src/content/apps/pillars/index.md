@@ -1,5 +1,5 @@
 ---
-name: Pillars
+name: Sadhana
 tagline: A progressive journey through yoga, guided one stage at a time.
 path: philosophy
 status: testing
@@ -18,12 +18,12 @@ highlights:
 glance:
   - An account keeps your progress in sync; you can delete it at any time.
   - Analytics are limited to fixed choices and counts, never your journal or notes.
-  - Payments are handled by Google Play; Pillars never sees card details.
+  - Payments are handled by Google Play; Sadhana never sees card details.
   - General wellness education, not medical advice.
 ---
 
-Pillars is a guided yoga practice app. Its first pillar, **Sādhana**, is a progressive journey through Hatha yoga: begin with movement, breath, and awareness, then deepen your practice and understanding at your own pace.
+Sadhana is a progressive, guided Hatha yoga app: begin with movement, breath, and awareness, then deepen your practice and understanding at your own pace.
 
 Sessions are spoken, so your phone can rest on the mat while you move. Stages are the landmarks of the journey; practices within a stage are positions, not deadlines.
 
-Practice safely, work within your own limits, and skip anything that doesn't feel right for your body.
+**Sadhana is currently in Android open testing.** [Join the open test on Google Play](https://play.google.com/store/apps/details?id=com.pillars.mobile) and share feedback to help improve the experience. A seven-day free trial is available, followed by a subscription.\n\nPractice safely, work within your own limits, and skip anything that doesn't feel right for your body.

@@ -37,18 +37,18 @@ export interface Work {
 export const work: Work[] = [
   {
     slug: "pillars",
-    name: "Pillars",
+    name: "Sadhana",
     premise: "A yoga practice that grows with you.",
     summary: "A structured Hatha yoga curriculum with spoken guidance and a path that advances through practice rather than a calendar.",
     status: "Early access",
-    updated: "2026-10-02",
+    updated: "2026-10-28",
     lenses: ["build", "question", "ground"],
     image: pillarsPose,
-    imageAlt: "A standing pose illustration used in the Pillars practice curriculum",
+    imageAlt: "A standing pose illustration used in the Sadhana practice curriculum",
     imageKind: "portrait",
     why: [
-      "A guided practice is hard to follow when it asks you to keep looking at a phone. Pillars began with a practical question: could a curriculum give someone enough structure to continue, while allowing the screen to recede during the session?",
-      "The broader idea was once a platform for five disciplines. Actual release work clarified the first useful slice: Sādhana, a Hatha yoga path that can stand on its own.",
+      "A guided practice is hard to follow when it asks you to keep looking at a phone. The app began with a practical question: could a curriculum give someone enough structure to continue, while allowing the screen to recede during the session?",
+      "The broader idea was once a platform for five disciplines. Release work narrowed it to Sadhana, a Hatha yoga path that can stand on its own.",
     ],
     idea: [
       "The curriculum is organized into named stages. A short experience check suggests a place to begin, and practices within a stage describe position rather than a weekly deadline. Progress remembers where you left off without treating a gap as failure.",
@@ -66,7 +66,7 @@ export const work: Work[] = [
       { date: "September 2026", text: "Week based language gave way to named stages and a self paced journey." },
       { date: "October 2026", text: "Narration and pose presentation continued to improve through testing." },
     ],
-    next: "Sādhana is in Android closed testing. I am refining the journey, practice media and release experience from real device feedback.",
+    next: "Sadhana is in Android open testing. I am refining the journey, practice media and release experience with feedback from early practitioners.",
     relatedNote: { href: "/notes/from-platform-to-practice", title: "From platform to practice" },
   },
   {

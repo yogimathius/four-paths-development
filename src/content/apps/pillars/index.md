@@ -26,4 +26,6 @@ Sadhana is a progressive, guided Hatha yoga app: begin with movement, breath, an
 
 Sessions are spoken, so your phone can rest on the mat while you move. Stages are the landmarks of the journey; practices within a stage are positions, not deadlines.
 
-**Sadhana is currently in Android open testing.** [Join the open test on Google Play](https://play.google.com/store/apps/details?id=com.pillars.mobile) and share feedback to help improve the experience. A seven-day free trial is available, followed by a subscription.\n\nPractice safely, work within your own limits, and skip anything that doesn't feel right for your body.
+**Sadhana is currently in Android open testing.** [Join the open test on Google Play](https://play.google.com/store/apps/details?id=com.pillars.mobile) and share feedback to help improve the experience. A seven-day free trial is available, followed by a subscription.
+
+Practice safely, work within your own limits, and skip anything that doesn't feel right for your body.

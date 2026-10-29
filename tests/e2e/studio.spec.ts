@@ -3,7 +3,9 @@ import { expect, test } from "@playwright/test";
 test("home introduces the studio through real work before the four lenses", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Thoughtful software");
-  await expect(page.getByRole("link", { name: /Explore Pillars/ })).toHaveAttribute("href", "/work/pillars");
+  await expect(page.getByRole("link", { name: /Explore Sadhana/ })).toHaveAttribute("href", "/work/pillars");
+  await expect(page.getByRole("link", { name: "Join the Android open test" })).toHaveAttribute("href", "https://play.google.com/apps/testing/com.pillars.mobile");
+  await expect(page.getByRole("img", { name: "Sadhana portal artwork" })).toBeVisible();
   const positions = await page.evaluate(() => ({
     work: document.querySelector("#featured-work")?.getBoundingClientRect().top,
     paths: document.querySelector("#four-paths")?.getBoundingClientRect().top,
@@ -13,11 +15,13 @@ test("home introduces the studio through real work before the four lenses", asyn
 
 test("work index and case study show project state and evolution", async ({ page }) => {
   await page.goto("/work");
-  await page.getByRole("link", { name: /Pillars/ }).first().click();
+  await page.getByRole("link", { name: /Sadhana/ }).first().click();
   await expect(page).toHaveURL(/\/work\/pillars$/);
   await expect(page.getByRole("heading", { name: "Why it exists" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "How it evolved" })).toBeVisible();
   await expect(page.getByText("Early access", { exact: true }).first()).toBeVisible();
+  await expect(page.getByRole("img", { name: "Sadhana portal artwork" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Join the Android open test" })).toHaveAttribute("href", "https://play.google.com/apps/testing/com.pillars.mobile");
 });
 
 test("notes have individual articles and RSS entries", async ({ page, request }) => {

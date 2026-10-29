@@ -1,5 +1,5 @@
 import type { ImageMetadata } from "astro";
-import pillarsPose from "../assets/work/pillars-pose.png";
+import sadhanaPortal from "../assets/work/sadhana-portal.png";
 import choreBoard from "../assets/apps/chore-credits/01-family-board.png";
 import forgeExercise from "../assets/apps/forge-5x5/02-exercise.png";
 import lifeAtlasIcon from "../assets/apps/life-atlas/icon.png";
@@ -25,6 +25,7 @@ export interface Work {
   image?: ImageMetadata;
   imageAlt?: string;
   imageKind?: "portrait" | "icon";
+  testUrl?: string;
   why: string[];
   idea: string[];
   experience: string[];
@@ -43,9 +44,10 @@ export const work: Work[] = [
     status: "Early access",
     updated: "2026-10-28",
     lenses: ["build", "question", "ground"],
-    image: pillarsPose,
-    imageAlt: "A standing pose illustration used in the Sadhana practice curriculum",
-    imageKind: "portrait",
+    image: sadhanaPortal,
+    imageAlt: "Sadhana portal artwork",
+    imageKind: "icon",
+    testUrl: "https://play.google.com/apps/testing/com.pillars.mobile",
     why: [
       "A guided practice is hard to follow when it asks you to keep looking at a phone. The app began with a practical question: could a curriculum give someone enough structure to continue, while allowing the screen to recede during the session?",
       "The broader idea was once a platform for five disciplines. Release work narrowed it to Sadhana, a Hatha yoga path that can stand on its own.",

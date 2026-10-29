@@ -20,7 +20,7 @@ test("journal lists studio posts first, then app intros in gallery order", async
   expect(titles.slice(0, 2)).toEqual(["Welcome to Four Paths", "Why Four Paths"]);
   expect(titles.slice(2).map((t) => t.split(":")[0])).toEqual([
     "Introducing Chore Credits",
-    "Introducing Pillars",
+    "Introducing Sadhana",
     "Introducing Life Atlas",
     "Introducing Forge 5x5",
     "Introducing ClearLedger",

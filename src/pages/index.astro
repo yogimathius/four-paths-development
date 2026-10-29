@@ -25,15 +25,15 @@ const notes = (await getCollection("notes")).sort((a, b) => b.data.date.valueOf(
     <div class="wrap feature-grid">
       <div class="feature-copy">
         <span class="status"><span aria-hidden="true"></span>{featuredWork.status}</span>
-        <h2 id="featured-title">Pillars<span class="period">.</span></h2>
+        <h2 id="featured-title">Sadhana<span class="period">.</span></h2>
         <p class="feature-premise">A yoga practice that grows with you.</p>
         <p class="feature-detail">A structured Hatha yoga curriculum with spoken guidance, progression, and sessions designed to let the phone rest beside the mat.</p>
         <LensTags tags={featuredWork.lenses} />
-        <a class="text-link" href="/work/pillars">Explore Pillars →</a>
+        <a class="text-link" href="/work/pillars">Explore Sadhana →</a>
       </div>
-      <a class="feature-art" href="/work/pillars" aria-label="Pillars project image">
+      <a class="feature-art" href="/work/pillars" aria-label="Sadhana project image">
         {featuredWork.image && <Image src={featuredWork.image} alt={featuredWork.imageAlt!} width={660} loading="eager" />}
-        <span class="art-caption">PILLARS / PRACTICE 01</span>
+        <span class="art-caption">SADHANA / PRACTICE 01</span>
       </a>
     </div>
   </section>
@@ -65,8 +65,8 @@ const notes = (await getCollection("notes")).sort((a, b) => b.data.date.valueOf(
     <div class="note-list">{notes.map((note) => <article class="note-row"><time datetime={note.data.date.toISOString()}>{note.data.date.toLocaleDateString("en-CA", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" })}</time><div><h3><a href={`/notes/${note.id}`}>{note.data.title} ↗</a></h3><p>{note.data.description}</p></div><LensTags tags={note.data.lenses} /></article>)}</div>
   </section>
 
-  <section class="wrap now-home" aria-labelledby="now-title"><div><span class="overline">October 2026 / Current position</span><h2 id="now-title">Now.</h2></div><p>Refining Pillars in closed testing, learning from real device use, and exploring tools that ask for less attention rather than more.</p><a class="text-link" href="/now">See what I’m working on →</a></section>
-  <section class="wrap closing"><p>There is more to make, and more to learn from what is already here.</p><a href="mailto:hello@fourpaths.ca">Start a conversation ↗</a></section>
+  <section class="wrap now-home" aria-labelledby="now-title"><div><span class="overline">October 2026 / Current position</span><h2 id="now-title">Now.</h2></div><p>Refining Sadhana in Android open testing, learning from real device use, and exploring tools that ask for less attention rather than more.</p><a class="text-link" href="/now">See what I’m working on →</a></section>
+  <section class="wrap closing"><p>There is more to make, and more to learn from what is already here.</p><a href="mailto:info@fourpaths.ca">Start a conversation ↗</a></section>
 </PageLayout>
 
 <style>

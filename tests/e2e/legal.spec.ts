@@ -65,9 +65,11 @@ test("a coming-soon app has an app page but no legal pages yet", async ({ page }
   expect(res?.status()).toBe(404);
 });
 
-test("no page mentions the personal domain", async ({ page }) => {
-  for (const url of ["/", "/about", "/press", "/apps/pillars/privacy", "/apps/life-atlas/privacy"]) {
+test("no page names the founder or links the personal domain", async ({ page }) => {
+  for (const url of ["/", "/about", "/press", "/notes/from-platform-to-practice", "/work/pillars", "/apps/pillars/privacy", "/apps/life-atlas/privacy"]) {
     await page.goto(url);
-    expect(await page.content(), url).not.toContain("yogimathius");
+    const html = await page.content();
+    expect(html, url).not.toContain("yogimathius");
+    expect(html, url).not.toContain("Mathius Johnson");
   }
 });

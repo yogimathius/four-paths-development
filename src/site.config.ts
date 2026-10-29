@@ -7,8 +7,8 @@ export const site = {
   /** Set to null to remove the founder line everywhere. */
   founderName: "Mathius Johnson" as string | null,
   country: "Canada",
-  email: "hello@fourpaths.ca",
-  privacyEmail: "privacy@fourpaths.ca",
+  email: "info@fourpaths.ca",
+  privacyEmail: "info@fourpaths.ca",
   url: "https://fourpaths.ca",
   tagline: "Independent Product Studio",
   description:

@@ -4,21 +4,21 @@ import RouteMark from "../components/RouteMark.astro";
 import { lenses } from "../lib/studio";
 import { site } from "../site.config";
 ---
-<PageLayout title="About" description="Meet Mathius Johnson and the independent practice behind Four Paths.">
+<PageLayout title="About" description="The ideas and approach behind Four Paths, an independent product studio.">
   <div class="wrap about-page">
-    <header class="about-head"><span class="overline">About / The person behind the work</span><h1>More than<br /><em>one kind of work.</em></h1><p class="lede">Four Paths is the independent studio behind the things I build outside the boundaries of a single job title.</p></header>
-    <div class="about-layout"><aside class="side"><RouteMark size={150} /><p class="overline">Mathius Johnson<br />Canada</p></aside><div class="body">
-      <p class="opening">I’m Mathius Johnson. I build software, but the questions that bring me to a project often come from somewhere else: practice, family life, games, making things, and wondering how a tool changes the person using it.</p>
+    <header class="about-head"><span class="overline">About / The thinking behind the work</span><h1>More than<br /><em>one kind of work.</em></h1><p class="lede">Four Paths brings software, creativity, philosophy and everyday life together without forcing them into one category.</p></header>
+    <div class="about-layout"><aside class="side"><RouteMark size={150} /><p class="overline">Independent studio<br />Canada</p></aside><div class="body">
+      <p class="opening">Software is only one part of the work. Questions about practice, family life, games and attention often shape what is worth building in the first place.</p>
       <p>Four Paths gives those inquiries a shared home. It is a product studio, not a consultancy disguised as one. The projects are different because the parts of life they touch are different. What connects them is a preference for specific problems, honest constraints and tools people can put down when the real activity begins.</p>
       <h2>Why four paths?</h2>
-      <p>Build, Create, Question and Ground are lenses rather than departments. I use them to notice where a project gets its energy and where it needs to be challenged. An engineering choice may change how much agency someone has. A playful mechanic may make a hard routine easier to begin. A household can expose an assumption that looked perfectly reasonable at a desk.</p>
+      <p>Build, Create, Question and Ground are lenses rather than departments. They help reveal where a project gets its energy and where an idea needs to be challenged. An engineering choice may change how much agency someone has. A playful mechanic may make a hard routine easier to begin. A household can expose an assumption that looked perfectly reasonable at a desk.</p>
       <div class="lens-list">{Object.entries(lenses).map(([key, lens]) => <div class={`lens lens-${key}`}><span class="overline">{lens.verb}</span><h3>{lens.name}</h3><p>{lens.description}</p></div>)}</div>
-      <h2>How I work</h2>
-      <p>I work across product design, mobile interfaces, domain models, APIs and release details. Pillars asks how a screen can support a physical practice without becoming its centre. Chore Credits asks how an app can make a family agreement more visible and fair. Life Atlas asks what progress looks like when a task list is too small a frame.</p>
-      <p>The technical work matters. So does changing my mind when a model proves too rigid, a flow asks too much attention, or a better question appears during testing. The <a href="/notes">notes</a> record some of those changes; the <a href="/work">project pages</a> show where they landed.</p>
+      <h2>How the work takes shape</h2>
+      <p>The studio’s work spans product design, mobile interfaces, domain models, APIs and release details. Pillars asks how a screen can support a physical practice without becoming its centre. Chore Credits asks how an app can make a family agreement more visible and fair. Life Atlas asks what progress looks like when a task list is too small a frame.</p>
+      <p>The technical work matters. So does revising an approach when a model proves too rigid, a flow asks too much attention, or a better question appears during testing. The <a href="/notes">notes</a> record some of those changes; the <a href="/work">project pages</a> show where they landed.</p>
       <h2>Say hello</h2>
-      <p>If a project here connects with something you are making or thinking about, I’d like to hear from you.</p>
-      <p><a class="button-link" href={`mailto:${site.email}`}>Email Mathius ↗</a></p>
+      <p>If a project here connects with something you are making or thinking about, reach out.</p>
+      <p><a class="button-link" href={`mailto:${site.email}`}>Email Four Paths ↗</a></p>
     </div></div>
   </div>
 </PageLayout>

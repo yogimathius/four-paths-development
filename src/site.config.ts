@@ -5,7 +5,7 @@ export const site = {
   /** Must match the developer name shown in Play Console / App Store Connect. */
   legalName: "Four Paths",
   /** Set to null to remove the founder line everywhere. */
-  founderName: "Mathius Johnson" as string | null,
+  founderName: null as string | null,
   country: "Canada",
   email: "hello@fourpaths.ca",
   privacyEmail: "privacy@fourpaths.ca",

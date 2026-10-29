@@ -60,10 +60,10 @@ test("app pages show their path's yoga and aim", async ({ page }) => {
   await expect(page.getByText("(Karma · Artha)")).toBeVisible();
 });
 
-test("About explains the overlapping practice in first person", async ({ page }) => {
+test("About explains the overlapping studio practice", async ({ page }) => {
   await page.goto("/about");
   const text = await page.locator("main").innerText();
-  for (const phrase of ["I’m Mathius Johnson", "Build, Create, Question and Ground", "Pillars asks"]) {
+  for (const phrase of ["Software is only one part of the work", "Build, Create, Question and Ground", "Pillars asks"]) {
     expect(text).toContain(phrase);
   }
 });

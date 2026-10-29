@@ -9,12 +9,12 @@ export async function getStaticPaths() { return (await getCollection("notes")).m
 const { note } = Astro.props as { note: CollectionEntry<"notes"> };
 const { Content } = await render(note);
 const project = note.data.project ? workBySlug(note.data.project) : undefined;
-const schema = { "@context": "https://schema.org", "@type": "Article", headline: note.data.title, description: note.data.description, datePublished: note.data.date.toISOString(), author: { "@type": "Person", name: site.founderName }, publisher: { "@type": "Organization", name: site.name }, mainEntityOfPage: new URL(`/notes/${note.id}`, site.url).href };
+const schema = { "@context": "https://schema.org", "@type": "Article", headline: note.data.title, description: note.data.description, datePublished: note.data.date.toISOString(), author: { "@type": "Organization", name: site.name }, publisher: { "@type": "Organization", name: site.name }, mainEntityOfPage: new URL(`/notes/${note.id}`, site.url).href };
 ---
 <PageLayout title={note.data.title} description={note.data.description} type="article">
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   <article class="wrap article">
-    <header class="article-head"><a class="text-link" href="/notes">← All notes</a><div class="meta"><time datetime={note.data.date.toISOString()}>{note.data.date.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}</time><span>By Mathius Johnson</span></div><h1>{note.data.title}</h1><p class="lede">{note.data.description}</p><LensTags tags={note.data.lenses} /></header>
+    <header class="article-head"><a class="text-link" href="/notes">← All notes</a><div class="meta"><time datetime={note.data.date.toISOString()}>{note.data.date.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}</time><span>By Four Paths</span></div><h1>{note.data.title}</h1><p class="lede">{note.data.description}</p><LensTags tags={note.data.lenses} /></header>
     <div class="article-layout"><aside><span class="overline">From the studio</span><p>Ideas are tested in the work, not just on this page.</p></aside><div class="prose"><Content /></div></div>
     <footer class="article-footer"><div><span class="overline">Go deeper</span>{project ? <a href={`/work/${project.slug}`}>Explore {project.name} →</a> : <a href="/work">Explore the work →</a>}</div><a class="text-link" href="/notes">More notes</a></footer>
   </article>

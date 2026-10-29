@@ -1,5 +1,5 @@
 // Verifies every internal href/src in dist/ resolves to a built file, and that
-// no unfilled {{token}} or old yogimathius.dev contact leaked into the output.
+// no unfilled {{token}} or personal attribution leaked into the output.
 import { readdirSync, readFileSync, existsSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
@@ -30,6 +30,7 @@ for (const file of files.filter((f) => f.endsWith(".html") || f.endsWith(".xml")
   }
   if (/\{\{\s*\w+\s*\}\}/.test(html)) problems.push(`${rel}: unfilled {{token}}`);
   if (html.includes("yogimathius")) problems.push(`${rel}: mentions yogimathius`);
+  if (html.includes("Mathius Johnson")) problems.push(`${rel}: names the founder`);
 }
 
 if (problems.length) {

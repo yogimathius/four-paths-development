@@ -32,6 +32,13 @@ for (const app of storeApps) {
   });
 }
 
+test("Sadhana privacy policy uses the current product name at its legacy URL", async ({ page }) => {
+  await page.goto("/apps/pillars/privacy");
+  const policy = await page.locator("article").innerText();
+  expect(policy).toContain("Sadhana");
+  expect(policy).not.toContain("Pillars");
+});
+
 test("Chore Credits policy says birth month and year, never birthdate", async ({ page }) => {
   await page.goto("/apps/chore-credits/privacy");
   const text = await page.locator("article").innerText();

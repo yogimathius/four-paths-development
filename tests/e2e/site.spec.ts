@@ -11,7 +11,7 @@ test("work index links to the existing support pages", async ({ page }) => {
 test("About names the builder and offers contact", async ({ page }) => {
   await page.goto("/about");
   await expect(page.getByText("I’m Mathius Johnson.", { exact: false })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Email Mathius/ })).toHaveAttribute("href", "mailto:hello@fourpaths.ca");
+  await expect(page.getByRole("link", { name: /Email Mathius/ })).toHaveAttribute("href", "mailto:info@fourpaths.ca");
 });
 
 test("unknown URLs get the branded 404", async ({ page }) => {

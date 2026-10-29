@@ -31,8 +31,9 @@ const apps = defineCollection({
       /** Plain-language privacy facts for the "at a glance" panel. */
       glance: z.array(z.string()).default([]),
       audience: z.string().optional(),
-      /** Show the "help us test" invitation while the app is in closed testing. */
+      /** Show an invitation while the app is recruiting testers. */
       recruitingTesters: z.boolean().default(false),
+      openTestUrl: z.url().optional(),
     }),
 });
 

@@ -20,21 +20,26 @@ test("journal lists studio posts first, then app intros in gallery order", async
   expect(titles.slice(0, 2)).toEqual(["Welcome to Four Paths", "Why Four Paths"]);
   expect(titles.slice(2).map((t) => t.split(":")[0])).toEqual([
     "Introducing Chore Credits",
-    "Introducing Pillars",
+    "Introducing Sadhana",
     "Introducing Life Atlas",
     "Introducing Forge 5x5",
     "Introducing ClearLedger",
   ]);
 });
 
-test("tester invites appear only for apps recruiting testers", async ({ page }) => {
+test("Sadhana open-test invite leads to Play opt-in while unrelated apps do not invite testers", async ({ page }) => {
   await page.goto("/apps/pillars");
-  await expect(page.getByRole("link", { name: "Ask to join the test" })).toHaveAttribute(
-    "href",
-    /^mailto:hello@fourpaths\.ca\?subject=I%E2%80%99d%20like%20to%20test%20Pillars/,
+  await expect(page.locator("header.app-head").getByRole("link", { name: "Join the Android open test" })).toHaveAttribute(
+    "href", "https://play.google.com/apps/testing/com.pillars.mobile",
+  );
+  const invite = page.locator("#test");
+  await expect(invite).toContainText("Android open testing");
+  await expect(invite).not.toContainText("closed testing");
+  await expect(invite.getByRole("link", { name: "Join the Android open test" })).toHaveAttribute(
+    "href", "https://play.google.com/apps/testing/com.pillars.mobile",
   );
   await page.goto("/apps/clearledger");
-  await expect(page.getByRole("link", { name: "Ask to join the test" })).toHaveCount(0);
+  await expect(page.locator("#test")).toHaveCount(0);
 });
 
 test("legal pages offer an on-this-page index that jumps to sections", async ({ page }) => {
@@ -63,7 +68,7 @@ test("app pages show their path's yoga and aim", async ({ page }) => {
 test("About explains the overlapping practice in first person", async ({ page }) => {
   await page.goto("/about");
   const text = await page.locator("main").innerText();
-  for (const phrase of ["I’m Mathius Johnson", "Build, Create, Question and Ground", "Pillars asks"]) {
+  for (const phrase of ["I’m Mathius Johnson", "Build, Create, Question and Ground", "Sadhana asks"]) {
     expect(text).toContain(phrase);
   }
 });

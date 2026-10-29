@@ -1,16 +1,16 @@
 ---
 title: Privacy policy
-lastUpdated: 2026-10-02
-summary: Pillars stores your account and practice progress on its service so you can pick up where you left off. Payments are handled by Apple or Google. Analytics are limited, never include what you write, and are deleted with your account.
+lastUpdated: 2026-10-29
+summary: Sadhana stores your account and practice progress on its service so you can pick up where you left off. Payments are handled by Apple or Google. Analytics are limited, never include what you write, and are deleted with your account.
 ---
 
 ## What we collect
 
-We collect account details such as your email address, display name, authentication method, and account settings. If you subscribe, Apple or Google processes your payment. Pillars never receives your card details; it stores your membership status (such as trial, active, or canceled), which it receives from the store through our subscription provider, RevenueCat.
+We collect account details such as your email address, display name, authentication method, and account settings. If you subscribe, Apple or Google processes your payment. Sadhana never receives your card details; it stores your membership status (such as trial, active, or canceled), which it receives from the store through our subscription provider, RevenueCat.
 
 We also collect product data such as activated pillars, onboarding experience level, recommended and selected starting point, current week, XP, streaks, completed sessions, reflections you choose to save in the journal, feedback messages and optional screenshots you attach to feedback, and technical data needed to operate and secure the service.
 
-If you use Sign in with Apple, Apple provides Pillars with a stable account identifier and may provide your name and either your email address or an Apple private relay address. Pillars stores an encrypted revocation credential so Apple access can be disconnected when you delete your account.
+If you use Sign in with Apple, Apple provides Sadhana with a stable account identifier and may provide your name and either your email address or an Apple private relay address. Sadhana stores an encrypted revocation credential so Apple access can be disconnected when you delete your account.
 
 ## How we use data
 
@@ -18,7 +18,7 @@ We use data to provide your account, save progress, unlock curriculum, deliver s
 
 ## Early access interest list
 
-If you join the Pillars early access list, we collect the email address you provide, whether you express interest in future iOS testing, and the time, source, and version of the consent notice. Joining this list does not create a Pillars account.
+If you join the Sadhana early access list, we collect the email address you provide, whether you express interest in future iOS testing, and the time, source, and version of the consent notice. Joining this list does not create a Sadhana account.
 
 We use this address to contact you about app testing invitations and launch updates. You may withdraw at any time by emailing [{{privacyEmail}}](mailto:{{privacyEmail}}). We do not sell the interest list.
 
@@ -28,7 +28,7 @@ Some pillars use guided audio and session tracking. The app records progress eve
 
 ## Product analytics and diagnostics
 
-Pillars records a limited account-linked activation funnel: account creation, onboarding completion and starting level, practice preview, practice start or outcome, second-day return, week advancement, and the selected guidance voice. Event properties are fixed choices or counts; they never include journal entries, feedback text, pose notes, email addresses, or other free-form content.
+Sadhana records a limited account-linked activation funnel: account creation, onboarding completion and starting level, practice preview, practice start or outcome, second-day return, week advancement, and the selected guidance voice. Event properties are fixed choices or counts; they never include journal entries, feedback text, pose notes, email addresses, or other free-form content.
 
 We use these events to understand whether the guided journey works during testing. Raw activation events are retained for no more than 90 days, are included in account export, and are deleted with the account. Sentry may receive crash and performance diagnostics without default personally identifying information.
 
@@ -52,4 +52,4 @@ You may request account support, correction, or export in the app or by emailing
 
 ## Changes and contact
 
-Pillars is operated by {{legalName}}. If this policy changes, the date above will be updated. Questions can be sent to [{{privacyEmail}}](mailto:{{privacyEmail}}).
+Sadhana is operated by {{legalName}}. If this policy changes, the date above will be updated. Questions can be sent to [{{privacyEmail}}](mailto:{{privacyEmail}}).

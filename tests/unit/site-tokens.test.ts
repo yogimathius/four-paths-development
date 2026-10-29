@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { fillTokens } from "../../src/lib/site-tokens";
 
-const values = { legalName: "Four Paths", privacyEmail: "privacy@fourpaths.ca" };
+const values = { legalName: "Four Paths", privacyEmail: "info@fourpaths.ca" };
 
 describe("fillTokens", () => {
   it("replaces known tokens", () => {
@@ -10,7 +10,7 @@ describe("fillTokens", () => {
 
   it("replaces several tokens, including inside URLs", () => {
     expect(fillTokens("mailto:{{privacyEmail}}?subject={{legalName}}", values)).toBe(
-      "mailto:privacy@fourpaths.ca?subject=Four Paths",
+      "mailto:info@fourpaths.ca?subject=Four Paths",
     );
   });
 

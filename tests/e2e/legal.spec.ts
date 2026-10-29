@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 // Apps on a store track: their URLs can be pasted into Play Console / App Store Connect.
 const storeApps = [
   { slug: "chore-credits", name: "Chore Credits" },
-  { slug: "pillars", name: "Pillars" },
+  { slug: "pillars", name: "Sadhana" },
   { slug: "life-atlas", name: "Life Atlas" },
   { slug: "forge-5x5", name: "Forge 5x5" },
 ];
@@ -17,7 +17,7 @@ for (const app of storeApps) {
       expect(res?.status()).toBe(200);
       await expect(page.getByRole("heading", { level: 1 })).toHaveText("Privacy policy");
       await expect(page.getByText("Operated by Four Paths").first()).toBeVisible();
-      await expect(page.locator('a[href^="mailto:privacy@fourpaths.ca"]').first()).toBeVisible();
+      await expect(page.locator('a[href^="mailto:info@fourpaths.ca"]').first()).toBeVisible();
       await expect(page.getByText("The short version:")).toBeVisible();
       await expect(page).toHaveTitle(`${app.name} privacy policy — Four Paths`);
     });
@@ -49,7 +49,7 @@ test("Life Atlas deletion page lists the in-app steps and an email fallback", as
   await page.goto("/apps/life-atlas/delete-account");
   await expect(page.getByRole("listitem").filter({ hasText: "Delete account and data" })).toBeVisible();
   const mail = page.getByRole("link", { name: "Email a deletion request" });
-  await expect(mail).toHaveAttribute("href", /^mailto:privacy@fourpaths\.ca\?subject=Life%20Atlas%20account%20deletion%20request/);
+  await expect(mail).toHaveAttribute("href", /^mailto:info@fourpaths\.ca\?subject=Life%20Atlas%20account%20deletion%20request/);
 });
 
 test("local-only apps explain there is no server copy to delete", async ({ page }) => {

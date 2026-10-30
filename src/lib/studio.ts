@@ -40,7 +40,7 @@ export const work: Work[] = [
     slug: "pillars",
     name: "Sadhana",
     premise: "A yoga practice that grows with you.",
-    summary: "A structured Hatha yoga curriculum with spoken guidance and a path that advances through practice rather than a calendar.",
+    summary: "A self-paced Hatha yoga path with room to begin, grow, and return—without keeping up with a calendar.",
     status: "Early access",
     updated: "2026-10-28",
     lenses: ["build", "question", "ground"],

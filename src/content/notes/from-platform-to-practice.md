@@ -6,7 +6,7 @@ lenses: [build, question, ground]
 project: sadhana
 ---
 
-Pillars began with a larger frame: a platform containing five disciplines. That idea was coherent on paper, but it put a lot of structure between a person and the thing they had opened the app to do. The first release became narrower: Sādhana, a Hatha yoga curriculum that could be entered and practised without first understanding a whole system.
+Pillars began with a larger frame: a platform containing five disciplines. That idea was coherent on paper, but it put a lot of structure between a person and the thing they had opened the app to do. The first release became narrower: Sadhana, a Hatha yoga curriculum that could be entered and practised without first understanding a whole system.
 
 The narrowing changed more than the home screen. It changed what progress meant. Early versions spoke in weeks. A week is a useful unit for a release plan, but it can be an unhelpful unit for a practice. If you miss one, the interface can imply that you have fallen behind. Named stages and a self-paced path make a different promise: there is a place to continue, but no calendar to catch up with.
 

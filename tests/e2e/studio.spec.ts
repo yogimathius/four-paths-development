@@ -19,7 +19,7 @@ test("work index and case study show project state and evolution", async ({ page
   await expect(page).toHaveURL(/\/work\/sadhana$/);
   await expect(page.getByRole("heading", { name: "Why it exists" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "How it evolved" })).toBeVisible();
-  await expect(page.getByText("Early access", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Android open testing", { exact: true }).first()).toBeVisible();
   await expect(page.getByRole("img", { name: "The Sadhana mark: a golden flame above a copper oil lamp" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Join the Android open test" })).toHaveAttribute("href", "https://play.google.com/apps/testing/com.pillars.mobile");
 });
@@ -110,4 +110,58 @@ test("the Sadhana rename note is published and points to the new site", async ({
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Pillars is now Sadhana");
   await expect(page.getByRole("link", { name: "sadhanawithin.com" })).toHaveAttribute("href", "https://sadhanawithin.com");
   expect(await (await request.get("/rss.xml")).text()).toContain("Pillars is now Sadhana");
+});
+
+test("About explains that products lead and client collaboration is genuine", async ({ page }) => {
+  await page.goto("/about");
+  const text = await page.locator("main").innerText();
+  expect(text).toContain("first a product studio");
+  expect(text).toContain("client collaborations");
+  expect(text).not.toContain("consultancy disguised");
+});
+
+test("home puts the client-work invitation straight after the hero", async ({ page }) => {
+  await page.goto("/");
+  const invite = page.locator("#work-with-us");
+  await expect(invite).toContainText("partners with thoughtful organizations");
+  await expect(invite.getByRole("link", { name: /See client work/ })).toHaveAttribute("href", "/client-work");
+  const order = await page.evaluate(() => {
+    const top = (selector: string) => document.querySelector(selector)!.getBoundingClientRect().top;
+    return { invite: top("#work-with-us"), featured: top("#featured-work") };
+  });
+  expect(order.invite).toBeLessThan(order.featured);
+});
+
+test("Contact stays visible in the mobile navigation", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto("/");
+  await expect(page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Contact" })).toBeVisible();
+});
+
+test("client work names who it is for and how to begin, with a copyable address", async ({ page, context }) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.goto("/client-work");
+  await expect(page.getByText("wellbeing, education, creativity, community and contemplative practice")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "A short email is enough." })).toBeVisible();
+  await page.getByRole("button", { name: "Copy address" }).click();
+  await expect(page.getByRole("status").filter({ hasText: "Copied" })).toBeVisible();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("info@fourpaths.ca");
+});
+
+test("project statuses say which kind of Android testing each is in", async ({ page }) => {
+  await page.goto("/work");
+  const text = (await page.locator("main").innerText()).toLowerCase();
+  expect(text).toContain("android open testing");
+  expect(text).toContain("android closed testing");
+  expect(text).not.toContain("early access");
+  expect(text).not.toMatch(/\bI (built|am)\b/);
+});
+
+test("case studies lead with a short version and qualify their evidence", async ({ page }) => {
+  await page.goto("/client-work/all-mountain-contracting");
+  await expect(page.getByText("The short version")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Before and after" })).toBeVisible();
+  await expect(page.getByText("do not prove that the rebuild alone caused them")).toBeVisible();
+  await page.goto("/client-work/crabapple-cafe");
+  await expect(page.getByText("The short version")).toBeVisible();
 });

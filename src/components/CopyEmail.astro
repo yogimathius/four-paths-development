@@ -1,0 +1,33 @@
+---
+import { site } from "../site.config";
+---
+<span class="copy-email" data-copy-email>
+  <a class="address" href={`mailto:${site.email}`}>{site.email}</a>
+  <button type="button" class="copy" data-address={site.email} hidden>Copy address</button>
+  <span class="status" role="status" aria-live="polite"></span>
+</span>
+<script>
+  // Progressive enhancement: without JavaScript the address stays a normal mailto link.
+  document.querySelectorAll<HTMLElement>("[data-copy-email]").forEach((root) => {
+    const button = root.querySelector<HTMLButtonElement>("button.copy");
+    const status = root.querySelector<HTMLElement>(".status");
+    if (!button || !status || !navigator.clipboard) return;
+    button.hidden = false;
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.address ?? "");
+        status.textContent = "Copied";
+      } catch {
+        status.textContent = "Copy failed. Select the address instead.";
+      }
+      setTimeout(() => { status.textContent = ""; }, 2500);
+    });
+  });
+</script>
+<style>
+  .copy-email { display: inline-flex; align-items: center; flex-wrap: wrap; gap: .5rem 1rem; }
+  .address { color: var(--ink); font-weight: 550; }
+  .copy { font: 600 .75rem/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 2px; padding: .5rem .7rem; cursor: pointer; }
+  .copy:hover { border-color: var(--ink); }
+  .status { font: .75rem var(--mono); color: var(--ink-soft); min-height: 1em; }
+</style>

@@ -2,13 +2,14 @@
 import { Image } from "astro:assets";
 import PageLayout from "../../layouts/PageLayout.astro";
 import { capabilities, clientProjects } from "../../lib/clients";
+import CopyEmail from "../../components/CopyEmail.astro";
 import { site } from "../../site.config";
 
 const inquiry = `mailto:${site.email}?subject=${encodeURIComponent("Project inquiry")}&body=${encodeURIComponent("Hi! I'd like to talk about a website or app. Here is the project and the address of the current site, if there is one: ")}`;
 ---
 <PageLayout title="Client work" description="Websites and apps Four Paths has modernized for local businesses, with the migrations, content tools and tests behind them.">
   <div class="wrap page">
-    <header class="page-head"><span class="overline">Client work / Index</span><h1>Sites that people<br /><em>can keep running.</em></h1><p class="lede">Four Paths also takes on a small number of client projects: moving an existing site or app to a modern stack, and giving the people who run the business the tools to keep it current.</p></header>
+    <header class="page-head"><span class="overline">Client work / Index</span><h1>Sites that people<br /><em>can keep running.</em></h1><p class="lede">Some projects begin with a new idea. Others begin with a website or application that needs thoughtful attention.</p><p class="lede">Four Paths works with small businesses and mission-aligned organizations to modernize existing technology, make everyday operations easier, and build tools that remain useful long after launch.</p><p class="lede">We are especially drawn to organizations working in wellbeing, education, creativity, community and contemplative practice. Local businesses are just as welcome: both case studies below began that way.</p></header>
     <div class="client-list">
       {clientProjects.map((project, index) => <article class="client-row">
         <a class="client-art" href={`/client-work/${project.slug}`} aria-label={`Read the ${project.name} case study`}>
@@ -31,7 +32,15 @@ const inquiry = `mailto:${site.email}?subject=${encodeURIComponent("Project inqu
       <ul class="capabilities">{capabilities.map((item) => <li><h3>{item.title}</h3><p>{item.body}</p></li>)}</ul>
     </section>
 
-    <div class="ending"><p>Have a site or app that needs to move forward? Tell us what it does today and what it should do next.</p><a class="button-link" href={inquiry}>Start a conversation ↗</a></div>
+    <section class="start" aria-labelledby="start-title">
+      <div><span class="overline">How to begin</span><h2 id="start-title">A short email is enough.</h2></div>
+      <div>
+        <ol class="steps"><li><strong>What you have today.</strong> The address of the current site or app, if there is one.</li><li><strong>What is not working,</strong> or what it should do next.</li><li><strong>Who keeps it current,</strong> and roughly when you would like to move.</li></ol>
+        <p class="reach"><CopyEmail /></p>
+        <p class="small">We read every message and reply by email. There is no form and no sales funnel, and this site uses no analytics or trackers.</p>
+        <p><a class="button-link" href={inquiry}>Start a conversation ↗</a></p>
+      </div>
+    </section>
   </div>
 </PageLayout>
 <style>
@@ -49,7 +58,7 @@ const inquiry = `mailto:${site.email}?subject=${encodeURIComponent("Project inqu
   .offer{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(2rem,6vw,6rem);padding:5rem 0;border-bottom:1px solid var(--line)}
   .offer h2{margin:.5rem 0 1rem}
   .capabilities{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:2rem 2.5rem}.capabilities h3{font-size:1.45rem;margin-bottom:.4rem}.capabilities p{color:var(--ink-soft);margin:0}
-  .ending{display:flex;justify-content:space-between;align-items:center;gap:2rem;padding:4rem 0}.ending p{max-width:45ch;color:var(--ink-soft);font:400 1.5rem/1.3 var(--display);margin:0}
+  .start{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(2rem,6vw,6rem);padding:5rem 0 6rem}.start h2{margin:.5rem 0 0}.steps{margin:0 0 1.6rem;padding-left:1.2rem;color:var(--ink-soft)}.steps li{margin:.5rem 0}.steps strong{color:var(--ink)}.reach{margin:0 0 .8rem}.small{font-size:.9rem;color:var(--ink-muted);max-width:52ch}@media(max-width:850px){.start{grid-template-columns:1fr;gap:1.4rem;padding:3.5rem 0 4rem}}
   @media(max-width:850px){.client-row,.offer{grid-template-columns:1fr}.capabilities{grid-template-columns:1fr}}
-  @media(max-width:700px){.ending{display:block}.ending .button-link{margin-top:1.4rem}.client-row{padding:2.2rem 0}}
+  @media(max-width:700px){.client-row{padding:2.2rem 0}}
 </style>

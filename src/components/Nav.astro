@@ -76,8 +76,8 @@ const here = Astro.url.pathname;
   .contact:hover { border-color: var(--ink); }
   @media (max-width: 620px) {
     .nav { gap: .9rem; }
-    nav { width: 100%; justify-content: space-between; }
-    ul { gap: .75rem; }
-    .contact { display: none; }
+    nav { width: 100%; justify-content: space-between; flex-wrap: wrap; row-gap: .6rem; }
+    ul { gap: .3rem .75rem; }
+    .contact { font-weight: 600; }
   }
 </style>

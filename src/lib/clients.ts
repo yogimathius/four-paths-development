@@ -19,10 +19,14 @@ export interface ClientProject {
   period: string;
   desktop: { src: ImageMetadata; alt: string };
   mobile: { src: ImageMetadata; alt: string };
+  /** Two plain sentences for a reader who will not read further. */
+  short: string;
   starting: string[];
   built: string[];
   /** Plain-language things the business owner can now do or rely on. */
   handover: string[];
+  /** Qualitative before/after, only where the earlier state is documented. */
+  beforeAfter?: { label: string; before: string; after: string }[];
   stack: string[];
   evolution: { date: string; text: string }[];
   /** Measured outcomes, only where a source exists. Omit rather than estimate. */
@@ -50,6 +54,8 @@ export const clientProjects: ClientProject[] = [
       src: allMountainMobile,
       alt: "The All Mountain Contracting home page on a phone",
     },
+    short:
+      "A static site became one the team edits itself, and every old address was redirected so search history carried across. Early search figures moved in the right direction.",
     starting: [
       "All Mountain Contracting is a licensed builder serving Whistler, Squamish and the Sea to Sky corridor, with a portfolio of more than twenty residential and commercial projects. Its website was a set of static pages: every new project or article meant a developer editing files, and a handful of pages did all the work in search.",
       "The risk in any rebuild is the one the owner cannot see. A new site that looks better but changes its URLs can quietly discard years of search history. The brief was therefore twofold: a site the team could update, and a move that kept what the old site had already earned.",
@@ -61,6 +67,11 @@ export const clientProjects: ClientProject[] = [
     handover: [
       "Add and edit projects, service pages and blog posts from an admin, with an editor that handles images, links and embedded video.",
       "Rename a page without breaking inbound links: redirects are managed with the content.",
+    ],
+    beforeAfter: [
+      { label: "Adding a project or article", before: "A developer edited site files.", after: "The team adds it in the admin." },
+      { label: "Moving or renaming a page", before: "A moved page could leave broken links.", after: "Old addresses redirect, managed with the content." },
+      { label: "Answering search queries", before: "One About page answered most of them.", after: "Dedicated pages for renovation, commercial and custom homes." },
     ],
     stack: ["React Router v7", "TypeScript", "Tailwind CSS", "Postgres + Prisma", "Tiptap editor", "Fly.io"],
     evolution: [
@@ -77,7 +88,7 @@ export const clientProjects: ClientProject[] = [
         { label: "Branded search clicks, month before migration → month after", value: "1 → 12" },
         { label: "Pages returning HTTP 200 when the report was written", value: "All 30" },
       ],
-      note: "From Google Search Console, 18 February to 18 March 2026. The absolute numbers are small: this is a local trade business, and the figures show direction after a migration, not a promise of volume.",
+      note: "From Google Search Console, 18 February to 18 March 2026. We planned the migration around redirects and indexing, and the early signals were positive, but the figures do not prove that the rebuild alone caused them. The absolute numbers are small: this is a local trade business, and they show direction, not a promise of volume.",
     },
     present:
       "The site is live and maintained. The current focus is the work a migration makes possible: service pages, project stories and content that answers what homeowners in the corridor actually search for.",
@@ -101,6 +112,8 @@ export const clientProjects: ClientProject[] = [
       src: crabappleMobile,
       alt: "The Crabapple Café menu page on a phone, with menu categories and opening hours",
     },
+    short:
+      "A café's site and admin, kept current by its own staff since 2024, with roles and tests so that changing it is safe.",
     starting: [
       "A café's website has two jobs that pull in different directions. Guests need the menu, hours, a way to order and this weekend's feature. The people running the kitchen need to change those things in minutes, between services, without learning a content system or waiting on a developer.",
       "The Crabapple Café's site began on Remix with a component library that no longer fit the design. The goal was a site that looked like the café and an admin that matched how the café actually works.",

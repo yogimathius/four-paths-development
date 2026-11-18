@@ -11,7 +11,7 @@ export const lenses = {
 } as const;
 
 export type Lens = keyof typeof lenses;
-export type WorkStatus = "Early access" | "Building" | "Experiment";
+export type WorkStatus = "Android open testing" | "Android closed testing" | "Building" | "Experiment";
 
 export interface Work {
   slug: string;
@@ -42,7 +42,7 @@ export const work: Work[] = [
     name: "Sadhana",
     premise: "A yoga practice that grows with you.",
     summary: "A self-paced Hatha yoga path with room to begin, grow, and return—without keeping up with a calendar.",
-    status: "Early access",
+    status: "Android open testing",
     updated: "2026-11-18",
     lenses: ["build", "question", "ground"],
     image: sadhanaFlame,
@@ -62,15 +62,15 @@ export const work: Work[] = [
       "Start with an experience check, browse the stage roadmap, then begin or resume a session. During practice, audio and pose artwork work together; sessions can be paused, resumed or adapted to the body you have that day.",
     ],
     built: [
-      "I built the mobile practice flow and its supporting API, progression model, curriculum presentation, audio delivery and release path. Recent work has focused on a gentler beginner entry, stage based navigation and clearer Sanskrit narration.",
+      "We built the mobile practice flow and its supporting API, progression model, curriculum presentation, audio delivery and release path. Recent work has focused on a gentler beginner entry, stage based navigation and clearer Sanskrit narration.",
     ],
     evolution: [
       { date: "June 2026", text: "A five discipline platform was the initial frame." },
-      { date: "August 2026", text: "The first release narrowed to Sādhana and moved directly into practice." },
+      { date: "August 2026", text: "The first release narrowed to Sadhana and moved directly into practice." },
       { date: "September 2026", text: "Week based language gave way to named stages and a self paced journey." },
       { date: "October 2026", text: "Narration and pose presentation continued to improve through testing." },
     ],
-    next: "Sadhana is in Android open testing. I am refining the journey, practice media and release experience with feedback from early practitioners.",
+    next: "Sadhana is in Android open testing. We are refining the journey, practice media and release experience with feedback from early practitioners.",
     relatedNote: { href: "/notes/from-platform-to-practice", title: "From platform to practice" },
   },
   {
@@ -78,7 +78,7 @@ export const work: Work[] = [
     name: "Chore Credits",
     premise: "A household agreement children can help shape.",
     summary: "Children choose useful work from a shared menu. Credits describe agreed effort, while parents set boundaries and review exceptions.",
-    status: "Early access",
+    status: "Android closed testing",
     updated: "2026-08-27",
     lenses: ["build", "ground", "question"],
     image: choreBoard,
@@ -96,7 +96,7 @@ export const work: Work[] = [
       "The shared board opens into a child's available work. They can claim a chore, see its concrete finish line and submit it. Routine work may approve automatically; exceptions go to a parent review. A printable companion keeps the agreement visible when the device is away.",
     ],
     built: [
-      "I built a local first Android prototype with an SQLite domain model, transactional claims, a parent gate, household history, export and a print ready companion board. It collects a child's birth month and year rather than an exact birthdate.",
+      "We built a local first Android prototype with an SQLite domain model, transactional claims, a parent gate, household history, export and a print ready companion board. It collects a child's birth month and year rather than an exact birthdate.",
     ],
     evolution: [
       { date: "August 2026", text: "A physical companion board made the agreement visible in the home." },
@@ -111,7 +111,7 @@ export const work: Work[] = [
     name: "Life Atlas",
     premise: "A map for work that has a longer horizon.",
     summary: "Roles, arcs, quests and evidence connect the work of today to larger chapters of a life.",
-    status: "Early access",
+    status: "Android closed testing",
     updated: "2026-09-04",
     lenses: ["build", "question", "ground"],
     image: lifeAtlasIcon,
@@ -129,14 +129,14 @@ export const work: Work[] = [
       "The Today view offers orientation. The Atlas and Chapters views show larger patterns. Proof and reviews keep the account of progress tied to events rather than the number of boxes checked.",
     ],
     built: [
-      "I built the Expo interface, shared domain model and API for roles, arcs, quests, evidence, chapters, onboarding and account isolation. The system evolved from a personal repository into separate private workspaces for testers.",
+      "We built the Expo interface, shared domain model and API for roles, arcs, quests, evidence, chapters, onboarding and account isolation. The system evolved from a personal repository into separate private workspaces for testers.",
     ],
     evolution: [
       { date: "May 2026", text: "A five year planning system suggested a narrative layer above tasks." },
       { date: "August 2026", text: "The Observatory model added chapters, capacity signals and evidence backed progress." },
       { date: "August 2026", text: "The personal atlas became a private, account based product for closed testing." },
     ],
-    next: "Life Atlas is in Android closed testing. I am watching whether the model clarifies real decisions without turning life into another scorekeeping system.",
+    next: "Life Atlas is in Android closed testing. We are watching whether the model clarifies real decisions without turning life into another scorekeeping system.",
   },
   {
     slug: "clearledger",
@@ -156,7 +156,7 @@ export const work: Work[] = [
       "The developing interface brings accounts and manually tracked obligations together, then shows cash flow and possible extra payment effects in context. It is an active prototype, so those surfaces are still being refined.",
     ],
     built: [
-      "I built the Android first Expo app, provider independent finance model, deterministic payoff engine, encrypted local storage boundary and account and debt screens.",
+      "We built the Android first Expo app, provider independent finance model, deterministic payoff engine, encrypted local storage boundary and account and debt screens.",
     ],
     evolution: [
       { date: "September 2026", text: "A Plaid integration was tried, removed and reconsidered while the data model took shape." },

@@ -4,20 +4,28 @@ import { site } from "../site.config";
 interface Props {
   appName: string;
   compact?: boolean;
+  openTestUrl?: string;
 }
-const { appName, compact = false } = Astro.props;
+const { appName, compact = false, openTestUrl } = Astro.props;
 const subject = encodeURIComponent("I\u2019d like to test " + appName);
 const body = encodeURIComponent("Hi! I\u2019d like to join the closed test. The Google account email I use on my Android phone is: ");
 const href = "mailto:" + site.email + "?subject=" + subject + "&body=" + body;
 ---
 
 <div class:list={["glass", "panel", "invite", { compact }]}>
-  <h3>Help test {appName}</h3>
-  <p>
-    {appName} is in closed testing on Android. Google Play needs a group of testers to stay opted in for 14 days before
-    an app can launch publicly, so every tester genuinely helps.
-  </p>
-  <p><a class="btn" href={href}>Ask to join the test</a></p>
+  {openTestUrl ? (
+    <>
+      <h3>Help shape {appName}</h3>
+      <p>{appName} is in Android open testing. Opt in with the Google account on your Android phone, then install from Google Play. You can send feedback to <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+      <p><a class="btn" href={openTestUrl}>Join the Android open test</a></p>
+    </>
+  ) : (
+    <>
+      <h3>Help test {appName}</h3>
+      <p>{appName} is in closed testing on Android. Google Play needs a group of testers to stay opted in for 14 days before an app can launch publicly, so every tester genuinely helps.</p>
+      <p><a class="btn" href={href}>Ask to join the test</a></p>
+    </>
+  )}
 </div>
 
 <style>

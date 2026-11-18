@@ -1,6 +1,7 @@
 ---
 import Wordmark from "./Wordmark.astro";
 import ThemeToggle from "./ThemeToggle.astro";
+import { site } from "../site.config";
 
 const links = [
   { href: "/work", label: "Work" },
@@ -26,7 +27,7 @@ const here = Astro.url.pathname;
         ))
       }
     </ul>
-    <a class="contact" href="mailto:hello@fourpaths.ca">Contact</a>
+    <a class="contact" href={`mailto:${site.email}`}>Contact</a>
     <ThemeToggle />
   </nav>
 </header>

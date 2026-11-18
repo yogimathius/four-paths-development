@@ -6,6 +6,7 @@ import LensTags from "../components/LensTags.astro";
 import RouteMark from "../components/RouteMark.astro";
 import { featuredWork, selectedWork, lenses } from "../lib/studio";
 import { clientProjects } from "../lib/clients";
+import { site } from "../site.config";
 
 const notes = (await getCollection("notes")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
 ---
@@ -80,7 +81,7 @@ const notes = (await getCollection("notes")).sort((a, b) => b.data.date.valueOf(
   </section>
 
   <section class="wrap now-home" aria-labelledby="now-title"><div><span class="overline">November 2026 / Current position</span><h2 id="now-title">Now.</h2></div><p>Refining Sadhana in Android open testing, learning from real device use, and exploring tools that ask for less attention rather than more.</p><a class="text-link" href="/now">See what’s in progress →</a></section>
-  <section class="wrap closing"><p>There is more to make, and more to learn from what is already here.</p><a href="mailto:hello@fourpaths.ca?subject=Project%20inquiry">Start a conversation ↗</a></section>
+  <section class="wrap closing"><p>There is more to make, and more to learn from what is already here.</p><a href={`mailto:${site.email}?subject=Project%20inquiry`}>Start a conversation ↗</a></section>
 </PageLayout>
 
 <style>

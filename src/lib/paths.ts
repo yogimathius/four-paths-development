@@ -48,5 +48,5 @@ export const STATUS_LABEL: Record<Status, string> = {
   live: "Available",
   testing: "In testing",
   "coming-soon": "Building",
-  hidden: "Hidden",
+  hidden: "Paused",
 };

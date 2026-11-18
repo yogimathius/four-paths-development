@@ -1,0 +1,59 @@
+---
+import { Image } from "astro:assets";
+import PageLayout from "../../layouts/PageLayout.astro";
+import { clientProjects, type ClientProject } from "../../lib/clients";
+import { site } from "../../site.config";
+
+export function getStaticPaths() { return clientProjects.map((project) => ({ params: { slug: project.slug }, props: { project } })); }
+const { project } = Astro.props as { project: ClientProject };
+const nextProject = clientProjects[(clientProjects.findIndex((entry) => entry.slug === project.slug) + 1) % clientProjects.length];
+const schema = { "@context": "https://schema.org", "@type": "CreativeWork", name: `${project.name} website`, description: project.summary, about: project.name, creator: { "@type": "Organization", name: site.name }, url: new URL(`/client-work/${project.slug}`, site.url).href, sameAs: project.url };
+const inquiry = `mailto:${site.email}?subject=${encodeURIComponent("Project inquiry")}`;
+---
+<PageLayout title={`${project.name} case study`} description={project.summary}>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <article class="wrap case-study">
+    <header class="case-head">
+      <div class="head-meta"><a href="/client-work" class="text-link">← Client work</a><span class="overline">{project.period}</span></div>
+      <h1>{project.name}<span>.</span></h1>
+      <p class="case-premise">{project.premise}</p>
+      <p class="lede">{project.summary}</p>
+      <p class="case-cta"><a class="button-link" href={project.url} rel="noopener">Visit {project.host} ↗</a></p>
+    </header>
+    <div class="shots">
+      <figure class="shot-desktop"><Image src={project.desktop.src} alt={project.desktop.alt} width={1400} loading="eager" /></figure>
+      <figure class="shot-mobile"><Image src={project.mobile.src} alt={project.mobile.alt} width={420} loading="eager" /></figure>
+    </div>
+    <div class="case-layout">
+      <aside class="case-side"><span class="overline">Project record</span><dl><dt>Business</dt><dd>{project.descriptor}</dd><dt>Scope</dt><dd><ul class="scope">{project.scope.map((item) => <li>{item}</li>)}</ul></dd><dt>Built with</dt><dd>{project.stack.join(", ")}</dd></dl><a href={project.url} class="text-link" rel="noopener">{project.host} ↗</a></aside>
+      <div class="case-body">
+        <section><span class="section-number">01 / STARTING POINT</span><h2>What it needed</h2>{project.starting.map((p) => <p>{p}</p>)}</section>
+        <section><span class="section-number">02 / WORK</span><h2>What we built</h2>{project.built.map((p) => <p>{p}</p>)}</section>
+        <section><span class="section-number">03 / HANDOVER</span><h2>What the team can do now</h2><ul class="check">{project.handover.map((item) => <li>{item}</li>)}</ul></section>
+        {project.results && <section><span class="section-number">04 / SIGNAL</span><h2>{project.results.heading}</h2><table class="results"><tbody>{project.results.rows.map((row) => <tr><th scope="row">{row.label}</th><td>{row.value}</td></tr>)}</tbody></table><p class="note">{project.results.note}</p></section>}
+        <section><span class="section-number">{project.results ? "05" : "04"} / CHANGE</span><h2>How it evolved</h2><ol class="evolution">{project.evolution.map((step) => <li><time>{step.date}</time><p>{step.text}</p></li>)}</ol></section>
+        <section><span class="section-number">{project.results ? "06" : "05"} / PRESENT</span><h2>Where it stands</h2><p>{project.present}</p><div class="case-links"><a class="button-link" href={inquiry}>Talk about your project ↗</a><a class="text-link" href="/client-work">All client work →</a></div></section>
+      </div>
+    </div>
+    <nav class="case-next" aria-label="Continue exploring"><div><span class="overline">Next case study</span><a href={`/client-work/${nextProject.slug}`}>{nextProject.name} <span aria-hidden="true">→</span></a></div><a class="text-link" href="/work">See our own products</a></nav>
+  </article>
+</PageLayout>
+<style>
+  .case-head{padding:3.5rem 0 4rem}.head-meta{display:flex;justify-content:space-between;gap:2rem;margin-bottom:2rem}.case-head h1{font-size:clamp(3.2rem,8vw,7rem);margin:0}.case-head h1 span{color:var(--family)}.case-premise{font:400 clamp(1.7rem,3vw,2.8rem)/1.18 var(--display);margin:.3rem 0 1.4rem;max-width:24ch}.case-cta{margin:2rem 0 0}
+  .shots{display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:1.5rem;align-items:end;background:var(--surface);border:1px solid var(--line);padding:1.5rem}
+  .shots figure{margin:0}.shots img{display:block;width:100%;height:auto;border:1px solid var(--line)}
+  .shot-mobile{align-self:end}
+  .case-layout{display:grid;grid-template-columns:240px minmax(0,700px);justify-content:space-between;gap:5rem;padding:6rem 0}
+  .case-side{align-self:start;position:sticky;top:2rem;border-top:1px solid var(--line);padding-top:1.2rem}.case-side dl{display:grid;gap:.8rem;margin:2rem 0}.case-side dt{font:.7rem var(--mono);color:var(--ink-muted);text-transform:uppercase}.case-side dd{margin:0;color:var(--ink-soft)}
+  .scope{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;padding:0;margin:0}.scope li{border:1px solid var(--line);border-radius:2px;padding:.15rem .5rem;font:600 .7rem/1.5 var(--mono);color:var(--ink-soft)}
+  .case-body section{padding:0 0 3.5rem;margin-bottom:3.5rem;border-bottom:1px solid var(--line)}.case-body h2{font-size:clamp(2.1rem,3.2vw,3rem);margin:.55rem 0 1.1rem}.case-body p,.case-body li{color:var(--ink-soft);font-size:1.04rem;max-width:65ch}
+  .section-number{font:.7rem var(--mono);letter-spacing:.1em;color:var(--ink-muted)}
+  .check{list-style:none;padding:0;margin:0;display:grid;gap:.7rem}
+  .results{width:100%;border-collapse:collapse;margin:1.2rem 0}.results th,.results td{border-top:1px solid var(--line);padding:.9rem 0;text-align:left;vertical-align:baseline}.results th{font-weight:400;color:var(--ink-soft);padding-right:1.5rem}.results td{font:400 1.7rem var(--display);color:var(--ink);text-align:right;white-space:nowrap}.results tr:last-child th,.results tr:last-child td{border-bottom:1px solid var(--line)}
+  .note{font-size:.92rem!important;color:var(--ink-muted)!important}
+  .evolution{list-style:none;padding:0;margin:2rem 0 0}.evolution li{display:grid;grid-template-columns:130px 1fr;gap:1.5rem;border-top:1px solid var(--line);padding:1.1rem 0}.evolution time{font:.75rem var(--mono);color:var(--ink-muted)}.evolution p{margin:0}
+  .case-links{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-top:1.5rem}.case-links .text-link{color:var(--ink)}
+  .case-next{border-top:1px solid var(--line);padding:2rem 0 4rem;display:flex;justify-content:space-between;align-items:end;gap:2rem}.case-next div>a{display:block;font:400 clamp(2rem,4vw,3.5rem) var(--display);color:var(--ink);text-decoration:none}
+  @media(max-width:800px){.case-layout{grid-template-columns:1fr;gap:3rem;padding:4rem 0}.case-side{position:static}.shots{grid-template-columns:1fr;padding:1rem}.shot-mobile{max-width:220px}.case-next{align-items:start;flex-direction:column}}
+  @media(max-width:600px){.head-meta{align-items:start;flex-direction:column;gap:.8rem}.case-head{padding:2.5rem 0 3rem}.evolution li{grid-template-columns:1fr;gap:.3rem}.results td{font-size:1.4rem}.results th{padding-right:.8rem}}
+</style>

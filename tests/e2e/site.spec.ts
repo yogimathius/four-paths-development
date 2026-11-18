@@ -26,7 +26,7 @@ test("the RSS feed lists Notes", async ({ request }) => {
   expect(await response.text()).toContain("From platform to practice");
 });
 
-const pages = ["/", "/work", "/work/pillars", "/notes", "/notes/from-platform-to-practice", "/now", "/about", "/apps/chore-credits/privacy"];
+const pages = ["/", "/work", "/work/pillars", "/client-work", "/client-work/all-mountain-contracting", "/client-work/crabapple-cafe", "/notes", "/notes/from-platform-to-practice", "/notes/pillars-is-now-sadhana", "/now", "/about", "/apps/chore-credits/privacy"];
 test.describe("accessibility", () => {
   test.use({ reducedMotion: "reduce" });
   for (const scheme of ["light", "dark"] as const) {

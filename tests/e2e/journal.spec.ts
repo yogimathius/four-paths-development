@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const apps = ["chore-credits", "pillars", "life-atlas", "forge-5x5", "clearledger"];
+const apps = ["chore-credits", "pillars", "life-atlas", "clearledger"];
 
 for (const slug of apps) {
   test(`${slug} has an introduction post linked both ways`, async ({ page }) => {
@@ -22,7 +22,6 @@ test("journal lists studio posts first, then app intros in gallery order", async
     "Introducing Chore Credits",
     "Introducing Sadhana",
     "Introducing Life Atlas",
-    "Introducing Forge 5x5",
     "Introducing ClearLedger",
   ]);
 });

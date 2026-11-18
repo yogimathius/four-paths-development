@@ -30,7 +30,7 @@ Some of these pairings are old. Knowledge has always been the classical road to 
 
 In the tradition, all four aims are pursued together in one stage of life: the householder's, the *gṛhastha*. Raising a family, earning a living, making things, and keeping a practice, all at once.
 
-That is the life these apps come from and the life they're for. [Chore Credits](/apps/chore-credits) sits on the family path, [ClearLedger](/apps/clearledger) on technology, [Pillars](/apps/pillars) and [Life Atlas](/apps/life-atlas) on philosophy, and [Forge 5x5](/apps/forge-5x5) on creativity.
+That is the life these apps come from and the life they're for. [Chore Credits](/apps/chore-credits) sits on the family path, [ClearLedger](/apps/clearledger) on technology, [Sadhana](/apps/pillars) and [Life Atlas](/apps/life-atlas) on philosophy.
 
 ## What it means for how we build
 

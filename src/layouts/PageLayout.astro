@@ -8,14 +8,15 @@ interface Props {
   description?: string;
   image?: string;
   type?: "website" | "article";
+  noindex?: boolean;
 }
-const { title, description, image, type } = Astro.props;
+const { title, description, image, type, noindex } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <Head title={title} description={description} image={image} type={type} />
+    <Head title={title} description={description} image={image} type={type} noindex={noindex} />
   </head>
   <body>
     <a class="visually-hidden skip" href="#main">Skip to content</a>

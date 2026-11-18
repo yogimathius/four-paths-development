@@ -1,7 +1,6 @@
 import type { ImageMetadata } from "astro";
 import sadhanaPortal from "../assets/work/sadhana-portal.png";
 import choreBoard from "../assets/apps/chore-credits/01-family-board.png";
-import forgeExercise from "../assets/apps/forge-5x5/02-exercise.png";
 import lifeAtlasIcon from "../assets/apps/life-atlas/icon.png";
 
 export const lenses = {
@@ -26,6 +25,8 @@ export interface Work {
   imageAlt?: string;
   imageKind?: "portrait" | "icon";
   testUrl?: string;
+  /** The project's own public website, when it has one. */
+  siteUrl?: string;
   why: string[];
   idea: string[];
   experience: string[];
@@ -42,15 +43,16 @@ export const work: Work[] = [
     premise: "A yoga practice that grows with you.",
     summary: "A self-paced Hatha yoga path with room to begin, grow, and return—without keeping up with a calendar.",
     status: "Early access",
-    updated: "2026-10-28",
+    updated: "2026-11-18",
     lenses: ["build", "question", "ground"],
     image: sadhanaPortal,
     imageAlt: "Sadhana portal artwork",
     imageKind: "icon",
     testUrl: "https://play.google.com/apps/testing/com.pillars.mobile",
+    siteUrl: "https://sadhanawithin.com",
     why: [
       "A guided practice is hard to follow when it asks you to keep looking at a phone. The app began with a practical question: could a curriculum give someone enough structure to continue, while allowing the screen to recede during the session?",
-      "The broader idea was once a platform for five disciplines. Release work narrowed it to Sadhana, a Hatha yoga path that can stand on its own.",
+      "The broader idea was once a platform called Pillars, built around five disciplines. Release work narrowed it to Sadhana, a Hatha yoga path that can stand on its own, and the app now carries that name.",
     ],
     idea: [
       "The curriculum is organized into named stages. A short experience check suggests a place to begin, and practices within a stage describe position rather than a weekly deadline. Progress remembers where you left off without treating a gap as failure.",
@@ -135,36 +137,6 @@ export const work: Work[] = [
       { date: "August 2026", text: "The personal atlas became a private, account based product for closed testing." },
     ],
     next: "Life Atlas is in Android closed testing. I am watching whether the model clarifies real decisions without turning life into another scorekeeping system.",
-  },
-  {
-    slug: "forge-5x5",
-    name: "Forge 5×5",
-    premise: "A small exercise circuit the screen can leave alone.",
-    summary: "Five moves, five reps and five rounds, guided by voice so the phone can rest on the floor.",
-    status: "Early access",
-    updated: "2026-10-01",
-    lenses: ["create", "build", "question"],
-    image: forgeExercise,
-    imageAlt: "Forge 5×5 exercise screen with a movement demonstration and a large Next control",
-    imageKind: "portrait",
-    why: [
-      "A workout can be simple and still demand constant device attention. Forge 5×5 explores a strict format that is easy to remember and an interface that speaks the next step aloud.",
-      "Its game layer is deliberate and contained: heats, ranks and a companion add texture, while the circuit itself remains the point.",
-    ],
-    idea: [
-      "Each circuit has five exercises, five repetitions and five rounds. One move fills the screen at a time. A large Next control records actual repetitions, while voice, short transition cues and adjustable rest carry the sequence.",
-    ],
-    experience: [
-      "Choose a heat, set the phone down and follow the spoken sequence. The app announces moves, rounds and rest. Progress stays on the device, and the workout works offline.",
-    ],
-    built: [
-      "I built separate native Android and iOS implementations from a shared behavioral specification. The Android app uses Kotlin and Jetpack Compose; the iOS version uses Swift and SwiftUI. Both follow the same workout and progression rules.",
-    ],
-    evolution: [
-      { date: "Before October 2026", text: "The core native build, media library and voice flow were developed before the repository's first commit." },
-      { date: "October 2026", text: "Release work established the Forge identity, store assets and signed Android builds." },
-    ],
-    next: "Forge 5×5 is in Android closed testing. The public history is a partial record because the first Git commit imported an already substantial build.",
   },
   {
     slug: "clearledger",

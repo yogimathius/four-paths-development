@@ -34,6 +34,8 @@ const apps = defineCollection({
       /** Show an invitation while the app is recruiting testers. */
       recruitingTesters: z.boolean().default(false),
       openTestUrl: z.url().optional(),
+      /** The app's own public website, when it has one. */
+      website: z.url().optional(),
     }),
 });
 

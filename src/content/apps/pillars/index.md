@@ -6,6 +6,7 @@ status: testing
 platforms: [android]
 icon: ../../../assets/apps/pillars/icon.png
 openTestUrl: https://play.google.com/apps/testing/com.pillars.mobile
+website: https://sadhanawithin.com
 hasAccounts: true
 deleteAccountUrl: https://pillars.fly.dev/delete-account
 order: 2

@@ -1,6 +1,6 @@
 ---
 title: From platform to practice
-description: What changed when Pillars became one usable Hatha yoga path rather than a platform for five disciplines.
+description: What changed when Pillars, now Sadhana, became one usable Hatha yoga path rather than a platform for five disciplines.
 date: 2026-10-02
 lenses: [build, question, ground]
 project: pillars

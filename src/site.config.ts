@@ -12,7 +12,7 @@ export const site = {
   url: "https://fourpaths.ca",
   tagline: "Independent Product Studio",
   description:
-    "Four Paths is an independent product studio building thoughtful software, games and experiments across technology, creativity and everyday human life.",
+    "Four Paths is an independent product studio building thoughtful software, games and experiments across technology, creativity and everyday human life, and modernizing websites and apps for local businesses.",
   /** Leave username empty until the Buttondown account exists; the form hides itself. */
   newsletter: { provider: "buttondown" as const, username: "" },
 };

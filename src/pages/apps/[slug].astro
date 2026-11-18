@@ -23,7 +23,7 @@ const intro = await introFor(app.id);
 const platforms = d.platforms.map((p) => (p === "ios" ? "iOS" : "Android")).join(", ");
 ---
 
-<PageLayout title={d.name} description={d.tagline}>
+<PageLayout title={d.name} description={d.tagline} noindex={d.status === "hidden"}>
   <div class="wrap page">
     <header class="page-head app-head">
       <AppIcon app={app} size={96} />
@@ -31,6 +31,7 @@ const platforms = d.platforms.map((p) => (p === "ios" ? "iOS" : "Android")).join
         <Badges path={d.path} status={d.status} platforms={d.platforms} />
         <h1>{d.name}</h1>
         <p class="lede">{d.tagline}</p>
+        {d.openTestUrl && <p><a class="btn" href={d.openTestUrl}>Join the Android open test</a>{d.website && <a class="site-link" href={d.website} rel="noopener">Visit {new URL(d.website).host} ↗</a>}</p>}
       </div>
     </header>
 
@@ -73,7 +74,7 @@ const platforms = d.platforms.map((p) => (p === "ios" ? "iOS" : "Android")).join
             </p>
           )
         }
-        {d.recruitingTesters && d.status === "testing" && <div id="test"><TesterInvite appName={d.name} /></div>}
+        {d.recruitingTesters && d.status === "testing" && <div id="test"><TesterInvite appName={d.name} openTestUrl={d.openTestUrl} /></div>}
       </div>
 
       <aside class="rail">
@@ -82,6 +83,7 @@ const platforms = d.platforms.map((p) => (p === "ios" ? "iOS" : "Android")).join
           <dl>
             <dt>Status</dt><dd>{STATUS_LABEL[d.status]}</dd>
             {platforms && (<><dt>Platform</dt><dd>{platforms}</dd></>)}
+            {d.website && (<><dt>Website</dt><dd><a href={d.website} rel="noopener">{new URL(d.website).host} ↗</a></dd></>)}
             <dt>Path</dt><dd>{PATH_INFO[d.path].label} <span class="lineage" lang="sa-Latn">({pathLineage(d.path)})</span></dd>
             {d.audience && (<><dt>For</dt><dd>{d.audience}</dd></>)}
           </dl>
@@ -120,6 +122,7 @@ const platforms = d.platforms.map((p) => (p === "ios" ? "iOS" : "Android")).join
 </PageLayout>
 
 <style>
+  .site-link{margin-left:1.2rem;color:var(--ink);font-weight:550}
   .app-head {
     display: flex;
     gap: 1.5rem;

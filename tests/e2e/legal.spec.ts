@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 // Apps on a store track: their URLs can be pasted into Play Console / App Store Connect.
 const storeApps = [
   { slug: "chore-credits", name: "Chore Credits" },
-  { slug: "pillars", name: "Pillars" },
+  { slug: "pillars", name: "Sadhana" },
   { slug: "life-atlas", name: "Life Atlas" },
   { slug: "forge-5x5", name: "Forge 5x5" },
 ];
@@ -31,6 +31,13 @@ for (const app of storeApps) {
     });
   });
 }
+
+test("Sadhana privacy policy uses the current product name at its legacy URL", async ({ page }) => {
+  await page.goto("/apps/pillars/privacy");
+  const policy = await page.locator("article").innerText();
+  expect(policy).toContain("Sadhana");
+  expect(policy).not.toContain("Pillars");
+});
 
 test("Chore Credits policy says birth month and year, never birthdate", async ({ page }) => {
   await page.goto("/apps/chore-credits/privacy");

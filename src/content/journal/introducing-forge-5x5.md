@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Introducing Forge 5x5: five moves, five reps, five rounds"
 description: A voice-coached bodyweight circuit you can do anywhere, with no equipment, no sign-up, and no internet connection.
 date: 2026-10-02

@@ -9,8 +9,10 @@ interface Props {
   type?: "website" | "article";
   /** Legal pages stay still; everything else may use scroll motion. */
   motion?: boolean;
+  /** Keep a page reachable by link but out of search results. */
+  noindex?: boolean;
 }
-const { title, description = site.description, image = "/og-default.png", type = "website" } = Astro.props;
+const { title, description = site.description, image = "/og-default.png", type = "website", noindex = false } = Astro.props;
 const fullTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.tagline}`;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const ogImage = new URL(image, site.url).href;
@@ -21,6 +23,7 @@ const ogImage = new URL(image, site.url).href;
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex" />}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="alternate" type="application/rss+xml" title={`${site.name} Notes`} href="/rss.xml" />
 <link rel="sitemap" href="/sitemap-index.xml" />

@@ -9,6 +9,7 @@ export default defineConfig({
   output: "static",
   trailingSlash: "never",
   build: { format: "file" },
-  integrations: [sitemap()],
+  // Paused apps keep their store-facing legal pages, but their app page stays out of search.
+  integrations: [sitemap({ filter: (page) => !page.endsWith("/apps/forge-5x5") })],
   markdown: { processor: unified({ remarkPlugins: [remarkSiteTokens] }) },
 });

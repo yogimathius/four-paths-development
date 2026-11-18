@@ -1,0 +1,55 @@
+---
+import { Image } from "astro:assets";
+import PageLayout from "../../layouts/PageLayout.astro";
+import { capabilities, clientProjects } from "../../lib/clients";
+import { site } from "../../site.config";
+
+const inquiry = `mailto:${site.email}?subject=${encodeURIComponent("Project inquiry")}&body=${encodeURIComponent("Hi! I'd like to talk about a website or app. Here is the project and the address of the current site, if there is one: ")}`;
+---
+<PageLayout title="Client work" description="Websites and apps Four Paths has modernized for local businesses, with the migrations, content tools and tests behind them.">
+  <div class="wrap page">
+    <header class="page-head"><span class="overline">Client work / Index</span><h1>Sites that people<br /><em>can keep running.</em></h1><p class="lede">Four Paths also takes on a small number of client projects: moving an existing site or app to a modern stack, and giving the people who run the business the tools to keep it current.</p></header>
+    <div class="client-list">
+      {clientProjects.map((project, index) => <article class="client-row">
+        <a class="client-art" href={`/client-work/${project.slug}`} aria-label={`Read the ${project.name} case study`}>
+          <Image src={project.desktop.src} alt={project.desktop.alt} width={900} loading={index === 0 ? "eager" : "lazy"} />
+        </a>
+        <div class="client-text">
+          <span class="overline">{String(index + 1).padStart(2, "0")} / {project.period}</span>
+          <h2><a href={`/client-work/${project.slug}`}>{project.name}&nbsp;↗</a></h2>
+          <p class="premise">{project.premise}</p>
+          <p class="descriptor">{project.descriptor}</p>
+          <p>{project.summary}</p>
+          <ul class="scope" aria-label="Scope of work">{project.scope.map((item) => <li>{item}</li>)}</ul>
+          <p class="links"><a class="text-link" href={`/client-work/${project.slug}`}>Read the case study →</a><a class="text-link" href={project.url} rel="noopener">Visit {project.host} ↗</a></p>
+        </div>
+      </article>)}
+    </div>
+
+    <section class="offer" aria-labelledby="offer-title">
+      <div><span class="overline">Working together</span><h2 id="offer-title">What we take on.</h2><p class="lede">The same habits that shape our own apps apply to client work: start from the real routine, change as little as the problem needs, and leave the business able to run it.</p></div>
+      <ul class="capabilities">{capabilities.map((item) => <li><h3>{item.title}</h3><p>{item.body}</p></li>)}</ul>
+    </section>
+
+    <div class="ending"><p>Have a site or app that needs to move forward? Tell us what it does today and what it should do next.</p><a class="button-link" href={inquiry}>Start a conversation ↗</a></div>
+  </div>
+</PageLayout>
+<style>
+  .page-head{padding-bottom:4rem}.page-head h1{margin:.7rem 0 1rem}.page-head h1 em{font-weight:400;color:var(--ink-soft)}
+  .client-list{border-top:1px solid var(--line)}
+  .client-row{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(2rem,6vw,6rem);padding:3rem 0;border-bottom:1px solid var(--line);align-items:center}
+  .client-art{display:block;overflow:hidden;background:var(--surface);border:1px solid var(--line)}
+  .client-art img{display:block;width:100%;height:auto}
+  .client-text h2{font-size:clamp(2.2rem,4.2vw,3.8rem);margin:.2em 0 .25em}.client-text h2 a{color:var(--ink);text-decoration:none}
+  .client-text .premise{font:400 clamp(1.3rem,2vw,1.7rem)/1.2 var(--display);color:var(--ink);margin-bottom:.7rem}
+  .client-text .descriptor{font:600 .75rem/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted)}
+  .client-text p{color:var(--ink-soft);max-width:48ch}
+  .scope{display:flex;flex-wrap:wrap;gap:.5rem;list-style:none;padding:0;margin:1.2rem 0 1.4rem}.scope li{border:1px solid var(--line);border-radius:2px;padding:.2rem .55rem;font:600 .72rem/1.5 var(--mono);color:var(--ink-soft)}
+  .links{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin:0}.links .text-link{color:var(--ink)}
+  .offer{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(2rem,6vw,6rem);padding:5rem 0;border-bottom:1px solid var(--line)}
+  .offer h2{margin:.5rem 0 1rem}
+  .capabilities{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:2rem 2.5rem}.capabilities h3{font-size:1.45rem;margin-bottom:.4rem}.capabilities p{color:var(--ink-soft);margin:0}
+  .ending{display:flex;justify-content:space-between;align-items:center;gap:2rem;padding:4rem 0}.ending p{max-width:45ch;color:var(--ink-soft);font:400 1.5rem/1.3 var(--display);margin:0}
+  @media(max-width:850px){.client-row,.offer{grid-template-columns:1fr}.capabilities{grid-template-columns:1fr}}
+  @media(max-width:700px){.ending{display:block}.ending .button-link{margin-top:1.4rem}.client-row{padding:2.2rem 0}}
+</style>

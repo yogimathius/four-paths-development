@@ -15,4 +15,4 @@ Sadhana is made by a small independent studio. Every message is read by a person
 
 ## Privacy and your data
 
-See the [Sadhana privacy policy](/apps/pillars/privacy) for what the app stores and where, and the [data deletion page](/apps/pillars/delete-account) for how to remove it.
+See the [Sadhana privacy policy](/apps/sadhana/privacy) for what the app stores and where, and the [data deletion page](/apps/sadhana/delete-account) for how to remove it.

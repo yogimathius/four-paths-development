@@ -4,7 +4,7 @@ tagline: A Hatha yoga practice that grows with you, at your pace.
 path: philosophy
 status: testing
 platforms: [android]
-icon: ../../../assets/apps/pillars/icon.png
+icon: ../../../assets/apps/sadhana/icon.png
 openTestUrl: https://play.google.com/apps/testing/com.pillars.mobile
 website: https://sadhanawithin.com
 hasAccounts: true

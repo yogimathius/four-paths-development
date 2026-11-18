@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 // Apps on a store track: their URLs can be pasted into Play Console / App Store Connect.
 const storeApps = [
   { slug: "chore-credits", name: "Chore Credits" },
-  { slug: "pillars", name: "Sadhana" },
+  { slug: "sadhana", name: "Sadhana" },
   { slug: "life-atlas", name: "Life Atlas" },
   { slug: "forge-5x5", name: "Forge 5x5" },
 ];
@@ -33,7 +33,7 @@ for (const app of storeApps) {
 }
 
 test("Sadhana privacy policy uses the current product name at its legacy URL", async ({ page }) => {
-  await page.goto("/apps/pillars/privacy");
+  await page.goto("/apps/sadhana/privacy");
   const policy = await page.locator("article").innerText();
   expect(policy).toContain("Sadhana");
   expect(policy).not.toContain("Pillars");
@@ -47,7 +47,7 @@ test("Chore Credits policy says birth month and year, never birthdate", async ({
 });
 
 test("Pillars deletion page links to the Pillars service's own deletion flow", async ({ page }) => {
-  await page.goto("/apps/pillars/delete-account");
+  await page.goto("/apps/sadhana/delete-account");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Delete your account");
   await expect(page.locator('a[href="https://pillars.fly.dev/delete-account"]')).toBeVisible();
 });
@@ -73,7 +73,7 @@ test("a coming-soon app has an app page but no legal pages yet", async ({ page }
 });
 
 test("no page names the founder or links the personal domain", async ({ page }) => {
-  for (const url of ["/", "/about", "/press", "/notes/from-platform-to-practice", "/work/pillars", "/apps/pillars/privacy", "/apps/life-atlas/privacy"]) {
+  for (const url of ["/", "/about", "/press", "/notes/from-platform-to-practice", "/work/sadhana", "/apps/sadhana/privacy", "/apps/life-atlas/privacy"]) {
     await page.goto(url);
     const html = await page.content();
     expect(html, url).not.toContain("yogimathius");

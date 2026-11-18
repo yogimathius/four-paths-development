@@ -11,7 +11,7 @@ The name comes from four things the studio is built around: **family**, **techno
 ## The apps so far
 
 - **[Chore Credits](/apps/chore-credits)** (Family): fair chores and earned allowance, with no leaderboards between kids.
-- **[Sadhana](/apps/pillars)** (Philosophy): a progressive journey through yoga, guided one stage at a time.
+- **[Sadhana](/apps/sadhana)** (Philosophy): a progressive journey through yoga, guided one stage at a time.
 - **[Life Atlas](/apps/life-atlas)** (Philosophy): a personal map of your roles, arcs, and next moves.
 - **[ClearLedger](/apps/clearledger)** (Technology): debt and cash-flow clarity, coming later.
 

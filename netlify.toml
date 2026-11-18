@@ -19,3 +19,34 @@
   for = "/_astro/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Sadhana was Pillars. Old addresses (store listings, bookmarks, search) keep working.
+[[redirects]]
+  from = "/apps/pillars"
+  to = "/apps/sadhana"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/apps/pillars/*"
+  to = "/apps/sadhana/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/work/pillars"
+  to = "/work/sadhana"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/og/pillars.png"
+  to = "/og/sadhana.png"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/journal/introducing-pillars"
+  to = "/journal/introducing-sadhana"
+  status = 301
+  force = true

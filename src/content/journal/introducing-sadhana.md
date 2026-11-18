@@ -2,7 +2,7 @@
 title: "Introducing Sadhana: a progressive journey through yoga"
 description: A guided Hatha yoga practice that meets you where you are and moves through named stages at your own pace, never against a calendar.
 date: 2026-10-02
-app: pillars
+app: sadhana
 ---
 
 Sadhana is a progressive journey through Hatha yoga: begin with movement, breath, and awareness, and deepen your practice and understanding at your own pace. The app began as Pillars, and its current focus is this single path of practice.
@@ -21,7 +21,7 @@ Sadhana keeps a history of what you've practiced, so coming back after a gap is 
 
 ## What we keep, and why
 
-Unlike most of our apps, Sadhana has accounts, because your practice history and progress need to follow you between devices. We keep analytics to fixed choices and counts, never your journal entries or notes, and you can delete your account at any time. Payments for the membership are handled by Google Play; Sadhana never sees card details. The [privacy policy](/apps/pillars/privacy) lists every service involved.
+Unlike most of our apps, Sadhana has accounts, because your practice history and progress need to follow you between devices. We keep analytics to fixed choices and counts, never your journal entries or notes, and you can delete your account at any time. Payments for the membership are handled by Google Play; Sadhana never sees card details. The [privacy policy](/apps/sadhana/privacy) lists every service involved.
 
 Sadhana offers general wellness education, not medical advice. Work within your own limits.
 

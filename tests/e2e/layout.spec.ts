@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const pages = ["/", "/work", "/work/pillars", "/client-work", "/client-work/all-mountain-contracting", "/client-work/crabapple-cafe", "/notes", "/notes/from-platform-to-practice", "/notes/pillars-is-now-sadhana", "/now", "/about", "/apps/chore-credits/privacy"];
+const pages = ["/", "/work", "/work/sadhana", "/client-work", "/client-work/all-mountain-contracting", "/client-work/crabapple-cafe", "/notes", "/notes/from-platform-to-practice", "/notes/pillars-is-now-sadhana", "/now", "/about", "/apps/chore-credits/privacy"];
 
 for (const width of [360, 390, 1280, 1600]) {
   test.describe(`${width}px`, () => {

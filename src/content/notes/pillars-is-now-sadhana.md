@@ -3,7 +3,7 @@ title: Pillars is now Sadhana
 description: Why the yoga app dropped its working name, what the new one means, and where to find Sadhana now that it has a home of its own.
 date: 2026-11-18
 lenses: [question, build, ground]
-project: pillars
+project: sadhana
 ---
 
 The app was called Pillars for most of its life. The name described a structure: five disciplines holding up one platform. By the time the first release shipped, only one of those pillars was in the product, and it was the one people actually opened it for. The name was still describing the plan, not the experience.
@@ -18,7 +18,7 @@ Sadhana now has its own website at [sadhanawithin.com](https://sadhanawithin.com
 
 ## What has not changed
 
-The things people may have bookmarked still work. The [privacy policy](/apps/pillars/privacy), [support page](/apps/pillars/support) and account-deletion page keep their existing addresses on this site, and the same studio still operates the app. Your account and practice history are unaffected.
+The things people may have bookmarked still work. The [privacy policy](/apps/sadhana/privacy), [support page](/apps/sadhana/support) and account-deletion page now live under `/apps/sadhana`, and the old `/apps/pillars` addresses redirect there, including any link saved in a store listing. The same studio still operates the app, and your account and practice history are unaffected.
 
 You may still notice the old name in a few places. The Play link above contains it, because an Android app's identifier cannot be changed after release. Some older notes here describe the app as Pillars where that is what it was called at the time.
 

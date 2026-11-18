@@ -1,5 +1,7 @@
 [build]
-  command = "pnpm build"
+  # Clear Astro's content cache: it keeps rendered Markdown, so site.config changes
+  # (email, name) would otherwise not reach policy and support pages.
+  command = "rm -rf .astro node_modules/.astro && pnpm build"
   publish = "dist"
 
 [build.environment]

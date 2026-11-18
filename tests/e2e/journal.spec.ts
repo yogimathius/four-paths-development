@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const apps = ["chore-credits", "pillars", "life-atlas", "clearledger"];
+const apps = ["chore-credits", "sadhana", "life-atlas", "clearledger"];
 
 for (const slug of apps) {
   test(`${slug} has an introduction post linked both ways`, async ({ page }) => {
@@ -27,7 +27,7 @@ test("journal lists studio posts first, then app intros in gallery order", async
 });
 
 test("Sadhana open-test invite leads to Play opt-in while unrelated apps do not invite testers", async ({ page }) => {
-  await page.goto("/apps/pillars");
+  await page.goto("/apps/sadhana");
   await expect(page.locator("header.app-head").getByRole("link", { name: "Join the Android open test" })).toHaveAttribute(
     "href", "https://play.google.com/apps/testing/com.pillars.mobile",
   );
@@ -42,7 +42,7 @@ test("Sadhana open-test invite leads to Play opt-in while unrelated apps do not 
 });
 
 test("legal pages offer an on-this-page index that jumps to sections", async ({ page }) => {
-  await page.goto("/apps/pillars/privacy");
+  await page.goto("/apps/sadhana/privacy");
   const toc = page.getByRole("navigation", { name: "On this page" });
   await expect(toc.getByRole("link")).not.toHaveCount(0);
   const first = toc.getByRole("link").first();

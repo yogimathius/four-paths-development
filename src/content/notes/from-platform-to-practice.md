@@ -3,7 +3,7 @@ title: From platform to practice
 description: What changed when Pillars, now Sadhana, became one usable Hatha yoga path rather than a platform for five disciplines.
 date: 2026-10-02
 lenses: [build, question, ground]
-project: pillars
+project: sadhana
 ---
 
 Pillars began with a larger frame: a platform containing five disciplines. That idea was coherent on paper, but it put a lot of structure between a person and the thing they had opened the app to do. The first release became narrower: Sādhana, a Hatha yoga curriculum that could be entered and practised without first understanding a whole system.

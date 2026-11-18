@@ -18,7 +18,7 @@ test.describe("reduced motion", () => {
 test("legal pages remain readable without JavaScript", async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
-  await page.goto("/apps/pillars/privacy");
+  await page.goto("/apps/sadhana/privacy");
   await expect(page.getByRole("heading", { name: "Privacy policy" })).toBeVisible();
   await context.close();
 });

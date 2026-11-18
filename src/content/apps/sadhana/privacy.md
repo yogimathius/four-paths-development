@@ -48,7 +48,7 @@ We use reasonable technical and organizational measures to protect user data. No
 
 ## Your choices
 
-You may request account support, correction, or export in the app or by emailing [{{privacyEmail}}](mailto:{{privacyEmail}}). You can delete your account in Profile or follow the [account-deletion instructions](/apps/pillars/delete-account). Feedback text may remain without its account association for support and product-quality records. Some data may also be retained where required for security, legal, billing, or operational reasons.
+You may request account support, correction, or export in the app or by emailing [{{privacyEmail}}](mailto:{{privacyEmail}}). You can delete your account in Profile or follow the [account-deletion instructions](/apps/sadhana/delete-account). Feedback text may remain without its account association for support and product-quality records. Some data may also be retained where required for security, legal, billing, or operational reasons.
 
 ## Changes and contact
 

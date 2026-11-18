@@ -1,5 +1,5 @@
 import type { ImageMetadata } from "astro";
-import sadhanaPortal from "../assets/work/sadhana-portal.png";
+import sadhanaFlame from "../assets/work/sadhana-flame.png";
 import choreBoard from "../assets/apps/chore-credits/01-family-board.png";
 import lifeAtlasIcon from "../assets/apps/life-atlas/icon.png";
 
@@ -38,15 +38,15 @@ export interface Work {
 
 export const work: Work[] = [
   {
-    slug: "pillars",
+    slug: "sadhana",
     name: "Sadhana",
     premise: "A yoga practice that grows with you.",
     summary: "A self-paced Hatha yoga path with room to begin, grow, and return—without keeping up with a calendar.",
     status: "Early access",
     updated: "2026-11-18",
     lenses: ["build", "question", "ground"],
-    image: sadhanaPortal,
-    imageAlt: "Sadhana portal artwork",
+    image: sadhanaFlame,
+    imageAlt: "The Sadhana mark: a golden flame above a copper oil lamp",
     imageKind: "icon",
     testUrl: "https://play.google.com/apps/testing/com.pillars.mobile",
     siteUrl: "https://sadhanawithin.com",

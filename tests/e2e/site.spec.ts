@@ -11,7 +11,7 @@ test("work index links to the existing support pages", async ({ page }) => {
 test("About describes the studio and offers contact", async ({ page }) => {
   await page.goto("/about");
   await expect(page.getByText("Software is only one part of the work.", { exact: false })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Email Four Paths/ })).toHaveAttribute("href", "mailto:hello@fourpaths.ca");
+  await expect(page.getByRole("link", { name: /Email Four Paths/ })).toHaveAttribute("href", "mailto:info@fourpaths.ca");
 });
 
 test("unknown URLs get the branded 404", async ({ page }) => {

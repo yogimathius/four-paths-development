@@ -69,7 +69,7 @@ test("client work lists both projects and links to each live site", async ({ pag
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Sites that people");
   await expect(page.getByRole("link", { name: /Visit allmountain\.ca/ })).toHaveAttribute("href", "https://allmountain.ca");
   await expect(page.getByRole("link", { name: /Visit crabapplecafe\.ca/ })).toHaveAttribute("href", "https://crabapplecafe.ca");
-  await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^mailto:hello@fourpaths\.ca\?subject=Project%20inquiry/);
+  await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^mailto:info@fourpaths\.ca\?subject=Project%20inquiry/);
 });
 
 test("client case studies tell the story and cite their sources", async ({ page }) => {

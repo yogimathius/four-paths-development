@@ -15,11 +15,3 @@ A name also shapes the product. Pillars invited a list of features and a grid of
 ## Where to find it
 
 Sadhana now has its own website at [sadhanawithin.com](https://sadhanawithin.com), the best place to start if you are curious about the app. It is in Android open testing through [Google Play](https://play.google.com/apps/testing/com.pillars.mobile). A seven-day free trial is available, followed by a subscription; the current price and renewal terms are shown in the app before you begin.
-
-## What has not changed
-
-The things people may have bookmarked still work. The [privacy policy](/apps/sadhana/privacy), [support page](/apps/sadhana/support) and account-deletion page now live under `/apps/sadhana`, and the old `/apps/pillars` addresses redirect there, including any link saved in a store listing. The same studio still operates the app, and your account and practice history are unaffected.
-
-You may still notice the old name in a few places. The Play link above contains it, because an Android app's identifier cannot be changed after release. Some older notes here describe the app as Pillars where that is what it was called at the time.
-
-The change is small on the surface. It is also a decision to describe what is there rather than what was once planned, which is a habit worth keeping across everything the studio makes.

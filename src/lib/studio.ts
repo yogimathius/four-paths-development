@@ -11,7 +11,7 @@ export const lenses = {
 } as const;
 
 export type Lens = keyof typeof lenses;
-export type WorkStatus = "Android open testing" | "Android closed testing" | "Building" | "Experiment";
+export type WorkStatus = "Live on Google Play" | "Android open testing" | "Android closed testing" | "Building" | "Experiment";
 
 export interface Work {
   slug: string;
@@ -24,6 +24,8 @@ export interface Work {
   image?: ImageMetadata;
   imageAlt?: string;
   imageKind?: "portrait" | "icon";
+  /** The public Google Play listing, once released. */
+  storeUrl?: string;
   testUrl?: string;
   /** The project's own public website, when it has one. */
   siteUrl?: string;
@@ -42,13 +44,13 @@ export const work: Work[] = [
     name: "Sadhana",
     premise: "A yoga practice that grows with you.",
     summary: "A self-paced Hatha yoga path with room to begin, grow, and return—without keeping up with a calendar.",
-    status: "Android open testing",
-    updated: "2026-11-18",
+    status: "Live on Google Play",
+    updated: "2026-11-19",
     lenses: ["build", "question", "ground"],
     image: sadhanaFlame,
     imageAlt: "The Sadhana mark: a golden flame above a copper oil lamp",
     imageKind: "icon",
-    testUrl: "https://play.google.com/apps/testing/com.pillars.mobile",
+    storeUrl: "https://play.google.com/store/apps/details?id=com.pillars.mobile",
     siteUrl: "https://sadhanawithin.com",
     why: [
       "A guided practice is hard to follow when it asks you to keep looking at a phone. The app began with a practical question: could a curriculum give someone enough structure to continue, while allowing the screen to recede during the session?",
@@ -69,8 +71,9 @@ export const work: Work[] = [
       { date: "August 2026", text: "The first release narrowed to Sadhana and moved directly into practice." },
       { date: "September 2026", text: "Week based language gave way to named stages and a self paced journey." },
       { date: "October 2026", text: "Narration and pose presentation continued to improve through testing." },
+      { date: "November 2026", text: "Sadhana became available on Google Play." },
     ],
-    next: "Sadhana is in Android open testing. We are refining the journey, practice media and release experience with feedback from early practitioners.",
+    next: "Sadhana is available on Google Play. We are watching how new practitioners reach a first practice and refining the journey, practice media and release experience from what we learn.",
     relatedNote: { href: "/notes/from-platform-to-practice", title: "From platform to practice" },
   },
   {

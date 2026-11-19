@@ -31,7 +31,7 @@ const platforms = d.platforms.map((p) => (p === "ios" ? "iOS" : "Android")).join
         <Badges path={d.path} status={d.status} platforms={d.platforms} />
         <h1>{d.name}</h1>
         <p class="lede">{d.tagline}</p>
-        {d.openTestUrl && <p><a class="btn" href={d.openTestUrl}>Join the Android open test</a>{d.website && <a class="site-link" href={d.website} rel="noopener">Visit {new URL(d.website).host} ↗</a>}</p>}
+        {(d.storeUrl || d.openTestUrl) && <p><a class="btn" href={d.storeUrl ?? d.openTestUrl}>{d.storeUrl ? "Get it on Google Play" : "Join the Android open test"}</a>{d.website && <a class="site-link" href={d.website} rel="noopener">Visit {new URL(d.website).host} ↗</a>}</p>}
       </div>
     </header>
 

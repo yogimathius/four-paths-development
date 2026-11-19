@@ -4,7 +4,7 @@ test("home introduces the studio through real work before the four lenses", asyn
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Thoughtful software");
   await expect(page.getByRole("link", { name: /Explore Sadhana/ })).toHaveAttribute("href", "/work/sadhana");
-  await expect(page.getByRole("link", { name: "Get early access on Android" })).toHaveAttribute("href", "https://play.google.com/apps/testing/com.pillars.mobile");
+  await expect(page.getByRole("link", { name: "Get it on Google Play" })).toHaveAttribute("href", "https://play.google.com/store/apps/details?id=com.pillars.mobile");
   await expect(page.getByRole("img", { name: "The Sadhana mark: a golden flame above a copper oil lamp" })).toBeVisible();
   const positions = await page.evaluate(() => ({
     work: document.querySelector("#featured-work")?.getBoundingClientRect().top,
@@ -19,9 +19,9 @@ test("work index and case study show project state and evolution", async ({ page
   await expect(page).toHaveURL(/\/work\/sadhana$/);
   await expect(page.getByRole("heading", { name: "Why it exists" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "How it evolved" })).toBeVisible();
-  await expect(page.getByText("Android open testing", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Live on Google Play", { exact: true }).first()).toBeVisible();
   await expect(page.getByRole("img", { name: "The Sadhana mark: a golden flame above a copper oil lamp" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Join the Android open test" })).toHaveAttribute("href", "https://play.google.com/apps/testing/com.pillars.mobile");
+  await expect(page.getByRole("link", { name: "Get it on Google Play" })).toHaveAttribute("href", "https://play.google.com/store/apps/details?id=com.pillars.mobile");
 });
 
 test("notes have individual articles and RSS entries", async ({ page, request }) => {
@@ -148,10 +148,11 @@ test("client work names who it is for and how to begin, with a copyable address"
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("info@fourpaths.ca");
 });
 
-test("project statuses say which kind of Android testing each is in", async ({ page }) => {
+test("project statuses say whether each is live or which kind of Android testing it is in", async ({ page }) => {
   await page.goto("/work");
   const text = (await page.locator("main").innerText()).toLowerCase();
-  expect(text).toContain("android open testing");
+  expect(text).toContain("live on google play");
+  expect(text).not.toContain("android open testing");
   expect(text).toContain("android closed testing");
   expect(text).not.toContain("early access");
   expect(text).not.toMatch(/\bI (built|am)\b/);

@@ -14,4 +14,4 @@ A name also shapes the product. Pillars invited a list of features and a grid of
 
 ## Where to find it
 
-Sadhana now has its own website at [sadhanawithin.com](https://sadhanawithin.com), the best place to start if you are curious about the app. It is in Android open testing through [Google Play](https://play.google.com/apps/testing/com.pillars.mobile). A seven-day free trial is available, followed by a subscription; the current price and renewal terms are shown in the app before you begin.
+Sadhana now has its own website at [sadhanawithin.com](https://sadhanawithin.com), the best place to start if you are curious about the app. It is available on Android through [Google Play](https://play.google.com/store/apps/details?id=com.pillars.mobile). A seven-day free trial is available, followed by a subscription; the current price and renewal terms are shown in the app before you begin.

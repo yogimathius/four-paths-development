@@ -26,17 +26,14 @@ test("journal lists studio posts first, then app intros in gallery order", async
   ]);
 });
 
-test("Sadhana open-test invite leads to Play opt-in while unrelated apps do not invite testers", async ({ page }) => {
+test("Sadhana links to its public Play listing and no longer invites testers", async ({ page }) => {
   await page.goto("/apps/sadhana");
-  await expect(page.locator("header.app-head").getByRole("link", { name: "Join the Android open test" })).toHaveAttribute(
-    "href", "https://play.google.com/apps/testing/com.pillars.mobile",
+  await expect(page.locator("header.app-head").getByRole("link", { name: "Get it on Google Play" })).toHaveAttribute(
+    "href", "https://play.google.com/store/apps/details?id=com.pillars.mobile",
   );
-  const invite = page.locator("#test");
-  await expect(invite).toContainText("Android open testing");
-  await expect(invite).not.toContainText("closed testing");
-  await expect(invite.getByRole("link", { name: "Join the Android open test" })).toHaveAttribute(
-    "href", "https://play.google.com/apps/testing/com.pillars.mobile",
-  );
+  await expect(page.locator("#test")).toHaveCount(0);
+  await expect(page.locator("main")).not.toContainText("open testing");
+  await expect(page.locator("main a[href*='apps/testing']")).toHaveCount(0);
   await page.goto("/apps/clearledger");
   await expect(page.locator("#test")).toHaveCount(0);
 });

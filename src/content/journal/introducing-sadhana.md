@@ -27,4 +27,4 @@ Sadhana offers general wellness education, not medical advice. Work within your 
 
 ## Where it is now
 
-Sadhana is in open testing on Android. If you practice yoga, or want to start, [join the open test on Google Play](https://play.google.com/apps/testing/com.pillars.mobile), install the app, and tell us how the first session feels. A seven-day free trial is available, followed by a subscription; review the current price and renewal terms in the app before starting.
+Sadhana is available on Android. If you practice yoga, or want to start, [get it on Google Play](https://play.google.com/store/apps/details?id=com.pillars.mobile), install the app, and tell us how the first session feels. A seven-day free trial is available, followed by a subscription; review the current price and renewal terms in the app before starting.

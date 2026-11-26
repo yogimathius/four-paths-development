@@ -30,7 +30,8 @@ for (const file of files.filter((f) => f.endsWith(".html") || f.endsWith(".xml")
   }
   if (/\{\{\s*\w+\s*\}\}/.test(html)) problems.push(`${rel}: unfilled {{token}}`);
   if (html.includes("yogimathius")) problems.push(`${rel}: mentions yogimathius`);
-  if (html.includes("Mathius Johnson")) problems.push(`${rel}: names the founder`);
+  // The founder is named only on About, Press and note/work structured data (owner decision 2026-11-25).
+  if (html.includes("Mathius Johnson") && !/^(about|press)\.html$|^notes\/|^work\//.test(rel)) problems.push(`${rel}: names the founder outside About/Press`);
 }
 
 if (problems.length) {

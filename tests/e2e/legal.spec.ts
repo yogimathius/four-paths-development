@@ -72,11 +72,15 @@ test("a coming-soon app has an app page but no legal pages yet", async ({ page }
   expect(res?.status()).toBe(404);
 });
 
-test("no page names the founder or links the personal domain", async ({ page }) => {
+test("only About and Press name the founder, and no page links the personal domain", async ({ page }) => {
   for (const url of ["/", "/about", "/press", "/notes/from-platform-to-practice", "/work/sadhana", "/apps/sadhana/privacy", "/apps/life-atlas/privacy"]) {
     await page.goto(url);
     const html = await page.content();
     expect(html, url).not.toContain("yogimathius");
-    expect(html, url).not.toContain("Mathius Johnson");
+    if (!["/about", "/press"].includes(url)) expect(html, url).not.toContain("Mathius Johnson");
   }
+  await page.goto("/about");
+  await expect(page.getByText("Four Paths is founded by Mathius")).toBeVisible();
+  await page.goto("/press");
+  await expect(page.getByText("Mathius Johnson").first()).toBeVisible();
 });

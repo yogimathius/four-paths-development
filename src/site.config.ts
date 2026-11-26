@@ -5,14 +5,14 @@ export const site = {
   /** Must match the developer name shown in Play Console / App Store Connect. */
   legalName: "Four Paths",
   /** Set to null to remove the founder line everywhere. */
-  founderName: null as string | null,
+  founderName: "Mathius Johnson" as string | null,
   country: "Canada",
   email: "info@fourpaths.ca",
   privacyEmail: "info@fourpaths.ca",
   url: "https://fourpaths.ca",
   tagline: "Independent Product Studio",
   description:
-    "Four Paths is an independent product studio building thoughtful software, games and experiments across technology, creativity and everyday human life, and modernizing websites and apps for local businesses.",
+    "Four Paths is an independent product studio in Canada. Maker of Sadhana, a Hatha yoga app with spoken guidance, and builder of websites and apps for local businesses.",
   /** Leave username empty until the Buttondown account exists; the form hides itself. */
   newsletter: { provider: "buttondown" as const, username: "" },
 };

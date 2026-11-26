@@ -2,82 +2,51 @@
 import Wordmark from "./Wordmark.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import { site } from "../site.config";
-
 const links = [
-  { href: "/work", label: "Work" },
+  { href: "/work", label: "Products" },
   { href: "/client-work", label: "Client work" },
   { href: "/notes", label: "Notes" },
   { href: "/now", label: "Now" },
   { href: "/about", label: "About" },
 ];
-const here = Astro.url.pathname;
+const here = Astro.url.pathname.replace(/\.html$/, "").replace(/\/$/, "") || "/";
 ---
-
-<header class="wrap nav">
-  <a href="/" class="home" aria-label="Four Paths home"><Wordmark /></a>
-  <nav aria-label="Main">
-    <ul>
-      {
-        links.map((l) => (
-          <li>
-            <a href={l.href} aria-current={here === l.href || here.startsWith(l.href + "/") ? "page" : undefined}>
-              {l.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-    <a class="contact" href={`mailto:${site.email}`}>Contact</a>
-    <ThemeToggle />
-  </nav>
+<header class="site-header" data-site-header>
+  <div class="wrap masthead">
+    <a href="/" class="home" aria-label="Four Paths home"><Wordmark size={24} /><span class="studio-label">Independent product studio</span></a>
+    <nav aria-label="Main">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-links" hidden><span class="menu-label">Menu</span><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 14h14" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></button>
+      <ul id="main-links">{links.map((link) => <li><a href={link.href} aria-current={here === link.href || here.startsWith(link.href + "/") ? "page" : undefined}>{link.label}</a></li>)}</ul>
+      <a class="contact" href={`mailto:${site.email}?subject=Project%20inquiry`}>Contact<span aria-hidden="true">↗</span></a>
+      <ThemeToggle />
+    </nav>
+  </div>
 </header>
-
 <style>
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-top: 1.3rem;
-    padding-bottom: 1.3rem;
-    flex-wrap: wrap;
-    border-bottom: 1px solid var(--line);
-  }
-  .home {
-    text-decoration: none;
-  }
-  nav {
-    display: flex;
-    align-items: center;
-    gap: clamp(.5rem, 1.6vw, 1.5rem);
-  }
-  ul {
-    display: flex;
-    gap: clamp(.35rem, 1.2vw, 1.4rem);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    flex-wrap: wrap;
-  }
-  ul a {
-    display: block;
-    padding: .2rem 0;
-    color: var(--ink-soft);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: .85rem;
-  }
-  ul a:hover,
-  ul a[aria-current="page"] {
-    color: var(--ink);
-    box-shadow: 0 1px 0 var(--ink);
-  }
-  .contact { color: var(--ink); font-size: .85rem; text-decoration: none; border-bottom: 1px solid var(--line); }
-  .contact:hover { border-color: var(--ink); }
-  @media (max-width: 620px) {
-    .nav { gap: .9rem; }
-    nav { width: 100%; justify-content: space-between; flex-wrap: wrap; row-gap: .6rem; }
-    ul { gap: .3rem .75rem; }
-    .contact { font-weight: 600; }
-  }
+  .site-header{border-bottom:1px solid var(--line);background:var(--paper)}
+  .masthead{display:flex;align-items:center;justify-content:space-between;gap:2rem;min-height:104px}
+  .home{display:grid;gap:.55rem;text-decoration:none;flex-shrink:0}.studio-label{font-size:.66rem;color:var(--ink-muted);letter-spacing:.015em;padding-left:3.1rem}
+  nav{display:flex;align-items:center;gap:1.4rem}ul{display:flex;gap:.2rem;list-style:none;margin:0;padding:0}ul a{display:block;padding:.6rem .75rem;color:var(--ink-soft);font-size:.83rem;font-weight:500;text-decoration:none;border-radius:4px}ul a:hover{background:var(--surface);color:var(--ink)}ul a[aria-current="page"]{background:var(--surface-raised);color:var(--ink)}
+  .contact{display:flex;align-items:center;gap:1.1rem;padding:.5rem .9rem;border:1px solid var(--line);border-radius:4px;text-decoration:none;font-size:.83rem;color:var(--ink)}.contact:hover{border-color:var(--ink-muted)}
+  .menu-toggle{display:none;align-items:center;gap:.65rem;background:transparent;border:0;color:var(--ink);font:500 .85rem var(--body);padding:.6rem 0;cursor:pointer}
+  @media(max-width:1000px){.masthead{gap:1rem}nav{gap:.6rem}ul a{padding:.6rem .5rem}.studio-label{font-size:.6rem}}
+  @media(max-width:760px){.masthead{display:grid;grid-template-columns:1fr;gap:1rem;padding-block:1.1rem;min-height:0}.home{width:fit-content}.studio-label{display:none}nav{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:flex-end}.home{grid-area:1/1;position:relative;z-index:1}.masthead nav{grid-area:1/1;min-width:0;justify-self:end;width:auto}.masthead nav.open{width:100%}.masthead:has(.enhanced){padding-bottom:1.1rem}.masthead:has(.enhanced.open) .home{align-self:start;margin-top:.55rem}.enhanced .menu-toggle{display:inline-flex}.enhanced ul{display:none}.enhanced.open ul{display:grid}.enhanced ul{width:100%;order:4;grid-template-columns:1fr;gap:.25rem;border-top:1px solid var(--line);padding-top:.75rem;margin-top:.3rem}.enhanced ul a{font-size:1rem;padding:.7rem .8rem}.enhanced.open{padding-top:2.8rem}.enhanced.open .menu-toggle,.enhanced.open .contact,.enhanced.open :global(.toggle){position:relative;margin-top:-2.8rem}.contact{padding:.4rem .6rem;min-height:40px}.contact span{display:none}.masthead nav:not(.enhanced){grid-area:auto;justify-content:flex-start}.masthead nav:not(.enhanced) ul{width:100%;flex-wrap:wrap}.menu-toggle{min-height:40px}.home :global(.wordmark){font-size:20px!important}.home :global(.mark){width:1.2em;height:1.2em}}
+  @media(max-width:380px){nav{gap:.5rem}.contact{font-size:.76rem;padding:.35rem .4rem}.home :global(.wordmark){font-size:18px!important}.menu-toggle{font-size:.78rem;gap:.4rem}}
 </style>
+<script>
+  const header = document.querySelector<HTMLElement>("[data-site-header]");
+  const nav = header?.querySelector("nav");
+  const toggle = header?.querySelector<HTMLButtonElement>(".menu-toggle");
+  if (nav && toggle) {
+    nav.classList.add("enhanced");
+    toggle.hidden = false;
+    const setOpen = (open: boolean) => {
+      nav.classList.toggle("open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.querySelector("span")!.textContent = open ? "Close" : "Menu";
+    };
+    toggle.addEventListener("click", () => setOpen(toggle.getAttribute("aria-expanded") !== "true"));
+    nav.addEventListener("keydown", (event) => { if (event.key === "Escape") { setOpen(false); toggle.focus(); } });
+    window.matchMedia("(min-width: 761px)").addEventListener("change", () => setOpen(false));
+  }
+</script>

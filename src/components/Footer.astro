@@ -3,62 +3,12 @@ import { site } from "../site.config";
 import Wordmark from "./Wordmark.astro";
 const year = new Date().getFullYear();
 ---
-
-<footer class="wrap foot">
-  <div>
-    <Wordmark size={18} />
-    <p class="muted small">Thoughtful software for practice, play, learning and everyday life.</p>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top"><div><Wordmark size={25} /><p>Independent software.<br />Care for the work that matters.</p></div><div class="footer-contact"><span>Have something in mind?</span><a href={`mailto:${site.email}?subject=Project%20inquiry`}>{site.email}<span aria-hidden="true">↗</span></a></div></div>
+    <div class="footer-bottom"><p>© {year} {site.name}<span>Made in {site.country}</span></p><nav aria-label="Footer"><a href="/work">Products</a><a href="/client-work">Client work</a><a href="/notes">Notes</a><a href="/now">Now</a><a href="/about">About</a><a href="/press">Press</a><a href="/privacy">Site privacy</a></nav></div>
   </div>
-  <ul>
-    <li><a href="/work">Work</a></li>
-    <li><a href="/client-work">Client work</a></li>
-    <li><a href="/notes">Notes</a></li>
-    <li><a href="/now">Now</a></li>
-    <li><a href="/about">About</a></li>
-    <li><a href="/press">Press</a></li>
-    <li><a href="/privacy">Site privacy</a></li>
-    <li><a href={`mailto:${site.email}`}>Contact</a></li>
-  </ul>
-  <p class="muted small legalline">© {year} {site.name} <span>{site.country}</span></p>
 </footer>
-
 <style>
-  .foot {
-    display: grid;
-    gap: 1rem;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-    border-top: 1px solid var(--line);
-    margin-top: 5rem;
-  }
-  @media (min-width: 720px) {
-    .foot {
-      grid-template-columns: 1fr auto;
-    }
-    .legalline {
-      grid-column: 1 / -1;
-    }
-  }
-  .small {
-    font-size: 0.85rem;
-    margin: 0.5rem 0 0;
-    max-width: 36ch;
-  }
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem 1.1rem;
-    align-content: start;
-  }
-  ul a {
-    color: var(--ink-soft);
-    font-size: 0.84rem;
-    text-decoration: none;
-  }
-  .legalline { display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--line); padding-top: 1.2rem; }
-  .legalline span { color: var(--ink-soft); }
-  @media (max-width: 600px) { .legalline { flex-direction: column; } }
+  .site-footer{background:var(--surface);border-top:1px solid var(--line);margin-top:3rem}.footer-top{display:flex;justify-content:space-between;align-items:center;gap:3rem;padding-block:3.5rem}.footer-top p{font-size:.9rem;color:var(--ink-soft);margin:1rem 0 0}.footer-contact>span{font-size:.8rem;color:var(--ink-muted)}.footer-contact a{display:flex;align-items:center;gap:2.5rem;font:400 clamp(1.6rem,3vw,2.5rem) var(--display);text-decoration:none;color:var(--ink);margin-top:.6rem}.footer-contact a span{font:400 1.2rem var(--body);color:var(--family)}.footer-bottom{border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:start;gap:2rem;padding-block:1.5rem 2rem}.footer-bottom p{display:flex;flex-wrap:wrap;gap:1rem;margin:0;color:var(--ink-muted);font-size:.72rem}.footer-bottom nav{display:flex;flex-wrap:wrap;gap:.7rem 1.2rem}.footer-bottom nav a{font-size:.72rem;color:var(--ink-soft);text-decoration:none}.footer-bottom nav a:hover{text-decoration:underline}@media(max-width:760px){.footer-top{align-items:start;flex-direction:column;gap:2rem;padding-block:2.5rem}.footer-bottom{flex-direction:column;gap:1.2rem}.footer-contact a{gap:1.5rem}}
 </style>

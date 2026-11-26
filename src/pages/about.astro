@@ -1,13 +1,15 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
+import { Image } from "astro:assets";
 import RouteMark from "../components/RouteMark.astro";
+import founderPhoto from "../assets/founder/mathius.jpg";
 import { lenses } from "../lib/studio";
 import { site } from "../site.config";
 ---
 <PageLayout title="About" description="The ideas and approach behind Four Paths, an independent product studio.">
   <div class="wrap about-page">
     <header class="about-head"><span class="overline">About / The thinking behind the work</span><h1>More than<br /><em>one kind of work.</em></h1><p class="lede">Four Paths brings software, creativity, philosophy and everyday life together without forcing them into one category.</p></header>
-    <div class="about-layout"><aside class="side"><RouteMark size={150} /><p class="overline">Independent studio<br />Canada</p></aside><div class="body">
+    <div class="about-layout"><aside class="side"><RouteMark size={150} />{site.founderName && <Image class="founder-photo" src={founderPhoto} alt="Mathius, founder of Four Paths" width={230} height={230} />}<p class="overline">Independent studio<br />Canada</p></aside><div class="body">
       <p class="opening">Software is only one part of the work. Questions about practice, family life, games and attention often shape what is worth building in the first place.</p>
       <p>Four Paths gives those inquiries a shared home. It is first a product studio: its own apps and experiments set the standard for everything else. Selective client collaborations are a genuine part of the work too, bringing the same care to a website or application someone already depends on. The projects are different because the parts of life they touch are different. What connects them is a preference for specific problems, honest constraints and tools people can put down when the real activity begins.</p>
       {site.founderName && (<><h2>Who is behind it</h2>
@@ -25,5 +27,5 @@ import { site } from "../site.config";
   </div>
 </PageLayout>
 <style>
-  .about-page{padding-bottom:4rem}.about-head{padding:4rem 0 5rem;border-bottom:1px solid var(--line)}.about-head h1{margin:.8rem 0 1rem}.about-head h1 em{font-weight:400;color:var(--ink-soft)}.about-layout{display:grid;grid-template-columns:240px minmax(0,720px);justify-content:space-between;gap:5rem;padding:5rem 0}.side{color:var(--ink-muted)}.side .overline{margin-top:2rem}.body{font-size:1.05rem}.body p{color:var(--ink-soft)}.body .opening{font:400 clamp(1.5rem,2.3vw,2rem)/1.35 var(--display);color:var(--ink);margin-bottom:2rem}.body h2{margin-top:4rem}.lens-list{display:grid;grid-template-columns:1fr 1fr;margin:2.5rem 0;border-top:1px solid var(--line)}.lens{padding:1.5rem 1rem 1rem 0;border-bottom:1px solid var(--line)}.lens h3{font-size:1.5rem;margin:.35rem 0}.lens p{font-size:.9rem;margin:0}.lens .overline{color:var(--lens-color)}.lens-build{--lens-color:var(--technology)}.lens-create{--lens-color:var(--creativity)}.lens-question{--lens-color:var(--philosophy)}.lens-ground{--lens-color:var(--family)}@media(max-width:700px){.about-layout{grid-template-columns:1fr;gap:2rem;padding:3rem 0}.side{display:flex;align-items:center;gap:2rem}.side .overline{margin:0}.about-head{padding:3rem 0}}@media(max-width:450px){.lens-list{grid-template-columns:1fr}}
+  .about-page{padding-bottom:4rem}.about-head{padding:4rem 0 5rem;border-bottom:1px solid var(--line)}.about-head h1{margin:.8rem 0 1rem}.about-head h1 em{font-weight:400;color:var(--ink-soft)}.about-layout{display:grid;grid-template-columns:240px minmax(0,720px);justify-content:space-between;gap:5rem;padding:5rem 0}.side{color:var(--ink-muted)}.founder-photo{display:block;width:150px;height:150px;border-radius:50%;object-fit:cover;margin-top:2rem}.side .overline{margin-top:2rem}.body{font-size:1.05rem}.body p{color:var(--ink-soft)}.body .opening{font:400 clamp(1.5rem,2.3vw,2rem)/1.35 var(--display);color:var(--ink);margin-bottom:2rem}.body h2{margin-top:4rem}.lens-list{display:grid;grid-template-columns:1fr 1fr;margin:2.5rem 0;border-top:1px solid var(--line)}.lens{padding:1.5rem 1rem 1rem 0;border-bottom:1px solid var(--line)}.lens h3{font-size:1.5rem;margin:.35rem 0}.lens p{font-size:.9rem;margin:0}.lens .overline{color:var(--lens-color)}.lens-build{--lens-color:var(--technology)}.lens-create{--lens-color:var(--creativity)}.lens-question{--lens-color:var(--philosophy)}.lens-ground{--lens-color:var(--family)}@media(max-width:700px){.about-layout{grid-template-columns:1fr;gap:2rem;padding:3rem 0}.side{display:flex;align-items:center;gap:2rem}.side .overline{margin:0}.about-head{padding:3rem 0}}@media(max-width:450px){.lens-list{grid-template-columns:1fr}}
 </style>

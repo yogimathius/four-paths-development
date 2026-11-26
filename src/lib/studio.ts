@@ -18,6 +18,9 @@ export interface Work {
   name: string;
   premise: string;
   summary: string;
+  /** Optional search-result title and description when they should differ from the name and summary. */
+  seoTitle?: string;
+  seoDescription?: string;
   status: WorkStatus;
   updated: string;
   lenses: Lens[];
@@ -44,6 +47,8 @@ export const work: Work[] = [
     name: "Sadhana",
     premise: "A yoga practice that grows with you.",
     summary: "A self-paced Hatha yoga path with room to begin, grow, and return—without keeping up with a calendar.",
+    seoTitle: "Sadhana: Hatha yoga app with spoken guidance",
+    seoDescription: "Sadhana is a self-paced Hatha yoga practice with spoken guidance, named stages and a free beginner practice. On Google Play.",
     status: "Live on Google Play",
     updated: "2026-11-19",
     lenses: ["build", "question", "ground"],
@@ -73,7 +78,7 @@ export const work: Work[] = [
       { date: "October 2026", text: "Narration and pose presentation continued to improve through testing." },
       { date: "November 2026", text: "Sadhana became available on Google Play." },
     ],
-    next: "Sadhana is available on Google Play. We are watching how new practitioners reach a first practice and refining the journey, practice media and release experience from what we learn.",
+    next: "Sadhana is available on Google Play, with a free beginner practice that needs no subscription. Membership opens the wider path: US$4.99 a month or US$34.99 a year (CA$6.99 or CA$49.99 in Canada), and eligible new subscribers can try 7 days free, through Google Play. We are watching how new practitioners reach a first practice and refining the journey, practice media and release experience from what we learn.",
     relatedNote: { href: "/notes/from-platform-to-practice", title: "From platform to practice" },
   },
   {

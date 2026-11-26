@@ -10,7 +10,7 @@ const { project } = Astro.props as { project: Work };
 const nextProject = work[(work.findIndex((entry) => entry.slug === project.slug) + 1) % work.length];
 const schema = { "@context": "https://schema.org", "@type": "SoftwareApplication", name: project.name, description: project.summary, applicationCategory: "LifestyleApplication", creator: { "@type": "Organization", name: site.name }, url: new URL(`/work/${project.slug}`, site.url).href };
 ---
-<PageLayout title={project.name} description={project.summary} image={`/og/${project.slug}.png`}>
+<PageLayout title={project.seoTitle ?? project.name} description={project.seoDescription ?? project.summary} image={`/og/${project.slug}.png`}>
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   <article class="wrap case-study">
     <header class="case-head"><div class="head-meta"><a href="/work" class="text-link">← All work</a><span class="overline">{project.status} / Updated {new Date(project.updated + "T00:00:00").toLocaleDateString("en-CA", { year: "numeric", month: "long" })}</span></div><h1>{project.name}<span>.</span></h1><p class="case-premise">{project.premise}</p><p class="lede">{project.summary}</p><LensTags tags={project.lenses} />{(project.storeUrl || project.testUrl || project.siteUrl) && <p class="case-cta">{project.storeUrl && <a class="button-link" href={project.storeUrl}>Get it on Google Play</a>}{project.testUrl && <a class="button-link" href={project.testUrl}>Join the Android open test</a>}{project.siteUrl && <a class="text-link" href={project.siteUrl} rel="noopener">Visit {new URL(project.siteUrl).host} ↗</a>}</p>}</header>

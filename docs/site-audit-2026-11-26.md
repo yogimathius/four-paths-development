@@ -37,8 +37,8 @@ The existing Sadhana launch links, pricing, legal pages, account-deletion pages,
 - Static build: 44 pages generated.
 - Internal link check: 96 generated files checked, all internal links resolve.
 - Added browser regression coverage for mobile menu interaction, Escape/focus behavior, navigation without JavaScript, and the homepage inquiry anchor. Updated existing expectations for the redesigned homepage.
-- A built homepage was inspected in Chrome. The review caught an illustration sizing issue, which was corrected.
-- The complete Playwright viewport/accessibility suite could not execute: the managed environment rejects the preview server's listening socket and the scripted Chromium launch. **Browser accessibility, mobile layout, and end-to-end regressions remain unverified until the suite runs in the normal development environment or CI.**
+- Reviewed the hosted preview in the browser at 320px, 360px, 768px and desktop widths, including the light theme. The five primary interior pages have no horizontal overflow at the checked mobile/tablet widths; the mobile menu opens and Escape closes it with focus restored. Founder image loading and Sadhana pricing were verified. The review caught illustration sizing and product-artwork width issues, which were corrected.
+- Local browser execution is blocked by the managed environment, so the full suite runs in GitHub Actions. The first CI run passed 147 of 149 browser tests and identified two real issues: active navigation on Astro’s generated index URLs and artwork collapsing inside the case-study grid. Both were corrected; require the final CI run to pass before merging.
 
 ## Release status
 

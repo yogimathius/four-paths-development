@@ -9,7 +9,7 @@ const links = [
   { href: "/now", label: "Now" },
   { href: "/about", label: "About" },
 ];
-const here = Astro.url.pathname;
+const here = Astro.url.pathname.replace(/\.html$/, "").replace(/\/$/, "") || "/";
 ---
 <header class="site-header" data-site-header>
   <div class="wrap masthead">

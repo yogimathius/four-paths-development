@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 const pages = ["/", "/work", "/work/sadhana", "/client-work", "/client-work/all-mountain-contracting", "/client-work/crabapple-cafe", "/notes", "/notes/from-platform-to-practice", "/notes/pillars-is-now-sadhana", "/now", "/about", "/apps/chore-credits/privacy"];
 
-for (const width of [360, 390, 1280, 1600]) {
+for (const width of [320, 360, 390, 768, 1280, 1600]) {
   test.describe(`${width}px`, () => {
     test.use({ viewport: { width, height: 900 } });
     for (const url of pages) {

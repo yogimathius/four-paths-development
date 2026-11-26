@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test("home introduces the studio through real work before the four lenses", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Thoughtful software");
-  await expect(page.getByRole("link", { name: /Explore Sadhana/ })).toHaveAttribute("href", "/work/sadhana");
+  await expect(page.locator("#featured-work").getByRole("link", { name: "Explore Sadhana" })).toHaveAttribute("href", "/work/sadhana");
   await expect(page.getByRole("link", { name: "Get it on Google Play" })).toHaveAttribute("href", "https://play.google.com/store/apps/details?id=com.pillars.mobile");
   await expect(page.getByRole("img", { name: "The Sadhana mark: a golden flame above a copper oil lamp" })).toBeVisible();
   const positions = await page.evaluate(() => ({
@@ -124,7 +124,7 @@ test("home puts the client-work invitation straight after the hero", async ({ pa
   await page.goto("/");
   const invite = page.locator("#work-with-us");
   await expect(invite).toContainText("partners with thoughtful organizations");
-  await expect(invite.getByRole("link", { name: /See client work/ })).toHaveAttribute("href", "/client-work");
+  await expect(invite.getByRole("link", { name: "Talk about your project" })).toHaveAttribute("href", "/client-work#start");
   const order = await page.evaluate(() => {
     const top = (selector: string) => document.querySelector(selector)!.getBoundingClientRect().top;
     return { invite: top("#work-with-us"), featured: top("#featured-work") };
